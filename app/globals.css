@@ -1,0 +1,277 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ========================================
+   THEME DEFINITIONS — CSS Variables
+   ======================================== */
+
+:root,
+[data-theme="warm"] {
+  --c-bg: 250 249 246;
+  --c-card: 255 255 255;
+  --c-card-alt: 249 250 251;
+  --c-subtle: 243 244 246;
+  --c-subtle-dark: 229 231 235;
+  --c-line: 237 237 240;
+  --c-primary: 43 45 66;
+  --c-primary-light: 58 61 86;
+  --c-muted: 107 114 128;
+  --c-accent: 224 122 95;
+  --c-accent-light: 253 240 236;
+  --c-accent-dark: 196 104 79;
+  --c-secondary: 61 90 128;
+  --c-secondary-light: 235 240 246;
+  --c-success: 129 178 154;
+  --c-success-light: 237 245 240;
+  --c-warning: 242 204 143;
+  --c-warning-light: 253 248 237;
+  --c-error: 239 68 68;
+  --c-error-light: 254 242 242;
+  --c-sidebar: 43 45 66;
+  --c-sidebar-light: 58 61 86;
+  --c-btn: 43 45 66;
+  --c-btn-hover: 58 61 86;
+  --shadow-card: 0 2px 16px rgba(43, 45, 66, 0.06);
+  --shadow-card-hover: 0 8px 30px rgba(43, 45, 66, 0.1);
+}
+
+/* ——— DRACULA ——— */
+[data-theme="dracula"] {
+  --c-bg: 40 42 54;
+  --c-card: 68 71 90;
+  --c-card-alt: 59 62 82;
+  --c-subtle: 52 55 70;
+  --c-subtle-dark: 46 48 67;
+  --c-line: 62 65 84;
+  --c-primary: 248 248 242;
+  --c-primary-light: 232 232 224;
+  --c-muted: 98 114 164;
+  --c-accent: 255 121 198;
+  --c-accent-light: 72 54 76;
+  --c-accent-dark: 230 96 168;
+  --c-secondary: 189 147 249;
+  --c-secondary-light: 62 58 83;
+  --c-success: 80 250 123;
+  --c-success-light: 46 73 64;
+  --c-warning: 241 250 140;
+  --c-warning-light: 70 73 67;
+  --c-error: 255 85 85;
+  --c-error-light: 72 48 59;
+  --c-sidebar: 33 34 44;
+  --c-sidebar-light: 44 45 58;
+  --c-btn: 98 114 164;
+  --c-btn-hover: 118 134 184;
+  --shadow-card: 0 2px 16px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(248, 248, 242, 0.06);
+  --shadow-card-hover: 0 8px 30px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(248, 248, 242, 0.1);
+}
+
+/* ——— ONE DARK PRO ——— */
+[data-theme="onedark"] {
+  --c-bg: 40 44 52;
+  --c-card: 50 55 65;
+  --c-card-alt: 44 49 58;
+  --c-subtle: 55 60 70;
+  --c-subtle-dark: 60 66 76;
+  --c-line: 55 60 70;
+  --c-primary: 171 178 191;
+  --c-primary-light: 200 205 213;
+  --c-muted: 92 99 112;
+  --c-accent: 224 108 117;
+  --c-accent-light: 68 54 62;
+  --c-accent-dark: 197 91 99;
+  --c-secondary: 97 175 239;
+  --c-secondary-light: 49 64 80;
+  --c-success: 152 195 121;
+  --c-success-light: 57 67 62;
+  --c-warning: 229 192 123;
+  --c-warning-light: 68 66 63;
+  --c-error: 224 108 117;
+  --c-error-light: 68 54 62;
+  --c-sidebar: 33 37 43;
+  --c-sidebar-light: 44 49 58;
+  --c-btn: 75 80 92;
+  --c-btn-hover: 85 90 102;
+  --shadow-card: 0 2px 16px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(171, 178, 191, 0.06);
+  --shadow-card-hover: 0 8px 30px rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(171, 178, 191, 0.1);
+}
+
+/* ——— TOKYO NIGHT ——— */
+[data-theme="tokyo"] {
+  --c-bg: 26 27 38;
+  --c-card: 36 40 59;
+  --c-card-alt: 31 35 53;
+  --c-subtle: 41 46 66;
+  --c-subtle-dark: 51 56 77;
+  --c-line: 41 46 66;
+  --c-primary: 192 202 245;
+  --c-primary-light: 213 222 250;
+  --c-muted: 86 95 137;
+  --c-accent: 255 158 100;
+  --c-accent-light: 60 47 47;
+  --c-accent-dark: 224 136 80;
+  --c-secondary: 122 162 247;
+  --c-secondary-light: 40 47 69;
+  --c-success: 158 206 106;
+  --c-success-light: 46 54 48;
+  --c-warning: 224 175 104;
+  --c-warning-light: 56 49 48;
+  --c-error: 247 118 142;
+  --c-error-light: 59 41 54;
+  --c-sidebar: 22 22 30;
+  --c-sidebar-light: 26 27 38;
+  --c-btn: 56 62 87;
+  --c-btn-hover: 66 72 97;
+  --shadow-card: 0 2px 16px rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(192, 202, 245, 0.06);
+  --shadow-card-hover: 0 8px 30px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(192, 202, 245, 0.1);
+}
+
+/* ========================================
+   GLOBAL STYLES
+   ======================================== */
+
+body {
+  font-family: "Nunito", sans-serif;
+  background-color: rgb(var(--c-bg));
+  color: rgb(var(--c-primary));
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--c-subtle-dark));
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--c-muted));
+}
+
+/* ========================================
+   FLASHCARD 3D FLIP
+   ======================================== */
+
+.flashcard-container {
+  perspective: 1200px;
+}
+
+.flashcard-inner {
+  position: relative;
+  width: 100%;
+  min-height: 280px;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.flashcard-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+.flashcard-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem;
+}
+
+.flashcard-back {
+  transform: rotateY(180deg);
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+@keyframes pulse-success {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(var(--c-success), 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 12px rgba(var(--c-success), 0);
+  }
+}
+
+.pulse-success {
+  animation: pulse-success 0.8s ease-out;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in-up 0.4s ease-out forwards;
+}
+
+@keyframes progress-fill {
+  from {
+    width: 0%;
+  }
+}
+
+.animate-progress {
+  animation: progress-fill 0.5s ease-out;
+}
+
+/* ========================================
+   FORM FOCUS
+   ======================================== */
+
+textarea:focus {
+  outline: none;
+  border-color: rgb(var(--c-accent));
+  box-shadow: 0 0 0 3px rgb(var(--c-accent) / 0.15);
+}
+
+/* ========================================
+   TAB UNDERLINE
+   ======================================== */
+
+.tab-active::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgb(var(--c-accent));
+  border-radius: 3px;
+}
+
+/* ========================================
+   THEME TRANSITION (applied briefly)
+   ======================================== */
+
+.theme-transitioning,
+.theme-transitioning *,
+.theme-transitioning *::before,
+.theme-transitioning *::after {
+  transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease,
+    box-shadow 0.35s ease !important;
+}
