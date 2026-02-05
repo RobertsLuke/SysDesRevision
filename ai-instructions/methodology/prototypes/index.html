@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teaching Prototype - The World of the Microscope</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: #f9f7f4;
+      color: #1e293b;
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+      color: white;
+      padding: 32px;
+      text-align: center;
+    }
+
+    .header .emoji {
+      font-size: 48px;
+      margin-bottom: 12px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .header .subtitle {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+
+    .progress-bar {
+      background: #e2e8f0;
+      height: 6px;
+    }
+
+    .progress-fill {
+      background: #10b981;
+      height: 100%;
+      transition: width 0.3s ease;
+    }
+
+    .content {
+      padding: 32px;
+    }
+
+    .node-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #1e40af;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    .teaching-content {
+      margin-bottom: 24px;
+      line-height: 1.8;
+    }
+
+    .teaching-content p {
+      margin-bottom: 16px;
+    }
+
+    /* Teaching Components */
+    .component {
+      margin: 24px 0;
+    }
+
+    .callout {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 16px 20px;
+      border-radius: 6px;
+      white-space: pre-line;
+    }
+
+    .callout.key {
+      background: #dbeafe;
+      border-left-color: #2563eb;
+    }
+
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 20px 0;
+    }
+
+    .comparison-item {
+      background: #f1f5f9;
+      padding: 16px;
+      border-radius: 8px;
+    }
+
+    .comparison-item .label {
+      font-weight: 600;
+      color: #1e40af;
+      margin-bottom: 12px;
+      font-size: 16px;
+    }
+
+    .comparison-item ul {
+      list-style: none;
+    }
+
+    .comparison-item li {
+      padding: 4px 0;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .comparison-item li:before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #2563eb;
+      font-weight: bold;
+    }
+
+    .hook {
+      background: #fef3c7;
+      padding: 12px 16px;
+      border-radius: 6px;
+      font-style: italic;
+      color: #92400e;
+      margin: 16px 0;
+      font-size: 14px;
+    }
+
+    .hook:before {
+      content: "💡 ";
+    }
+
+    /* Verification Components */
+    .verify-container {
+      background: #f8fafc;
+      padding: 24px;
+      border-radius: 8px;
+      margin-top: 24px;
+    }
+
+    .verify-question {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 20px;
+      color: #1e293b;
+    }
+
+    .fill-blank-input {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: 2px solid #cbd5e1;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      transition: border-color 0.2s;
+    }
+
+    .fill-blank-input:focus {
+      outline: none;
+      border-color: #2563eb;
+    }
+
+    .mcq-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .mcq-option {
+      padding: 14px 18px;
+      background: white;
+      border: 2px solid #cbd5e1;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .mcq-option:hover {
+      border-color: #2563eb;
+      background: #f1f5f9;
+    }
+
+    .mcq-option.selected {
+      border-color: #2563eb;
+      background: #dbeafe;
+    }
+
+    .true-false-buttons {
+      display: flex;
+      gap: 16px;
+    }
+
+    .true-false-btn {
+      flex: 1;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 500;
+      border: 2px solid #cbd5e1;
+      border-radius: 6px;
+      background: white;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .true-false-btn:hover {
+      border-color: #2563eb;
+      background: #f1f5f9;
+    }
+
+    .true-false-btn.selected {
+      border-color: #2563eb;
+      background: #dbeafe;
+    }
+
+    /* Feedback */
+    .feedback {
+      margin-top: 24px;
+      padding: 16px 20px;
+      border-radius: 8px;
+      border-left: 4px solid;
+    }
+
+    .feedback.correct {
+      background: #d1fae5;
+      border-left-color: #10b981;
+      color: #065f46;
+    }
+
+    .feedback.incorrect {
+      background: #fee2e2;
+      border-left-color: #ef4444;
+      color: #991b1b;
+    }
+
+    .feedback.partial {
+      background: #fef3c7;
+      border-left-color: #f59e0b;
+      color: #92400e;
+    }
+
+    /* Buttons */
+    .btn {
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 500;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #1e40af;
+    }
+
+    .btn-primary:disabled {
+      background: #cbd5e1;
+      cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      background: #f1f5f9;
+      color: #1e293b;
+    }
+
+    .btn-secondary:hover {
+      background: #e2e8f0;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    /* Bridge */
+    .bridge {
+      background: #fef3c7;
+      padding: 24px;
+      border-radius: 8px;
+      font-style: italic;
+      margin: 24px 0;
+      border-left: 4px solid #f59e0b;
+    }
+
+    /* Node Summary */
+    .node-summary {
+      background: #f8fafc;
+      padding: 24px;
+      border-radius: 8px;
+      margin-top: 24px;
+    }
+
+    .node-summary h3 {
+      margin-bottom: 16px;
+      color: #1e40af;
+    }
+
+    .granule-result {
+      padding: 8px 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .granule-result .icon {
+      font-size: 20px;
+    }
+
+    .granule-result .badge {
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: #e2e8f0;
+      color: #475569;
+    }
+
+    .granule-result .badge.first-time {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .granule-result .badge.needed-help {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .summary-stats {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid #e2e8f0;
+      font-weight: 500;
+    }
+
+    /* Lesson Summary */
+    .lesson-summary {
+      padding: 24px;
+    }
+
+    .lesson-summary h2 {
+      color: #1e40af;
+      margin-bottom: 24px;
+    }
+
+    .summary-section {
+      margin-bottom: 24px;
+    }
+
+    .summary-section h3 {
+      font-size: 18px;
+      margin-bottom: 12px;
+      color: #475569;
+    }
+
+    .score-display {
+      font-size: 48px;
+      font-weight: 700;
+      color: #10b981;
+      text-align: center;
+      margin: 24px 0;
+    }
+
+    /* Utilities */
+    .hidden {
+      display: none !important;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .mt-4 {
+      margin-top: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="emoji">🔬</div>
+      <h1>The World of the Microscope</h1>
+      <div class="subtitle">Microscopy, Magnification & Resolution</div>
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+    </div>
+
+    <div class="content" id="mainContent">
+      <!-- Content will be dynamically injected here -->
+    </div>
+  </div>
+
+  <script type="module">
+    // Import would go here - for prototype, we'll inline the data
+    const microscopyTeachData = {
+      id: "B1.1",
+      title: "The World of the Microscope",
+      subtitle: "Microscopy, Magnification & Resolution",
+      emoji: "🔬",
+
+      nodes: [
+        {
+          id: 1,
+          title: "Understand how microscopy techniques developed over time",
+
+          granuleGroups: [
+            {
+              id: "G1",
+              granules: ["1.1", "1.2"],
+              label: "Timeline",
+              teach: {
+                content: "These are the two main types of microscope. On the left, a light microscope — you might have used one at school. On the right, an electron microscope — a completely different beast. Notice the size difference. Light microscopes have been around since the mid-1600s — the 17th century. Electron microscopes came much later, in the 1930s. That's roughly a 300-year gap.",
+                components: [
+                  {
+                    type: "comparison",
+                    data: {
+                      items: [
+                        {
+                          label: "Light Microscope",
+                          points: [
+                            "Developed: mid-1600s",
+                            "You've probably used one",
+                            "Smaller, portable"
+                          ]
+                        },
+                        {
+                          label: "Electron Microscope",
+                          points: [
+                            "Invented: 1930s",
+                            "Much more recent",
+                            "Large, room-sized"
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ],
+                hook: "300-year gap — light came first by centuries"
+              }
+            },
+            {
+              id: "G2",
+              granules: ["1.3", "1.4"],
+              label: "Mechanism",
+              teach: {
+                content: "So what actually makes them different? The clue is in the name. A light microscope uses a beam of light to form an image. An electron microscope uses a beam of electrons. That's it — the name tells you everything.",
+                components: [
+                  {
+                    type: "callout",
+                    data: {
+                      text: "Light microscope → beam of light\nElectron microscope → beam of electrons\n\nThe clue is in the name!",
+                      type: "key"
+                    }
+                  }
+                ],
+                hook: "The clue is in the name"
+              }
+            },
+            {
+              id: "G3",
+              granules: ["1.5"],
+              label: "TEM vs SEM",
+              teach: {
+                content: "There are actually two types of electron microscope. TEM — transmission electron microscope — fires electrons through a thin slice of the specimen. You get a flat, 2D cross-section image. SEM — scanning electron microscope — bounces electrons off the surface. You get a 3D-looking image of the outside. Easy way to remember: transmission = through, scanning = across the surface.",
+                components: [
+                  {
+                    type: "comparison",
+                    data: {
+                      items: [
+                        {
+                          label: "TEM (Transmission)",
+                          points: [
+                            "Electrons go THROUGH specimen",
+                            "2D cross-section images",
+                            "Very high magnification"
+                          ]
+                        },
+                        {
+                          label: "SEM (Scanning)",
+                          points: [
+                            "Electrons bounce OFF surface",
+                            "3D surface images",
+                            "Lower magnification"
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ],
+                hook: "Transmission = through, scanning = across surface"
+              }
+            }
+          ],
+
+          granules: [
+            {
+              id: "1.1",
+              objective: "Can state when light microscopes were developed",
+              verify: [
+                {
+                  type: "fill-blank",
+                  question: "Light microscopes were developed in the mid-___.",
+                  answer: "1600s",
+                  accept: ["1600s", "1600's", "seventeenth century", "17th century"],
+                  explanation: "Light microscopes were developed in the mid-1600s (17th century). They've been around for over 300 years.",
+                  weight: 1
+                }
+              ]
+            },
+            {
+              id: "1.2",
+              objective: "Can state when electron microscopes were invented",
+              verify: [
+                {
+                  type: "fill-blank",
+                  question: "Electron microscopes were invented in the ___.",
+                  answer: "1930s",
+                  accept: ["1930s", "1930's", "nineteen thirties"],
+                  explanation: "Electron microscopes were invented in the 1930s — much later than light microscopes (mid-1600s).",
+                  weight: 1
+                },
+                {
+                  type: "true-false",
+                  question: "Electron microscopes were invented before light microscopes.",
+                  answer: false,
+                  explanation: "Light microscopes came first (mid-1600s). Electron microscopes were invented in the 1930s — about 300 years later.",
+                  weight: 0.5
+                }
+              ]
+            },
+            {
+              id: "1.3",
+              objective: "Can explain what light microscopes use to form an image",
+              verify: [
+                {
+                  type: "fill-blank",
+                  question: "A light microscope uses a beam of ___ to form an image.",
+                  answer: "light",
+                  accept: ["light"],
+                  explanation: "Light microscopes use a beam of light. The clue is right in the name!",
+                  weight: 1
+                }
+              ]
+            },
+            {
+              id: "1.4",
+              objective: "Can explain what electron microscopes use to form an image",
+              verify: [
+                {
+                  type: "fill-blank",
+                  question: "An electron microscope uses a beam of ___ to form an image.",
+                  answer: "electrons",
+                  accept: ["electrons"],
+                  explanation: "Electron microscopes use a beam of electrons. Again — the name tells you!",
+                  weight: 1
+                }
+              ]
+            },
+            {
+              id: "1.5",
+              objective: "Can distinguish between transmission and scanning electron microscopes",
+              verify: [
+                {
+                  type: "mcq",
+                  question: "Which type of electron microscope gives you 3D surface images?",
+                  options: ["TEM (Transmission)", "SEM (Scanning)", "Both equally", "Neither"],
+                  correct: 1,
+                  explanation: "SEM (Scanning Electron Microscope) scans the surface and gives 3D images. TEM transmits through the specimen for 2D cross-sections.",
+                  weight: 1
+                }
+              ]
+            }
+          ]
+        },
+
+        {
+          id: 2,
+          title: "Understand differences in magnification and resolution",
+
+          granuleGroups: [
+            {
+              id: "G4",
+              granules: ["2.1", "2.2"],
+              label: "Magnification figures",
+              teach: {
+                content: "Here's where electron microscopes really shine. The best light microscopes magnify around ×2,000. Not bad. But electron microscopes? Around ×2,000,000. That's a thousand times more powerful. We're talking about seeing structures that are completely invisible under light microscopes.",
+                components: [
+                  {
+                    type: "comparison",
+                    data: {
+                      items: [
+                        {
+                          label: "Light Microscope",
+                          points: [
+                            "Max magnification: ×2,000",
+                            "School ones: few hundred times",
+                            "Good for cells and large structures"
+                          ]
+                        },
+                        {
+                          label: "Electron Microscope",
+                          points: [
+                            "Max magnification: ×2,000,000",
+                            "1000× more powerful",
+                            "Reveals subcellular detail"
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ],
+                hook: "Electron is 1000× more powerful"
+              }
+            }
+          ],
+
+          granules: [
+            {
+              id: "2.1",
+              objective: "Can state max magnification of a light microscope",
+              verify: [
+                {
+                  type: "fill-blank",
+                  question: "The maximum magnification of the best light microscopes is around ×___.",
+                  answer: "2000",
+                  accept: ["2000", "2,000", "two thousand"],
+                  explanation: "Light microscopes max out at around ×2,000. School ones are usually just a few hundred times.",
+                  weight: 1
+                }
+              ]
+            },
+            {
+              id: "2.2",
+              objective: "Can state max magnification of an electron microscope",
+              verify: [
+                {
+                  type: "true-false",
+                  question: "Electron microscopes are about 1000 times more powerful than light microscopes.",
+                  answer: true,
+                  explanation: "True — light microscopes max out at ×2,000, electron at ×2,000,000. That's 1000× more powerful.",
+                  weight: 0.5
+                }
+              ]
+            }
+          ]
+        }
+      ],
+
+      bridges: [
+        {
+          from: 1,
+          to: 2,
+          text: "You know the two types of microscope now — light and electron. But why bother with the electron one? What can it actually do that light can't? Let's look at the numbers."
+        }
+      ]
+    };
+
+    // State management
+    const state = {
+      phase: 'intro', // intro, teach, verify, feedback, node-summary, bridge, complete
+      currentNodeIndex: 0,
+      currentGranuleGroupIndex: 0,
+      currentGranuleIndex: 0,
+      currentVerifyAttempt: 0,
+      results: [],
+      userAnswer: null,
+      currentVerifyQuestion: null
+    };
+
+    // Scoring algorithm
+    function calculateGranuleScore(result) {
+      let score = 100;
+
+      if (result.source === 'taught') score -= 10;
+      if (!result.firstAttempt) score -= 15;
+      if (result.attempts === 2) score -= 10;
+      if (result.attempts === 3) score -= 20;
+      if (result.attempts >= 4) score -= 30;
+      if (result.scaffoldedDown) score -= 15;
+      if (result.cutOff) score = 25;
+
+      return Math.max(0, Math.min(100, score));
+    }
+
+    // Render functions
+    function renderTeachContent() {
+      const node = microscopyTeachData.nodes[state.currentNodeIndex];
+      const group = node.granuleGroups[state.currentGranuleGroupIndex];
+
+      let html = `
+        <div class="node-title">Node ${node.id}: ${node.title}</div>
+        <div class="teaching-content">
+          <p>${group.teach.content}</p>
+        </div>
+      `;
+
+      // Render components
+      if (group.teach.components) {
+        group.teach.components.forEach(comp => {
+          html += renderComponent(comp);
+        });
+      }
+
+      // Render hook
+      if (group.teach.hook) {
+        html += `<div class="hook">${group.teach.hook}</div>`;
+      }
+
+      html += `
+        <div class="button-group">
+          <button class="btn btn-primary" onclick="window.teachApp.startVerify()">Check My Understanding</button>
+        </div>
+      `;
+
+      document.getElementById('mainContent').innerHTML = html;
+      updateProgress();
+    }
+
+    function renderComponent(comp) {
+      if (comp.type === 'callout') {
+        return `<div class="component callout ${comp.data.type}">${comp.data.text}</div>`;
+      }
+
+      if (comp.type === 'comparison') {
+        let html = '<div class="component comparison">';
+        comp.data.items.forEach(item => {
+          html += `
+            <div class="comparison-item">
+              <div class="label">${item.label}</div>
+              <ul>
+                ${item.points.map(p => `<li>${p}</li>`).join('')}
+              </ul>
+            </div>
+          `;
+        });
+        html += '</div>';
+        return html;
+      }
+
+      return '';
+    }
+
+    function renderVerify() {
+      const node = microscopyTeachData.nodes[state.currentNodeIndex];
+      const group = node.granuleGroups[state.currentGranuleGroupIndex];
+      const granule = node.granules[state.currentGranuleIndex];
+      const verifyOptions = granule.verify;
+
+      // Select random verify question
+      const verify = verifyOptions[Math.floor(Math.random() * verifyOptions.length)];
+      state.currentVerifyQuestion = verify;
+
+      let html = `
+        <div class="node-title">Node ${node.id}: ${node.title}</div>
+        <div class="verify-container">
+          <div class="verify-question">${verify.question}</div>
+      `;
+
+      if (verify.type === 'fill-blank') {
+        html += `
+          <input type="text" class="fill-blank-input" id="userInput" placeholder="Type your answer here...">
+        `;
+      } else if (verify.type === 'mcq') {
+        html += '<div class="mcq-options">';
+        verify.options.forEach((opt, idx) => {
+          html += `
+            <div class="mcq-option" onclick="window.teachApp.selectMCQ(${idx})">
+              ${opt}
+            </div>
+          `;
+        });
+        html += '</div>';
+      } else if (verify.type === 'true-false') {
+        html += `
+          <div class="true-false-buttons">
+            <button class="true-false-btn" onclick="window.teachApp.selectTrueFalse(true)">True</button>
+            <button class="true-false-btn" onclick="window.teachApp.selectTrueFalse(false)">False</button>
+          </div>
+        `;
+      }
+
+      html += `
+          <div class="button-group">
+            <button class="btn btn-primary" id="submitBtn" onclick="window.teachApp.submitAnswer()">Submit</button>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('mainContent').innerHTML = html;
+      updateProgress();
+    }
+
+    function renderFeedback(isCorrect) {
+      const verify = state.currentVerifyQuestion;
+      const node = microscopyTeachData.nodes[state.currentNodeIndex];
+
+      let html = `
+        <div class="node-title">Node ${node.id}: ${node.title}</div>
+        <div class="feedback ${isCorrect ? 'correct' : 'incorrect'}">
+          <strong>${isCorrect ? '✓ That\'s right!' : '✗ Not quite.'}</strong>
+          <p>${verify.explanation}</p>
+        </div>
+        <div class="button-group mt-4">
+          <button class="btn btn-primary" onclick="window.teachApp.continueLesson()">Continue</button>
+        </div>
+      `;
+
+      document.getElementById('mainContent').innerHTML = html;
+    }
+
+    function renderNodeSummary() {
+      const node = microscopyTeachData.nodes[state.currentNodeIndex];
+      const nodeResults = state.results.filter(r => r.nodeId === node.id);
+
+      const firstTimeCount = nodeResults.filter(r => r.firstAttempt).length;
+      const totalCount = nodeResults.length;
+
+      let html = `
+        <div class="node-summary">
+          <h3>Node ${node.id} Complete: ${node.title}</h3>
+      `;
+
+      nodeResults.forEach(result => {
+        const badge = result.firstAttempt ?
+          '<span class="badge first-time">first time</span>' :
+          '<span class="badge needed-help">needed help</span>';
+
+        html += `
+          <div class="granule-result">
+            <span class="icon">${result.firstAttempt ? '✓' : '⚠'}</span>
+            <span>${result.objective}</span>
+            ${badge}
+          </div>
+        `;
+      });
+
+      html += `
+          <div class="summary-stats">
+            Result: ${firstTimeCount}/${totalCount} first time
+          </div>
+        </div>
+        <div class="button-group mt-4">
+          <button class="btn btn-primary" onclick="window.teachApp.continueToNextNode()">Continue</button>
+        </div>
+      `;
+
+      document.getElementById('mainContent').innerHTML = html;
+    }
+
+    function renderBridge() {
+      const bridge = microscopyTeachData.bridges.find(b => b.from === state.currentNodeIndex);
+
+      let html = `
+        <div class="bridge">
+          ${bridge.text}
+        </div>
+        <div class="button-group mt-4">
+          <button class="btn btn-primary" onclick="window.teachApp.startNextNode()">Let's Go</button>
+        </div>
+      `;
+
+      document.getElementById('mainContent').innerHTML = html;
+    }
+
+    function renderLessonComplete() {
+      const totalGranules = state.results.length;
+      const firstTimeGranules = state.results.filter(r => r.firstAttempt).length;
+      const percentage = Math.round((firstTimeGranules / totalGranules) * 100);
+
+      let html = `
+        <div class="lesson-summary">
+          <h2>🎉 Lesson Complete!</h2>
+
+          <div class="score-display">${percentage}%</div>
+
+          <div class="summary-section">
+            <h3>Overall Performance</h3>
+            <p>${firstTimeGranules} out of ${totalGranules} granules mastered first time</p>
+          </div>
+
+          <div class="summary-section">
+            <h3>What You've Learned</h3>
+      `;
+
+      microscopyTeachData.nodes.forEach(node => {
+        const nodeResults = state.results.filter(r => r.nodeId === node.id);
+        const nodeFirst = nodeResults.filter(r => r.firstAttempt).length;
+        html += `<p><strong>Node ${node.id}:</strong> ${nodeFirst}/${nodeResults.length} first time</p>`;
+      });
+
+      html += `
+          </div>
+
+          <div class="text-center mt-4">
+            <p style="font-style: italic; color: #64748b;">
+              You started knowing nothing about microscopy. Look what you can explain now.
+            </p>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('mainContent').innerHTML = html;
+    }
+
+    function updateProgress() {
+      const totalGroups = microscopyTeachData.nodes.reduce((sum, node) => sum + node.granuleGroups.length, 0);
+      let completedGroups = 0;
+
+      for (let i = 0; i < state.currentNodeIndex; i++) {
+        completedGroups += microscopyTeachData.nodes[i].granuleGroups.length;
+      }
+      completedGroups += state.currentGranuleGroupIndex;
+
+      const percentage = (completedGroups / totalGroups) * 100;
+      document.getElementById('progressFill').style.width = percentage + '%';
+    }
+
+    // App controller
+    const app = {
+      start() {
+        const html = `
+          <div class="text-center" style="padding: 40px 0;">
+            <h2 style="margin-bottom: 24px; color: #1e40af;">Ready to learn about microscopy?</h2>
+            <p style="margin-bottom: 32px; color: #64748b;">
+              This lesson will teach you about different types of microscopes, how they work,
+              and what makes them useful for different situations.
+            </p>
+            <button class="btn btn-primary" onclick="window.teachApp.beginLesson()">Begin Lesson</button>
+          </div>
+        `;
+        document.getElementById('mainContent').innerHTML = html;
+      },
+
+      beginLesson() {
+        state.phase = 'teach';
+        renderTeachContent();
+      },
+
+      startVerify() {
+        state.phase = 'verify';
+        state.currentGranuleIndex = 0;
+        state.currentVerifyAttempt = 0;
+        renderVerify();
+      },
+
+      selectMCQ(index) {
+        document.querySelectorAll('.mcq-option').forEach((el, i) => {
+          el.classList.toggle('selected', i === index);
+        });
+        state.userAnswer = index;
+      },
+
+      selectTrueFalse(value) {
+        document.querySelectorAll('.true-false-btn').forEach(el => {
+          el.classList.remove('selected');
+        });
+        event.target.classList.add('selected');
+        state.userAnswer = value;
+      },
+
+      submitAnswer() {
+        const verify = state.currentVerifyQuestion;
+        let isCorrect = false;
+
+        if (verify.type === 'fill-blank') {
+          const input = document.getElementById('userInput').value.trim().toLowerCase();
+          isCorrect = verify.accept.some(ans => ans.toLowerCase() === input);
+        } else if (verify.type === 'mcq') {
+          isCorrect = state.userAnswer === verify.correct;
+        } else if (verify.type === 'true-false') {
+          isCorrect = state.userAnswer === verify.answer;
+        }
+
+        state.currentVerifyAttempt++;
+
+        // Record result
+        const node = microscopyTeachData.nodes[state.currentNodeIndex];
+        const granule = node.granules[state.currentGranuleIndex];
+
+        state.results.push({
+          nodeId: node.id,
+          granuleId: granule.id,
+          objective: granule.objective,
+          passed: isCorrect,
+          firstAttempt: state.currentVerifyAttempt === 1,
+          attempts: state.currentVerifyAttempt,
+          scaffoldedDown: false,
+          cutOff: false,
+          source: 'taught'
+        });
+
+        state.phase = 'feedback';
+        renderFeedback(isCorrect);
+      },
+
+      continueLesson() {
+        state.currentGranuleIndex++;
+        const node = microscopyTeachData.nodes[state.currentNodeIndex];
+        const group = node.granuleGroups[state.currentGranuleGroupIndex];
+
+        // Check if we've verified all granules in this group
+        if (state.currentGranuleIndex >= group.granules.length) {
+          // Move to next group
+          state.currentGranuleGroupIndex++;
+          state.currentGranuleIndex = 0;
+
+          // Check if node is complete
+          if (state.currentGranuleGroupIndex >= node.granuleGroups.length) {
+            state.phase = 'node-summary';
+            renderNodeSummary();
+          } else {
+            state.phase = 'teach';
+            renderTeachContent();
+          }
+        } else {
+          // Verify next granule in same group
+          state.phase = 'verify';
+          state.currentVerifyAttempt = 0;
+          renderVerify();
+        }
+      },
+
+      continueToNextNode() {
+        const bridge = microscopyTeachData.bridges.find(b => b.from === state.currentNodeIndex + 1);
+
+        if (bridge) {
+          state.phase = 'bridge';
+          renderBridge();
+        } else {
+          this.checkLessonComplete();
+        }
+      },
+
+      startNextNode() {
+        state.currentNodeIndex++;
+        state.currentGranuleGroupIndex = 0;
+        state.currentGranuleIndex = 0;
+
+        this.checkLessonComplete();
+      },
+
+      checkLessonComplete() {
+        if (state.currentNodeIndex >= microscopyTeachData.nodes.length) {
+          state.phase = 'complete';
+          renderLessonComplete();
+          updateProgress();
+          document.getElementById('progressFill').style.width = '100%';
+        } else {
+          state.phase = 'teach';
+          renderTeachContent();
+        }
+      }
+    };
+
+    // Make app globally accessible
+    window.teachApp = app;
+
+    // Start the app
+    app.start();
+  </script>
+</body>
+</html>
