@@ -23,26 +23,21 @@ export const microscopyTeachData = {
             content: "These are the two main types of microscope. On the left, a light microscope — you might have used one at school. On the right, an electron microscope — a completely different beast. Notice the size difference. Light microscopes have been around since the mid-1600s — the 17th century. Electron microscopes came much later, in the 1930s. That's roughly a 300-year gap.",
             components: [
               {
-                type: "comparison",
+                type: "image",
                 data: {
-                  items: [
-                    {
-                      label: "Light Microscope",
-                      points: [
-                        "Developed: mid-1600s",
-                        "You've probably used one",
-                        "Smaller, portable"
-                      ]
-                    },
-                    {
-                      label: "Electron Microscope",
-                      points: [
-                        "Invented: 1930s",
-                        "Much more recent",
-                        "Large, room-sized"
-                      ]
-                    }
-                  ]
+                  src: "resources/images/light_microscope.jpg",
+                  alt: "A light microscope",
+                  caption: "Light Microscope — developed mid-1600s, portable, commonly used in schools",
+                  size: "medium"
+                }
+              },
+              {
+                type: "image",
+                data: {
+                  src: "resources/images/electron_microscope.jpeg",
+                  alt: "An electron microscope",
+                  caption: "Electron Microscope — invented 1930s, large and room-sized",
+                  size: "medium"
                 }
               }
             ],

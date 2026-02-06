@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI Teaching Prototype - Microscopy</title>
+  <link rel="stylesheet" href="styles/components.css">
   <style>
+    /* Page Layout Styles */
     * {
       margin: 0;
       padding: 0;
@@ -12,18 +14,18 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background: #f9f7f4;
+      font-family: var(--font-family);
+      background: var(--color-background);
       height: 100vh;
       display: flex;
       flex-direction: column;
     }
 
     .header {
-      background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
       color: white;
-      padding: 16px 24px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: var(--spacing-lg) var(--spacing-xl);
+      box-shadow: var(--shadow-lg);
       flex-shrink: 0;
     }
 
@@ -32,13 +34,13 @@
       font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: var(--spacing-sm);
     }
 
     .header .subtitle {
-      font-size: 13px;
+      font-size: var(--font-size-sm);
       opacity: 0.9;
-      margin-top: 4px;
+      margin-top: var(--spacing-xs);
     }
 
     .chat-container {
@@ -54,162 +56,32 @@
     .messages {
       flex: 1;
       overflow-y: auto;
-      padding: 24px;
+      padding: var(--spacing-xl);
       display: flex;
       flex-direction: column;
-      gap: 16px;
-    }
-
-    .message {
-      display: flex;
-      gap: 12px;
-      max-width: 85%;
-      animation: fadeIn 0.3s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .message.user {
-      align-self: flex-end;
-      flex-direction: row-reverse;
-    }
-
-    .message.assistant {
-      align-self: flex-start;
-    }
-
-    .avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      flex-shrink: 0;
-    }
-
-    .message.user .avatar {
-      background: #2563eb;
-      color: white;
-    }
-
-    .message.assistant .avatar {
-      background: #f1f5f9;
-    }
-
-    .message-content {
-      background: white;
-      padding: 12px 16px;
-      border-radius: 12px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      line-height: 1.6;
-    }
-
-    .message.user .message-content {
-      background: #2563eb;
-      color: white;
-    }
-
-    .message.assistant .message-content {
-      background: white;
-      color: #1e293b;
-    }
-
-    /* Components within messages */
-    .component {
-      margin: 16px 0;
-    }
-
-    .comparison {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin: 16px 0;
-    }
-
-    .comparison-item {
-      background: #f8fafc;
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid #e2e8f0;
-    }
-
-    .comparison-item .label {
-      font-weight: 600;
-      color: #1e40af;
-      margin-bottom: 8px;
-      font-size: 15px;
-    }
-
-    .comparison-item ul {
-      list-style: none;
-    }
-
-    .comparison-item li {
-      padding: 3px 0;
-      padding-left: 16px;
-      position: relative;
-      font-size: 14px;
-    }
-
-    .comparison-item li:before {
-      content: "•";
-      position: absolute;
-      left: 0;
-      color: #2563eb;
-      font-weight: bold;
-    }
-
-    .callout {
-      background: #fef3c7;
-      border-left: 4px solid #f59e0b;
-      padding: 12px 16px;
-      border-radius: 6px;
-      margin: 16px 0;
-      white-space: pre-line;
-      font-size: 14px;
-    }
-
-    .callout.key {
-      background: #dbeafe;
-      border-left-color: #2563eb;
-    }
-
-    .hook {
-      background: #fef3c7;
-      padding: 10px 14px;
-      border-radius: 6px;
-      font-style: italic;
-      color: #92400e;
-      margin: 12px 0;
-      font-size: 14px;
-      border-left: 3px solid #f59e0b;
+      gap: var(--spacing-lg);
     }
 
     .input-container {
-      padding: 16px 24px;
-      background: white;
-      border-top: 1px solid #e2e8f0;
+      padding: var(--spacing-lg) var(--spacing-xl);
+      background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
       flex-shrink: 0;
     }
 
     .input-wrapper {
       display: flex;
-      gap: 12px;
+      gap: var(--spacing-md);
       max-width: 900px;
       margin: 0 auto;
     }
 
     #messageInput {
       flex: 1;
-      padding: 12px 16px;
-      border: 2px solid #cbd5e1;
-      border-radius: 8px;
-      font-size: 15px;
+      padding: var(--spacing-md) var(--spacing-lg);
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-base);
       font-family: inherit;
       resize: none;
       min-height: 48px;
@@ -218,16 +90,16 @@
 
     #messageInput:focus {
       outline: none;
-      border-color: #2563eb;
+      border-color: var(--color-primary);
     }
 
     #sendBtn {
-      padding: 12px 24px;
-      background: #2563eb;
+      padding: var(--spacing-md) var(--spacing-xl);
+      background: var(--color-primary);
       color: white;
       border: none;
-      border-radius: 8px;
-      font-size: 15px;
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-base);
       font-weight: 500;
       cursor: pointer;
       transition: background 0.2s;
@@ -235,69 +107,39 @@
     }
 
     #sendBtn:hover:not(:disabled) {
-      background: #1e40af;
+      background: var(--color-primary-dark);
     }
 
     #sendBtn:disabled {
-      background: #cbd5e1;
+      background: var(--color-border);
       cursor: not-allowed;
     }
 
-    .typing-indicator {
-      display: none;
-      padding: 12px 16px;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      max-width: 80px;
+    /* Streaming message styles */
+    .message.streaming .message-content {
+      border-right: 2px solid var(--color-primary);
+      animation: cursorBlink 1s infinite;
     }
 
-    .typing-indicator.active {
-      display: block;
+    @keyframes cursorBlink {
+      0%, 50% { border-right-color: var(--color-primary); }
+      51%, 100% { border-right-color: transparent; }
     }
 
-    .typing-dots {
-      display: flex;
-      gap: 4px;
+    .component-loading {
+      padding: var(--spacing-md);
+      color: var(--color-text-muted);
+      font-style: italic;
     }
 
-    .typing-dots span {
-      width: 8px;
-      height: 8px;
-      background: #94a3b8;
-      border-radius: 50%;
-      animation: typing 1.4s infinite;
+    .loading-dots {
+      animation: loadingDots 1.5s infinite;
     }
 
-    .typing-dots span:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-
-    .typing-dots span:nth-child(3) {
-      animation-delay: 0.4s;
-    }
-
-    @keyframes typing {
-      0%, 60%, 100% { transform: translateY(0); }
-      30% { transform: translateY(-10px); }
-    }
-
-    .status {
-      padding: 8px 16px;
-      background: #f1f5f9;
-      border-radius: 6px;
-      font-size: 13px;
-      color: #64748b;
-      margin-bottom: 12px;
-    }
-
-    .error-message {
-      background: #fee2e2;
-      color: #991b1b;
-      padding: 12px 16px;
-      border-radius: 8px;
-      margin: 16px 0;
-      border-left: 4px solid #ef4444;
+    @keyframes loadingDots {
+      0% { opacity: 0.3; }
+      50% { opacity: 1; }
+      100% { opacity: 0.3; }
     }
   </style>
 </head>
@@ -326,97 +168,89 @@
     </div>
   </div>
 
-  <script>
+  <script type="module">
+    // Import components
+    import { MessageBubble } from './components/MessageBubble.js';
+    import { Comparison } from './components/Comparison.js';
+    import { Callout } from './components/Callout.js';
+    import { Hook } from './components/Hook.js';
+    import { Table } from './components/Table.js';
+    import { Image } from './components/Image.js';
+    import { ComponentParser } from './components/index.js';
+
+    // Session state
     const sessionId = 'session_' + Date.now();
     let isWaitingForResponse = false;
 
+    // DOM elements
     const messagesContainer = document.getElementById('messages');
     const messageInput = document.getElementById('messageInput');
     const sendBtn = document.getElementById('sendBtn');
 
-    // Component parser
-    function parseComponents(text) {
-      // Parse [COMPARISON] blocks
-      text = text.replace(/\*\*\[COMPARISON\]\*\*([\s\S]*?)\*\*\[\/COMPARISON\]\*\*/g, (match, content) => {
-        const items = content.split('Item:').filter(s => s.trim());
-        let html = '<div class="component comparison">';
-
-        items.forEach(item => {
-          const lines = item.trim().split('\n');
-          const label = lines[0].trim();
-          const points = lines.slice(1).filter(l => l.trim().startsWith('-')).map(l => l.trim().substring(1).trim());
-
-          html += `
-            <div class="comparison-item">
-              <div class="label">${label}</div>
-              <ul>
-                ${points.map(p => `<li>${p}</li>`).join('')}
-              </ul>
-            </div>
-          `;
-        });
-
-        html += '</div>';
-        return html;
-      });
-
-      // Parse [CALLOUT] blocks
-      text = text.replace(/\*\*\[CALLOUT type="([^"]+)"\]\*\*([\s\S]*?)\*\*\[\/CALLOUT\]\*\*/g, (match, type, content) => {
-        return `<div class="component callout ${type}">${content.trim()}</div>`;
-      });
-
-      // Parse [HOOK] blocks
-      text = text.replace(/\*\*\[HOOK\]\*\*([\s\S]*?)\*\*\[\/HOOK\]\*\*/g, (match, content) => {
-        return `<div class="component hook">${content.trim()}</div>`;
-      });
-
-      return text;
+    /**
+     * Create a component instance from parsed data
+     * @param {string} type - Component type
+     * @param {object} data - Component data
+     * @returns {Component|null}
+     */
+    function createComponent(type, data) {
+      switch (type) {
+        case 'comparison':
+          return new Comparison(data);
+        case 'callout':
+          return new Callout(data);
+        case 'hook':
+          return new Hook(data);
+        case 'table':
+          return new Table(data);
+        case 'image':
+          return new Image(data);
+        default:
+          console.warn(`Unknown component type: ${type}`);
+          return null;
+      }
     }
 
-    // Format message text (handle line breaks, bold, etc.)
-    function formatText(text) {
-      // Bold
-      text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-      // Line breaks
-      text = text.replace(/\n/g, '<br>');
-      return text;
-    }
-
-    // Add message to chat
+    /**
+     * Add a message to the chat using components
+     * @param {string} role - 'user' or 'assistant'
+     * @param {string} content - Message content (may contain component markers)
+     */
     function addMessage(role, content) {
-      const messageDiv = document.createElement('div');
-      messageDiv.className = `message ${role}`;
-
-      const avatar = document.createElement('div');
-      avatar.className = 'avatar';
-      avatar.textContent = role === 'user' ? '👤' : '🔬';
-
-      const messageContent = document.createElement('div');
-      messageContent.className = 'message-content';
-
-      // Parse components first, then format text
-      let processedContent = parseComponents(content);
-      processedContent = formatText(processedContent);
-
-      messageContent.innerHTML = processedContent;
-
-      messageDiv.appendChild(avatar);
-      messageDiv.appendChild(messageContent);
-
       // Remove typing indicator if exists
-      const typingIndicator = document.querySelector('.typing-indicator');
+      const typingIndicator = document.querySelector('.message.typing');
       if (typingIndicator) {
         typingIndicator.remove();
       }
 
-      messagesContainer.appendChild(messageDiv);
+      // Parse content for embedded components
+      const parsed = ComponentParser.parse(content);
+
+      // Create component instances
+      const componentInstances = parsed.components.map(({ type, data }) => {
+        return createComponent(type, data);
+      }).filter(c => c !== null);
+
+      // Create message bubble with nested components
+      const message = new MessageBubble({
+        role,
+        content: parsed.text,
+        components: componentInstances
+      });
+
+      // Render to container
+      message.mount(messagesContainer);
+
+      // Scroll to bottom
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
 
-    // Show typing indicator
+    /**
+     * Show typing indicator
+     */
     function showTypingIndicator() {
       const indicator = document.createElement('div');
-      indicator.className = 'message assistant';
+      indicator.className = 'message assistant typing';
 
       const avatar = document.createElement('div');
       avatar.className = 'avatar';
@@ -438,7 +272,93 @@
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
 
-    // Send message
+    /**
+     * Create a streaming message element that we can update progressively
+     */
+    function createStreamingMessage() {
+      const message = document.createElement('div');
+      message.className = 'message assistant streaming';
+
+      const avatar = document.createElement('div');
+      avatar.className = 'avatar';
+      avatar.textContent = '🔬';
+
+      const body = document.createElement('div');
+      body.className = 'message-body';
+
+      const content = document.createElement('div');
+      content.className = 'message-content';
+      content.innerHTML = '';
+
+      body.appendChild(content);
+      message.appendChild(avatar);
+      message.appendChild(body);
+
+      return { message, body, content };
+    }
+
+    /**
+     * Render streamed content progressively
+     * Text streams in real-time, components render when complete
+     */
+    function renderStreamedContent(body, fullText) {
+      // Clear body
+      body.innerHTML = '';
+
+      // Parse for complete components
+      const parsed = ComponentParser.parse(fullText);
+
+      // Create component instances for complete components
+      const componentInstances = parsed.components.map(({ type, data }) => {
+        return createComponent(type, data);
+      }).filter(c => c !== null);
+
+      // Check if we're in the middle of a component tag
+      const hasIncompleteComponent = /\[(?:IMAGE|HOOK|CALLOUT|COMPARISON|TABLE)\](?:(?!\[\/(?:IMAGE|HOOK|CALLOUT|COMPARISON|TABLE)\]).)*$/s.test(fullText);
+
+      if (componentInstances.length === 0 && !hasIncompleteComponent) {
+        // No components - just show text with formatting
+        const textContent = document.createElement('div');
+        textContent.className = 'message-content';
+        textContent.innerHTML = parsed.text
+          .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+          .replace(/\n/g, '<br>');
+        body.appendChild(textContent);
+      } else {
+        // Has components - render text and components
+        const parts = parsed.text.split(/(\{\{COMPONENT_\d+\}\})/g);
+
+        parts.forEach(part => {
+          const match = part.match(/\{\{COMPONENT_(\d+)\}\}/);
+          if (match) {
+            const index = parseInt(match[1], 10);
+            const component = componentInstances[index];
+            if (component) {
+              body.appendChild(component.render());
+            }
+          } else if (part.trim()) {
+            const textBubble = document.createElement('div');
+            textBubble.className = 'message-content';
+            textBubble.innerHTML = part
+              .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+              .replace(/\n/g, '<br>');
+            body.appendChild(textBubble);
+          }
+        });
+
+        // If there's an incomplete component, show a loading indicator
+        if (hasIncompleteComponent) {
+          const loadingEl = document.createElement('div');
+          loadingEl.className = 'component-loading';
+          loadingEl.innerHTML = '<span class="loading-dots">...</span>';
+          body.appendChild(loadingEl);
+        }
+      }
+    }
+
+    /**
+     * Send message to server with streaming
+     */
     async function sendMessage() {
       const message = messageInput.value.trim();
       if (!message || isWaitingForResponse) return;
@@ -453,8 +373,16 @@
       messageInput.disabled = true;
       sendBtn.disabled = true;
 
-      // Show typing indicator
-      showTypingIndicator();
+      // Remove any existing typing indicator
+      const existingTyping = document.querySelector('.message.typing');
+      if (existingTyping) existingTyping.remove();
+
+      // Create streaming message element
+      const { message: messageEl, body } = createStreamingMessage();
+      messagesContainer.appendChild(messageEl);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+      let fullText = '';
 
       try {
         const response = await fetch('http://localhost:3000/api/chat', {
@@ -472,19 +400,47 @@
           throw new Error('Failed to get response');
         }
 
-        const data = await response.json();
+        // Read the SSE stream
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
 
-        // Add assistant message
-        addMessage('assistant', data.message);
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          const text = decoder.decode(value);
+          const lines = text.split('\n');
+
+          for (const line of lines) {
+            if (line.startsWith('data: ')) {
+              try {
+                const data = JSON.parse(line.slice(6));
+
+                if (data.chunk) {
+                  fullText += data.chunk;
+                  renderStreamedContent(body, fullText);
+                  messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                }
+
+                if (data.error) {
+                  throw new Error(data.error);
+                }
+              } catch (e) {
+                if (e.message !== 'Unexpected end of JSON input') {
+                  console.error('Parse error:', e);
+                }
+              }
+            }
+          }
+        }
+
+        // Final render with complete message
+        messageEl.classList.remove('streaming');
+        renderStreamedContent(body, fullText);
 
       } catch (error) {
         console.error('Error:', error);
-
-        // Remove typing indicator
-        const typingIndicator = document.querySelector('.typing-indicator');
-        if (typingIndicator) {
-          typingIndicator.remove();
-        }
+        messageEl.remove();
 
         // Show error
         const errorDiv = document.createElement('div');
@@ -516,11 +472,14 @@
       messageInput.style.height = messageInput.scrollHeight + 'px';
     });
 
-    // Send initial message to start lesson
+    // Send initial message to start lesson (with streaming)
     window.addEventListener('load', async () => {
-      // Wait a moment, then trigger the lesson start
       setTimeout(async () => {
-        showTypingIndicator();
+        // Create streaming message element
+        const { message: messageEl, body } = createStreamingMessage();
+        messagesContainer.appendChild(messageEl);
+
+        let fullText = '';
 
         try {
           const response = await fetch('http://localhost:3000/api/chat', {
@@ -534,14 +493,41 @@
             })
           });
 
-          const data = await response.json();
-          addMessage('assistant', data.message);
+          const reader = response.body.getReader();
+          const decoder = new TextDecoder();
+
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            const text = decoder.decode(value);
+            const lines = text.split('\n');
+
+            for (const line of lines) {
+              if (line.startsWith('data: ')) {
+                try {
+                  const data = JSON.parse(line.slice(6));
+                  if (data.chunk) {
+                    fullText += data.chunk;
+                    renderStreamedContent(body, fullText);
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                  }
+                } catch (e) {}
+              }
+            }
+          }
+
+          messageEl.classList.remove('streaming');
+          renderStreamedContent(body, fullText);
+
         } catch (error) {
           console.error('Error starting lesson:', error);
-          const typingIndicator = document.querySelector('.typing-indicator');
-          if (typingIndicator) {
-            typingIndicator.remove();
-          }
+          messageEl.remove();
+
+          const errorDiv = document.createElement('div');
+          errorDiv.className = 'error-message';
+          errorDiv.textContent = 'Could not connect to the server. Please run "npm start" in the prototypes folder.';
+          messagesContainer.appendChild(errorDiv);
         }
       }, 500);
     });

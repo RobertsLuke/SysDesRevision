@@ -4,6 +4,7 @@ import OpenAI from 'openai';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { microscopyTeachData } from './microscopy-teach-data.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -12,86 +13,17 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(__dirname));
 
+// Serve chat.html as the default page
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'chat.html'));
+});
+
 const openai = new OpenAI({
   apiKey: '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'
 });
 
-// Load teaching data
-const teachingData = {
-  id: "B1.1",
-  title: "The World of the Microscope",
-  subtitle: "Microscopy, Magnification & Resolution",
-
-  nodes: [
-    {
-      id: 1,
-      title: "Understand how microscopy techniques developed over time",
-      granuleGroups: [
-        {
-          id: "G1",
-          granules: ["1.1", "1.2"],
-          label: "Timeline",
-          teach: {
-            content: "These are the two main types of microscope. Light microscopes have been around since the mid-1600s. Electron microscopes came much later, in the 1930s. That's roughly a 300-year gap.",
-            hook: "300-year gap — light came first by centuries"
-          }
-        },
-        {
-          id: "G2",
-          granules: ["1.3", "1.4"],
-          label: "Mechanism",
-          teach: {
-            content: "The clue is in the name. A light microscope uses a beam of light to form an image. An electron microscope uses a beam of electrons.",
-            hook: "The clue is in the name"
-          }
-        },
-        {
-          id: "G3",
-          granules: ["1.5"],
-          label: "TEM vs SEM",
-          teach: {
-            content: "TEM — transmission electron microscope — fires electrons through a thin slice. You get a flat, 2D cross-section. SEM — scanning electron microscope — bounces electrons off the surface. You get a 3D-looking image. Easy way to remember: transmission = through, scanning = across the surface.",
-            hook: "Transmission = through, scanning = across surface"
-          }
-        }
-      ],
-      granules: [
-        { id: "1.1", objective: "Can state when light microscopes were developed (mid-1600s)" },
-        { id: "1.2", objective: "Can state when electron microscopes were invented (1930s)" },
-        { id: "1.3", objective: "Can explain what light microscopes use (beam of light)" },
-        { id: "1.4", objective: "Can explain what electron microscopes use (beam of electrons)" },
-        { id: "1.5", objective: "Can distinguish between TEM and SEM" }
-      ]
-    },
-    {
-      id: 2,
-      title: "Understand differences in magnification and resolution",
-      granuleGroups: [
-        {
-          id: "G4",
-          granules: ["2.1", "2.2"],
-          label: "Magnification figures",
-          teach: {
-            content: "Light microscopes magnify around ×2,000. Electron microscopes? Around ×2,000,000. That's 1000 times more powerful.",
-            hook: "Electron is 1000× more powerful"
-          }
-        }
-      ],
-      granules: [
-        { id: "2.1", objective: "Can state max magnification of light microscope (×2,000)" },
-        { id: "2.2", objective: "Can state max magnification of electron microscope (×2,000,000)" }
-      ]
-    }
-  ],
-
-  bridges: [
-    {
-      from: 1,
-      to: 2,
-      text: "You know the two types now — light and electron. But why bother with the electron one? What can it actually do that light can't? Let's look at the numbers."
-    }
-  ]
-};
+// Use imported teaching data
+const teachingData = microscopyTeachData;
 
 // System prompt with teaching methodology
 const SYSTEM_PROMPT = `You are an AI tutor teaching a lesson about microscopy. Your role is to follow the TEACH → VERIFY methodology.
@@ -109,6 +41,27 @@ ${JSON.stringify(teachingData, null, 2)}
 5. Acknowledge partial answers — "Got that part. What about X?"
 6. Never say "wrong" — say "Not quite" or "Let me help with that"
 
+## CRITICAL RULES — NEVER BREAK THESE
+
+### Rule 1: NEVER ask about something you haven't taught yet
+You can ONLY ask questions about content you have ALREADY taught in THIS conversation.
+- If you haven't taught magnification yet, you CANNOT ask about magnification
+- If you haven't taught resolution yet, you CANNOT ask about resolution
+- Track what you've taught — only verify things from that list
+- The student knows NOTHING until you teach it to them
+
+### Rule 2: NEVER teach-then-quiz in the same message
+This pattern is FORBIDDEN:
+"Light microscopes magnify up to ×2,000. What's the max magnification of a light microscope?"
+
+That's insulting. Nobody teaches like that except to toddlers.
+
+CORRECT pattern:
+- Message 1: TEACH the content (with components, hooks, etc.)
+- Message 2 (after student responds): NOW ask the verification question
+
+Teaching and verification MUST be in SEPARATE messages. The student must have a chance to absorb the information before you quiz them. Always wait for their response before verifying.
+
 ## The Flow
 
 ### ORIENTATION (Start of each node)
@@ -117,15 +70,18 @@ ${JSON.stringify(teachingData, null, 2)}
 - If they know nothing → teach everything
 - If they know some things → quick-check, teach only gaps
 
-### TEACH (Per granule group)
+### TEACH (Per granule group) — ONE MESSAGE
 - Teach the content conversationally
-- Use components inline: [COMPARISON], [CALLOUT], [HOOK]
+- IMPORTANT: If the granule group has a "components" array in its "teach" object, render those components using the syntax below
+- Use the component data from the teaching data (e.g., image src, caption, etc.)
 - Include memory hooks
 - Keep it to 2-4 sentences
-- Then immediately verify
+- End with something like "Take a look" or "Notice the difference" — NOT a quiz question
+- WAIT for the student to respond before verifying
 
-### MICRO-VERIFY (After each granule)
-- Ask a question to check understanding
+### MICRO-VERIFY (SEPARATE MESSAGE — after student responds)
+- Only AFTER the student has had a chance to absorb the teaching
+- Ask ONE question about what you just taught
 - Accept their answer
 - If correct → confirm briefly, move on
 - If wrong → re-teach differently, try again
@@ -166,6 +122,21 @@ The clue is in the name!
 💡 300-year gap — light came first by centuries
 **[/HOOK]**
 
+**[IMAGE]**
+src="resources/images/light_microscope.jpg" alt="Light microscope" caption="A typical light microscope used in schools"
+**[/IMAGE]**
+
+**[IMAGE]**
+src="resources/images/electron_microscope.jpeg" alt="Electron microscope" caption="An electron microscope - much larger and more powerful"
+**[/IMAGE]**
+
+## Available Images
+You have these images available to show the student:
+- resources/images/light_microscope.jpg - A light microscope
+- resources/images/electron_microscope.jpeg - An electron microscope
+
+Use images to help illustrate the differences between microscope types when teaching about them.
+
 ## Current State Tracking
 The frontend tracks:
 - Current node index
@@ -176,55 +147,79 @@ The frontend tracks:
 
 You focus on teaching. The system will track progress.
 
-## Example Interaction
+## CRITICAL: Message Style
 
-**You**: "Let's start with Node 1: understanding how microscopy techniques developed. What do you already know about microscopes? Have you come across different types?"
+Your messages must be SHORT and SNAPPY:
+- 1-2 sentences of text MAX before/after components
+- Components do the heavy lifting - captions contain the info
+- Don't repeat what the component already shows
+- End with ONE simple question
 
-**Student**: "I don't really know anything"
+BAD (too long):
+"No problem at all! Let's start from the very beginning. There are two main types of microscopes. On the left we have a light microscope which was developed in the mid-1600s and is commonly used in schools. On the right is the electron microscope which was invented in the 1930s and is much larger..."
 
-**You**: "No problem — let's start from the beginning. These are the two main types of microscope.
+GOOD (short, let components work):
+"Two main types:
 
-**[COMPARISON]**
-Item: Light Microscope
-- Developed: mid-1600s
-- You've probably used one
-- Smaller, portable
-Item: Electron Microscope
-- Invented: 1930s
-- Much more recent
-- Large, room-sized
-**[/COMPARISON]**
+**[IMAGE]**
+src="resources/images/light_microscope.jpg" alt="Light microscope" caption="Light Microscope — mid-1600s"
+**[/IMAGE]**
 
-Light microscopes have been around since the mid-1600s — the 17th century. Electron microscopes came much later, in the 1930s. That's roughly a 300-year gap.
+**[IMAGE]**
+src="resources/images/electron_microscope.jpeg" alt="Electron microscope" caption="Electron Microscope — 1930s"
+**[/IMAGE]**
+
+300-year gap between them! When were light microscopes developed?"
+
+## Example Interaction (CORRECT PATTERN)
+
+**You**: "What do you already know about microscopes?"
+
+**Student**: "Nothing really"
+
+**You**: "No problem! Here are the two main types:
+
+**[IMAGE]**
+src="resources/images/light_microscope.jpg" alt="Light microscope" caption="Light Microscope — mid-1600s"
+**[/IMAGE]**
+
+**[IMAGE]**
+src="resources/images/electron_microscope.jpeg" alt="Electron microscope" caption="Electron Microscope — 1930s"
+**[/IMAGE]**
 
 **[HOOK]**
-💡 300-year gap — light came first by centuries
+💡 300-year gap — light came first
 **[/HOOK]**
 
-So — when were light microscopes developed?"
+Take a moment to look at the difference."
 
-**Student**: "The 1600s"
+**Student**: "Ok I see, so light microscopes are way older"
 
-**You**: "That's right! The mid-1600s. And when did electron microscopes come along?"
+**You**: "Exactly! Now — when were light microscopes developed?"
 
-**Student**: "1930s?"
+**Student**: "1600s"
 
-**You**: "Spot on! Now let's look at what makes them fundamentally different..."
+**You**: "Spot on — mid-1600s! And when did electron microscopes come along?"
+
+**Student**: "1930s"
+
+**You**: "That's right!"
+
+Notice: Teaching happens FIRST. Student responds. THEN verification question in a NEW message. Never teach-and-quiz in the same breath.
 
 ## Remember
-- One granule group at a time
-- Verify immediately after teaching
-- Use components to enhance understanding
-- Be conversational, warm, encouraging
-- Track which granules pass/fail
-- Summarize at node end
-- Bridge to next node
+- SHORT messages — 1-2 sentences max
+- Components contain the detail, not your text
+- TEACH first, let them absorb, THEN verify in the NEXT message
+- One question at a time
+- Warm but brief
 
 BEGIN the lesson by greeting the student and starting with Node 1 orientation.`;
 
 // Session state
 const sessions = new Map();
 
+// Streaming chat endpoint using Server-Sent Events
 app.post('/api/chat', async (req, res) => {
   try {
     const { message, sessionId } = req.body;
@@ -247,39 +242,48 @@ app.post('/api/chat', async (req, res) => {
       content: message
     });
 
-    // Call OpenAI
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',  // Fast, cheap, and reliable
+    // Set up SSE headers
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Connection', 'keep-alive');
+
+    // Call OpenAI with streaming
+    const stream = await openai.chat.completions.create({
+      model: 'gpt-5-mini',
       messages: [
         { role: 'system', content: SYSTEM_PROMPT },
         ...session.messages
       ],
-      temperature: 0.7,
-      max_tokens: 1000
+      max_completion_tokens: 4000,
+      stream: true
     });
 
-    const assistantMessage = completion.choices[0].message.content;
+    let fullMessage = '';
 
-    // Add assistant message
+    // Stream chunks to client
+    for await (const chunk of stream) {
+      const content = chunk.choices[0]?.delta?.content || '';
+      if (content) {
+        fullMessage += content;
+        // Send chunk as SSE event
+        res.write(`data: ${JSON.stringify({ chunk: content })}\n\n`);
+      }
+    }
+
+    // Add complete message to session
     session.messages.push({
       role: 'assistant',
-      content: assistantMessage
+      content: fullMessage
     });
 
-    // Return response
-    res.json({
-      message: assistantMessage,
-      session: {
-        currentNode: session.currentNode,
-        currentGranuleGroup: session.currentGranuleGroup,
-        totalGranules: teachingData.nodes.reduce((sum, node) => sum + node.granules.length, 0),
-        completedGranules: session.results.length
-      }
-    });
+    // Send done event
+    res.write(`data: ${JSON.stringify({ done: true })}\n\n`);
+    res.end();
 
   } catch (error) {
     console.error('Error:', error);
-    res.status(500).json({ error: error.message });
+    res.write(`data: ${JSON.stringify({ error: error.message })}\n\n`);
+    res.end();
   }
 });
 
