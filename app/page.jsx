@@ -1,5 +1,12 @@
-import { redirect } from "next/navigation";
+"use client";
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
-  redirect("/week/1");
+  const router = useRouter();
+  useEffect(() => {
+    router.replace("/week/1");
+  }, [router]);
+  return null;
 }

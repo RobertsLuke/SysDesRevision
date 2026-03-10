@@ -1,1334 +1,1494 @@
 export const weeks = {
-  0: {
-    id: 0,
-    title: "The World of the Microscope",
-    subtitle: "Microscopy, Magnification & Resolution",
-    emoji: "🔬",
-    isTrial: true,
-
-    teach: {
-      nodes: [
-        {
-          id: 1,
-          title: "Understand how microscopy techniques developed over time",
-          granules: [
-            {
-              id: "1.1",
-              objective: "Can state when light microscopes were developed",
-              teach: {
-                content: "Light microscopes were first developed in the mid-17th century — the 1600s. These early microscopes used glass lenses and natural light to create magnified images of tiny objects invisible to the naked eye. They opened up an entirely new world of biology.",
-              },
-              verify: [
-                {
-                  type: "fill-blank",
-                  question: "Light microscopes were first developed in the ___ century.",
-                  answer: "mid-17th",
-                  accept: ["mid-17th", "mid 17th", "17th", "mid seventeenth", "seventeenth"],
-                  explanation: "Light microscopes date back to the mid-17th century (the 1600s) — centuries before electron microscopes.",
-                },
-                {
-                  type: "mcq",
-                  question: "When were light microscopes first developed?",
-                  options: ["Early 16th century", "Mid-17th century", "Late 18th century", "1930s"],
-                  correct: 1,
-                  explanation: "Light microscopes were developed in the mid-17th century. The 1930s is when electron microscopes appeared.",
-                },
-              ],
-            },
-            {
-              id: "1.2",
-              objective: "Can state when electron microscopes were invented",
-              teach: {
-                content: "Electron microscopes were invented much later — in the 1930s. That's roughly 300 years after the first light microscopes. They represented a huge leap in technology because they use a completely different method to create images.",
-              },
-              verify: [
-                {
-                  type: "fill-blank",
-                  question: "Electron microscopes were invented in the ___.",
-                  answer: "1930s",
-                  accept: ["1930s", "1930's", "nineteen thirties"],
-                  explanation: "Electron microscopes were invented in the 1930s — about 300 years after light microscopes.",
-                },
-                {
-                  type: "true-false",
-                  question: "Electron microscopes were invented before light microscopes.",
-                  answer: false,
-                  explanation: "Light microscopes came first (mid-17th century). Electron microscopes arrived much later in the 1930s.",
-                },
-              ],
-            },
-            {
-              id: "1.3",
-              objective: "Can explain what light microscopes use to form an image",
-              teach: {
-                content: "Light microscopes work by passing a beam of light through a thin specimen. Glass lenses inside the microscope then bend (refract) this light to create a magnified image that your eye can see. The key word is light — that's what carries the image.",
-              },
-              verify: [
-                {
-                  type: "fill-blank",
-                  question: "Light microscopes use a beam of ___ to form an image.",
-                  answer: "light",
-                  accept: ["light"],
-                  explanation: "The clue is in the name — light microscopes use a beam of light.",
-                },
-                {
-                  type: "mcq",
-                  question: "What does a light microscope use to form an image?",
-                  options: ["A beam of electrons", "X-rays", "A beam of light", "Radio waves"],
-                  correct: 2,
-                  explanation: "Light microscopes use a beam of light. Electron microscopes use a beam of electrons.",
-                },
-              ],
-            },
-            {
-              id: "1.4",
-              objective: "Can explain what electron microscopes use to form an image",
-              teach: {
-                content: "Electron microscopes use a beam of electrons instead of light. Electrons have a much shorter wavelength than visible light, which is why electron microscopes can achieve far greater detail and magnification. The specimen must be in a vacuum because electrons scatter in air.",
-              },
-              verify: [
-                {
-                  type: "fill-blank",
-                  question: "Electron microscopes use a beam of ___ to form an image.",
-                  answer: "electrons",
-                  accept: ["electrons", "electron"],
-                  explanation: "Electron microscopes use electrons — their shorter wavelength allows much greater detail.",
-                },
-              ],
-            },
-            {
-              id: "1.5",
-              objective: "Can distinguish between transmission and scanning electron microscopes",
-              teach: {
-                content: "There are two types of electron microscope. A transmission electron microscope (TEM) fires electrons through the specimen and produces 2D images with very high magnification and resolution — best for internal structure. A scanning electron microscope (SEM) bounces electrons off the surface and produces 3D images, but at lower magnification than TEM.",
-              },
-              verify: [
-                {
-                  type: "mcq",
-                  question: "Which type of electron microscope produces 3D images?",
-                  options: ["Transmission electron microscope", "Scanning electron microscope", "Both types", "Neither type"],
-                  correct: 1,
-                  explanation: "Scanning electron microscopes (SEM) produce 3D images by bouncing electrons off the surface. Transmission (TEM) produces 2D images at higher magnification.",
-                },
-                {
-                  type: "true-false",
-                  question: "A transmission electron microscope produces 3D images.",
-                  answer: false,
-                  explanation: "Transmission electron microscopes produce 2D images (very high magnification). Scanning electron microscopes produce the 3D images.",
-                },
-              ],
-            },
-          ],
-        },
-        {
-          id: 2,
-          title: "Understand differences in magnification and resolution",
-          granules: [
-            {
-              id: "2.1",
-              objective: "Can state max magnification of a light microscope",
-              teach: {
-                content: "The best light microscopes can magnify up to around ×2,000. School microscopes typically only reach a few hundred times magnification. This is the upper limit of what light can achieve — beyond this, the image blurs rather than showing more detail.",
-              },
-              verify: [
-                {
-                  type: "mcq",
-                  question: "What is the maximum magnification of the best light microscopes?",
-                  options: ["Around ×200", "Around ×2,000", "Around ×200,000", "Around ×2,000,000"],
-                  correct: 1,
-                  explanation: "Light microscopes max out around ×2,000. The ×2,000,000 figure belongs to electron microscopes.",
-                },
-                {
-                  type: "fill-blank",
-                  question: "The best light microscopes can magnify up to around ×___.",
-                  answer: "2000",
-                  accept: ["2000", "2,000", "×2000", "×2,000", "x2000"],
-                  explanation: "Light microscopes reach a maximum of about ×2,000.",
-                },
-              ],
-            },
-            {
-              id: "2.2",
-              objective: "Can state max magnification of an electron microscope",
-              teach: {
-                content: "Electron microscopes can magnify up to around ×2,000,000 — that's a thousand times more powerful than the best light microscope. This enormous magnification is possible because electrons have a much shorter wavelength than visible light.",
-              },
-              verify: [
-                {
-                  type: "fill-blank",
-                  question: "Electron microscopes can magnify up to around ×___.",
-                  answer: "2000000",
-                  accept: ["2000000", "2,000,000", "×2000000", "×2,000,000", "2 million"],
-                  explanation: "Electron microscopes can reach ×2,000,000 — a thousand times more than light microscopes.",
-                },
-                {
-                  type: "true-false",
-                  question: "Electron microscopes can magnify about 100 times more than light microscopes.",
-                  answer: false,
-                  explanation: "It's about 1,000 times more. Light: ×2,000. Electron: ×2,000,000.",
-                },
-              ],
-            },
-            {
-              id: "2.3",
-              objective: "Can define resolution / resolving power",
-              teach: {
-                content: "Resolution (also called resolving power) is the ability to distinguish between two separate points. Imagine two dots very close together — if your microscope's resolution is good enough, you see two dots. If not, they blur into one. Higher resolution means you can see finer detail. This is different from magnification — you can magnify a blurry image, but it's still blurry.",
-              },
-              verify: [
-                {
-                  type: "fill-blank",
-                  question: "Resolution is the ability to distinguish between two ___ points.",
-                  answer: "separate",
-                  accept: ["separate", "distinct", "different", "individual"],
-                  explanation: "Resolution = ability to distinguish between two separate points. More resolution = more detail.",
-                },
-                {
-                  type: "mcq",
-                  question: "What does 'resolving power' mean?",
-                  options: ["Maximum magnification possible", "Brightness of the image", "Ability to distinguish two separate points", "Speed of focusing"],
-                  correct: 2,
-                  explanation: "Resolving power is about distinguishing fine detail (two separate points), not magnification or brightness.",
-                },
-              ],
-            },
-            {
-              id: "2.4",
-              objective: "Can state resolving powers of microscope types",
-              teach: {
-                content: "The resolving power of a light microscope is about 200 nm — it can't distinguish objects closer than that. A scanning electron microscope does much better at about 10 nm. A transmission electron microscope is the champion at about 0.2 nm. Remember: smaller number = better resolution = more detail.",
-              },
-              verify: [
-                {
-                  type: "mcq",
-                  question: "What is the resolving power of a light microscope?",
-                  options: ["0.2 nm", "10 nm", "200 nm", "2000 nm"],
-                  correct: 2,
-                  explanation: "Light microscope: ~200 nm. Scanning EM: ~10 nm. Transmission EM: ~0.2 nm. Smaller = better.",
-                },
-                {
-                  type: "fill-blank",
-                  question: "A transmission electron microscope has a resolving power of about ___ nm.",
-                  answer: "0.2",
-                  accept: ["0.2", ".2"],
-                  explanation: "TEM has the best resolution at 0.2 nm — a thousand times better than a light microscope's 200 nm.",
-                },
-              ],
-            },
-            {
-              id: "2.5",
-              objective: "Can compare practical pros and cons",
-              teach: {
-                content: "Light microscopes are relatively cheap, small and portable, and — crucially — can view live specimens. Electron microscopes have much higher magnification and resolution, but they're very expensive, large (they need special temperature and humidity-controlled rooms), and cannot view live specimens because the specimen must be in a vacuum.",
-              },
-              verify: [
-                {
-                  type: "mcq",
-                  question: "Which is an advantage of light microscopes over electron microscopes?",
-                  options: ["Higher magnification", "Better resolution", "Can view live specimens", "Produces 3D images"],
-                  correct: 2,
-                  explanation: "Light microscopes can view live specimens — a major practical advantage. Electron microscopes require specimens to be in a vacuum, so no living material.",
-                },
-                {
-                  type: "true-false",
-                  question: "Electron microscopes can be used to view live specimens.",
-                  answer: false,
-                  explanation: "Electron microscopes require a vacuum — live specimens cannot survive. Only light microscopes can view living material.",
-                },
-              ],
-            },
-          ],
-        },
-        {
-          id: 3,
-          title: "Calculate magnification, real size, and image size",
-          granules: [
-            {
-              id: "3.1",
-              objective: "Can recall unit conversions (mm → μm → nm)",
-              teach: {
-                content: "In microscopy, you'll work with very small units. The key conversions are: 1 mm = 1,000 μm (micrometres), and 1 μm = 1,000 nm (nanometres). So to go from mm to μm, multiply by 1,000. To go from μm to mm, divide by 1,000. Getting these conversions right is essential for magnification calculations.",
-              },
-              verify: [
-                {
-                  type: "fill-blank",
-                  question: "1 mm = ___ μm.",
-                  answer: "1000",
-                  accept: ["1000", "1,000"],
-                  explanation: "1 mm = 1,000 μm. And 1 μm = 1,000 nm. Each step is ×1,000.",
-                },
-                {
-                  type: "mcq",
-                  question: "How many nanometres (nm) are in 1 micrometre (μm)?",
-                  options: ["10", "100", "1,000", "10,000"],
-                  correct: 2,
-                  explanation: "1 μm = 1,000 nm, just as 1 mm = 1,000 μm. Each step multiplies by 1,000.",
-                },
-              ],
-            },
-            {
-              id: "3.2",
-              objective: "Can calculate total magnification (eyepiece × objective)",
-              teach: {
-                content: "A light microscope has two lens systems: the eyepiece lens (the one you look through) and the objective lens (the one closest to the specimen). Total magnification is calculated by multiplying them together. For example, a ×10 eyepiece with a ×40 objective gives ×400 total magnification.",
-              },
-              verify: [
-                {
-                  type: "mcq",
-                  question: "A microscope has a ×10 eyepiece and a ×40 objective lens. What is the total magnification?",
-                  options: ["×50", "×400", "×4", "×4,000"],
-                  correct: 1,
-                  explanation: "Total magnification = eyepiece × objective = 10 × 40 = ×400.",
-                },
-                {
-                  type: "fill-blank",
-                  question: "Total magnification = eyepiece magnification ___ objective magnification.",
-                  answer: "×",
-                  accept: ["×", "x", "*", "multiplied by", "times"],
-                  explanation: "You multiply the eyepiece by the objective to get total magnification.",
-                },
-              ],
-            },
-            {
-              id: "3.3",
-              objective: "Can state the magnification formula",
-              teach: {
-                content: "The magnification formula is: magnification = image size ÷ real size. This tells you how many times bigger the image is compared to the actual object. You can remember it as a triangle: M, I, R — magnification = image ÷ real.",
-              },
-              verify: [
-                {
-                  type: "mcq",
-                  question: "What is the magnification formula?",
-                  options: ["magnification = real size ÷ image size", "magnification = image size ÷ real size", "magnification = image size × real size", "magnification = image size + real size"],
-                  correct: 1,
-                  explanation: "Magnification = image size ÷ real size. How many times bigger is the image than reality?",
-                },
-              ],
-            },
-            {
-              id: "3.4",
-              objective: "Can rearrange to find real size",
-              teach: {
-                content: "If you need to find the real size of a specimen, rearrange the formula: real size = image size ÷ magnification. You're dividing the image measurement by how many times it was enlarged to get back to the actual size.",
-              },
-              verify: [
-                {
-                  type: "fill-blank",
-                  question: "Real size = image size ___ magnification.",
-                  answer: "÷",
-                  accept: ["÷", "/", "divided by"],
-                  explanation: "Real size = image size ÷ magnification. Divide the image by how much it was magnified.",
-                },
-              ],
-            },
-            {
-              id: "3.5",
-              objective: "Can rearrange to find image size",
-              teach: {
-                content: "To find the image size: image size = magnification × real size. If you know how big something actually is and how much it's been magnified, multiplying gives you how big it appears in the image.",
-              },
-              verify: [
-                {
-                  type: "fill-blank",
-                  question: "Image size = magnification ___ real size.",
-                  answer: "×",
-                  accept: ["×", "x", "*", "multiplied by", "times"],
-                  explanation: "Image size = magnification × real size.",
-                },
-              ],
-            },
-            {
-              id: "3.6",
-              objective: "Can apply the formula with unit conversions",
-              teach: {
-                content: "When solving problems, you'll often need to convert units first. A common scenario: the image is measured in mm but the answer needs to be in μm. Steps: (1) identify what you're solving for, (2) use the right formula, (3) calculate, (4) convert units if needed. Remember: mm to μm means ×1,000.",
-              },
-              verify: [
-                {
-                  type: "mcq",
-                  question: "A cell image measures 3 mm at ×600 magnification. What is the real size in μm?",
-                  options: ["0.5 μm", "5 μm", "50 μm", "500 μm"],
-                  correct: 1,
-                  explanation: "Real size = 3 mm ÷ 600 = 0.005 mm. Convert: 0.005 × 1,000 = 5 μm.",
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-
-    mcqs: [
-      {
-        id: 1,
-        question:
-          "What do light microscopes use to form an image of an object?",
-        options: [
-          "A beam of electrons",
-          "A beam of light",
-          "Radio waves",
-          "X-rays",
-        ],
-        correct: 1,
-        explanation:
-          "Light microscopes use a beam of light to form an image. This is what distinguishes them from electron microscopes, which use a beam of electrons.",
-      },
-      {
-        id: 2,
-        question:
-          "When were electron microscopes invented?",
-        options: [
-          "Mid-17th century",
-          "Early 1800s",
-          "1930s",
-          "1970s",
-        ],
-        correct: 2,
-        explanation:
-          "Electron microscopes were invented in the 1930s. Light microscopes are much older — they were first developed in the mid-17th century.",
-      },
-      {
-        id: 3,
-        question:
-          "What type of image does a transmission electron microscope produce?",
-        options: [
-          "3D images with lower magnification",
-          "2D images with very high magnification and resolution",
-          "Colour images of live specimens",
-          "Low-resolution images at high speed",
-        ],
-        correct: 1,
-        explanation:
-          "Transmission electron microscopes give 2D images with very high magnification and resolution. Scanning electron microscopes give 3D images but at lower magnification.",
-      },
-      {
-        id: 4,
-        question:
-          "What is the maximum magnification of the best light microscopes?",
-        options: [
-          "Around ×200",
-          "Around ×2,000",
-          "Around ×200,000",
-          "Around ×2,000,000",
-        ],
-        correct: 1,
-        explanation:
-          "The best light microscopes can magnify around ×2,000, though school microscopes usually only magnify several hundred times. Electron microscopes can reach around ×2,000,000.",
-      },
-      {
-        id: 5,
-        question:
-          "What is 'resolving power'?",
-        options: [
-          "The maximum magnification a microscope can achieve",
-          "The brightness of the image produced",
-          "The ability to distinguish between two separate points",
-          "The speed at which a microscope can focus",
-        ],
-        correct: 2,
-        explanation:
-          "Resolution is the ability to distinguish between two separate points. If two objects are closer together than the resolving power allows, they appear as one object. This determines how much detail a microscope can show.",
-      },
-      {
-        id: 6,
-        question:
-          "A scientist needs to study the detailed internal structure of a cell at very high magnification. Which microscope should they use and why?",
-        options: [
-          "Light microscope — it can view live specimens",
-          "Scanning electron microscope — it gives 3D images",
-          "Transmission electron microscope — it has the highest magnification and resolution",
-          "Light microscope — it has the best resolving power",
-        ],
-        correct: 2,
-        explanation:
-          "A transmission electron microscope has the highest magnification (up to ×2,000,000) and the best resolving power (~0.2 nm), making it ideal for studying detailed internal structures of cells.",
-      },
-      {
-        id: 7,
-        question:
-          "Which of the following is an advantage of light microscopes over electron microscopes?",
-        options: [
-          "Higher magnification",
-          "Better resolving power",
-          "Can be used to view live specimens",
-          "Produces 3D images",
-        ],
-        correct: 2,
-        explanation:
-          "Light microscopes can view live specimens, are relatively cheap, and are portable. Electron microscopes have higher magnification and resolution but cannot view live specimens and require special controlled environments.",
-      },
-      {
-        id: 8,
-        question:
-          "What is the approximate resolving power of a light microscope?",
-        options: [
-          "0.2 nm",
-          "10 nm",
-          "200 nm",
-          "2000 nm",
-        ],
-        correct: 2,
-        explanation:
-          "A light microscope has a resolving power of about 200 nm. A scanning electron microscope achieves about 10 nm, and a transmission electron microscope about 0.2 nm.",
-      },
-      {
-        id: 9,
-        question:
-          "How do you calculate the total magnification of a light microscope?",
-        options: [
-          "Eyepiece magnification ÷ objective lens magnification",
-          "Eyepiece magnification + objective lens magnification",
-          "Eyepiece magnification × objective lens magnification",
-          "Objective lens magnification − eyepiece magnification",
-        ],
-        correct: 2,
-        explanation:
-          "Total magnification = eyepiece magnification × objective lens magnification. For example, a ×4 eyepiece with a ×10 objective gives ×40 total magnification.",
-      },
-      {
-        id: 10,
-        question:
-          "A microscope has an eyepiece lens of ×10 and an objective lens of ×40. What is the total magnification?",
-        options: [
-          "×50",
-          "×400",
-          "×4",
-          "×4000",
-        ],
-        correct: 1,
-        explanation:
-          "Total magnification = eyepiece × objective = 10 × 40 = ×400.",
-      },
-      {
-        id: 11,
-        question:
-          "How many micrometres (μm) are in 1 millimetre (mm)?",
-        options: [
-          "10",
-          "100",
-          "1000",
-          "10,000",
-        ],
-        correct: 2,
-        explanation:
-          "1 mm = 1000 μm. Similarly, 1 μm = 1000 nm. These conversions are essential for microscopy calculations.",
-      },
-      {
-        id: 12,
-        question:
-          "A cell image measures 3 mm under a magnification of ×600. What is the real size of the cell?",
-        options: [
-          "0.5 μm",
-          "5 μm",
-          "50 μm",
-          "500 μm",
-        ],
-        correct: 1,
-        explanation:
-          "Real size = image size ÷ magnification = 3 mm ÷ 600 = 0.005 mm. Converting to μm: 0.005 × 1000 = 5 μm.",
-      },
-      {
-        id: 13,
-        question:
-          "A cell has a real diameter of 50 μm. At what magnification would its image measure 20 mm?",
-        options: [
-          "×40",
-          "×100",
-          "×400",
-          "×1000",
-        ],
-        correct: 2,
-        explanation:
-          "First convert to the same units: 50 μm = 0.05 mm. Then magnification = image size ÷ real size = 20 ÷ 0.05 = ×400.",
-      },
-    ],
-
-    flashcards: [
-      {
-        id: 1,
-        front: "When were light microscopes first developed?",
-        back: "Mid-17th century (the 1600s).",
-      },
-      {
-        id: 2,
-        front: "When were electron microscopes invented?",
-        back: "The 1930s.",
-      },
-      {
-        id: 3,
-        front: "What does a light microscope use to form an image?",
-        back: "A beam of light.",
-      },
-      {
-        id: 4,
-        front: "What does an electron microscope use to form an image?",
-        back: "A beam of electrons.",
-      },
-      {
-        id: 5,
-        front: "What is the difference between a transmission and a scanning electron microscope?",
-        back: "Transmission: 2D images with very high magnification and resolution.\nScanning: 3D images but at lower magnification.",
-      },
-      {
-        id: 6,
-        front: "What is the maximum magnification of a light microscope?",
-        back: "Around ×2000 (school microscopes usually only several hundred times).",
-      },
-      {
-        id: 7,
-        front: "What is the maximum magnification of an electron microscope?",
-        back: "Around ×2,000,000.",
-      },
-      {
-        id: 8,
-        front: "What is resolution (resolving power)?",
-        back: "The ability to distinguish between two separate points. It determines how much detail a microscope can show.",
-      },
-      {
-        id: 9,
-        front: "What are the resolving powers of the three microscope types?",
-        back: "Light microscope: ~200 nm\nScanning electron microscope: ~10 nm\nTransmission electron microscope: ~0.2 nm",
-      },
-      {
-        id: 10,
-        front: "Name three advantages of light microscopes over electron microscopes.",
-        back: "1) Relatively cheap\n2) Can be used almost anywhere (portable)\n3) Can view live specimens",
-      },
-      {
-        id: 11,
-        front: "Name three disadvantages of electron microscopes.",
-        back: "1) Very expensive\n2) Large — need special temperature, pressure, and humidity-controlled rooms\n3) Cannot view live specimens",
-      },
-      {
-        id: 12,
-        front: "How do you calculate total magnification on a light microscope?",
-        back: "Total magnification = eyepiece lens magnification × objective lens magnification",
-      },
-      {
-        id: 13,
-        front: "What is the magnification formula?",
-        back: "magnification = size of image ÷ size of real object",
-      },
-      {
-        id: 14,
-        front: "How do you rearrange the formula to find real size?",
-        back: "size of real object = size of image ÷ magnification",
-      },
-      {
-        id: 15,
-        front: "How do you rearrange the formula to find image size?",
-        back: "size of image = magnification × size of real object",
-      },
-      {
-        id: 16,
-        front: "What are the key unit conversions for microscopy?",
-        back: "1 mm = 1000 μm\n1 μm = 1000 nm\n1 nm = 0.000000001 m (1 × 10⁻⁹ m)",
-      },
-    ],
-
-    shortAnswers: [
-      {
-        id: 1,
-        question:
-          "State one advantage and one disadvantage of using: (a) a light microscope, (b) an electron microscope.",
-        marks: 4,
-        markingGuide: [
-          "Light microscope advantage: any of — relatively cheap, portable/can be used almost anywhere, can view live specimens",
-          "Light microscope disadvantage: any of — lower magnification (max ~×2000), lower resolving power (~200 nm), less detail of subcellular structures",
-          "Electron microscope advantage: any of — much higher magnification (up to ×2,000,000), much better resolving power (down to 0.2 nm), can reveal subcellular structures in detail",
-          "Electron microscope disadvantage: any of — very expensive, large and require special controlled environments, cannot view live specimens",
-        ],
-        hint: "Think about what each type is good at and what limits it — consider cost, where you can use it, what you can look at, and how much detail you get.",
-      },
-      {
-        id: 2,
-        question:
-          "A student measured the diameter of a human capillary on a micrograph. The image measures 5 mm and the student knows the magnification is ×1000. How many micrometres is the real diameter of the capillary? Show your working.",
-        marks: 3,
-        markingGuide: [
-          "Correct formula identified or used: real size = image size ÷ magnification",
-          "Correct calculation: 5 mm ÷ 1000 = 0.005 mm",
-          "Correct conversion to micrometres: 0.005 mm × 1000 = 5 μm",
-        ],
-        hint: "Use the magnification triangle — you have the image size and the magnification, so you need to find the real size. Then convert mm to μm.",
-      },
-      {
-        id: 3,
-        question:
-          "A student is told the image of a cell has a diameter of 800 μm. The actual cell has a diameter of 20 μm. At what magnification has the cell been observed?",
-        marks: 2,
-        markingGuide: [
-          "Correct formula identified or used: magnification = image size ÷ real size",
-          "Correct calculation: 800 ÷ 20 = ×40",
-        ],
-        hint: "Both measurements are already in the same units — just apply the magnification formula directly.",
-      },
-      {
-        id: 4,
-        question:
-          "Explain why the invention of the electron microscope was important for the study of cells.",
-        marks: 3,
-        markingGuide: [
-          "Electron microscopes have much higher magnification (up to ×2,000,000) than light microscopes (~×2000)",
-          "They have much better resolving power (down to 0.2 nm vs ~200 nm), meaning they can show far more detail",
-          "This allowed biologists to see and understand subcellular structures inside cells that were not visible with light microscopes",
-        ],
-        hint: "Think about what biologists could see before electron microscopes vs after — what changed?",
-      },
-      {
-        id: 5,
-        question:
-          "Evaluate the use of an electron microscope and a light microscope, giving one example where each type of microscope might be used.",
-        marks: 6,
-        markingGuide: [
-          "Light microscope uses a beam of light; electron microscope uses a beam of electrons",
-          "Light microscopes magnify up to ~×2000; electron microscopes up to ~×2,000,000",
-          "Light microscopes have a resolving power of ~200 nm; electron microscopes as low as 0.2 nm",
-          "Light microscopes are cheap, portable, and can view live specimens",
-          "Electron microscopes are expensive, large, require special environments, and cannot view live specimens",
-          "Appropriate example for each — e.g. light microscope to observe living cells dividing; electron microscope to study the detailed structure of organelles or viruses",
-        ],
-        hint: "Compare them across magnification, resolution, cost, and practicality — then think about a situation where each one's strengths would matter most.",
-      },
-    ],
-  },
   1: {
     id: 1,
     title: "Introduction to Distributed Systems",
-    subtitle: "Definitions, Design Issues & P2P Networks",
+    subtitle: "Definitions, Design Issues, Goals, Challenges & P2P Networks",
     emoji: "🌐",
 
     mcqs: [
-      // --- CORE CONCEPTS (from Lecture 1) ---
+      // ===== LECTURE 1 =====
       {
         id: 1,
         question:
-          "According to Coulouris, how do components in a distributed system coordinate their actions?",
+          "Which of the following best describes a distributed system?",
         options: [
-          "Only by message passing",
-          "Through shared memory accessed by all nodes",
-          "Via a central coordinator that dispatches instructions",
-          "Using synchronised clock signals over the network",
+          "A single high-performance computer running multiple applications simultaneously",
+          "A collection of independent computers that appears to users as a single system",
+          "A network of computers that each operate completely independently with no coordination",
+          "A mainframe computer connected to multiple display terminals",
         ],
-        correct: 0,
+        correct: 1,
         explanation:
-          "Coulouris defines a distributed system as hardware/software at networked computers that communicate and coordinate only by message passing — there is no shared memory or central coordinator.",
+          "A distributed system is a collection of independent computers that appears to users as a single system (Tanenbaum's definition).",
       },
       {
         id: 2,
         question:
-          "Tanenbaum's definition of a distributed system emphasises that it should appear to users as what?",
+          "According to the Coulouris definition, components in a distributed system coordinate their actions by:",
         options: [
-          "A collection of independent computers",
-          "A single computer",
-          "A network of servers",
-          "A cloud-based platform",
+          "Shared memory access",
+          "A centralised controller",
+          "Message passing",
+          "Direct hardware interrupts",
         ],
-        correct: 1,
+        correct: 2,
         explanation:
-          "Tanenbaum stresses the user's perspective: a distributed system is a collection of independent computers that appears to users as a single computer. The distribution is hidden.",
+          "Coulouris defines a distributed system as hardware or software components at networked computers that communicate and coordinate their actions only by message passing.",
       },
       {
         id: 3,
         question:
-          'In the "three ways to do things faster" analogy, what does "Get Help" correspond to in computing?',
+          "In the analogy of doing things faster, 'Get Help' in computing corresponds to:",
         options: [
-          "Using a faster CPU",
-          "Improving algorithm efficiency",
-          "Upgrading to more RAM",
+          "Improving hardware clock speeds",
+          "Using more efficient algorithms",
           "Distributed or parallel processing",
+          "Upgrading to a larger single processor",
         ],
-        correct: 3,
+        correct: 2,
         explanation:
-          "The three ways map to computing as: Work Harder = hardware performance, Work Smarter = better algorithms, Get Help = distributed/parallel processing. Getting help means using multiple machines.",
+          "Work Harder = hardware performance, Work Smarter = better algorithms, Get Help = distributed/parallel processing.",
       },
       {
         id: 4,
         question:
-          "Which of the following is NOT listed as an example of a distributed system in the lecture?",
+          "Which of the following is NOT listed as an issue to be addressed in distributed systems?",
         options: [
-          "Network File System (NFS)",
-          "ATM / cash machines",
-          "Blockchain cryptocurrency mining",
-          "Distributed Shared Memory (DSM)",
+          "Costly communications",
+          "Unreliable communications",
+          "Programming language compatibility",
+          "Insecure communications",
         ],
         correct: 2,
         explanation:
-          "The lecture specifically lists NFS, ATMs, DSM, CORBA, Java RMI, network printers, and others — but blockchain mining is not mentioned in the source material.",
+          "The four key issues are: costly communications, unreliable communications, independent failure, and insecure communications. Programming language compatibility is not listed.",
       },
       {
         id: 5,
         question:
-          "Which issue describes the problem that a distributed system must continue working even when part of it fails?",
+          "In the context of distributed systems, what does 'independent failure' mean?",
         options: [
-          "Costly communications",
-          "Insecure communications",
-          "Unreliable communications",
-          "Independent failure",
+          "All components fail at the same time",
+          "The system must continue working after failure of a network link or remote computer",
+          "Failures are always detected immediately",
+          "Only the master node can fail independently",
         ],
-        correct: 3,
+        correct: 1,
         explanation:
-          "Independent failure means the distributed system needs to keep functioning after the failure of a network connection or individual computer — unlike a single machine where everything fails together.",
+          "Independent failure means the distributed system must continue working after the failure of a network connection or individual computer.",
       },
       {
         id: 6,
         question:
-          "The lecture states that distributed systems are 'NOT so layered' as traditional networking. What does this mean?",
+          "The design issue of 'Naming' in distributed systems requires that names assigned to resources must:",
         options: [
-          "Distributed systems don't use any networking protocols",
-          "They strictly follow the OSI model at all times",
-          "They mix and match protocols, APIs, and services as required",
-          "They only use the physical and data link layers",
+          "Be unique to each physical machine",
+          "Change when a resource is moved to a different location",
+          "Have global meanings independent of the location of the object",
+          "Use numeric IP addresses only",
         ],
         correct: 2,
         explanation:
-          "While networking follows a layered structure (OSI/TCP-IP), distributed systems mix and match protocols, APIs, and services as needed rather than strictly following layers.",
+          "Names must have global meaning, be independent of resource location, and be supported by an efficient name translation system.",
       },
       {
         id: 7,
         question:
-          "In the DS road map, where does 'replication' sit?",
+          "Which of the following is an example of a distributed system?",
         options: [
-          "Fundamentals (low-level)",
-          "Middleware / Distributed OS level",
-          "Application (high-level)",
-          "It is not part of the road map",
+          "A standalone word processor running on a single PC",
+          "A Network File System (NFS)",
+          "A single-threaded application on a laptop",
+          "A USB flash drive storing files",
         ],
         correct: 1,
         explanation:
-          "The road map has three levels: Fundamentals (processes, threads, RPC, naming), Middleware (scheduling, transactions, replication, fault-tolerance), and Application (DSM, distributed objects, security). Replication sits at the middleware level.",
+          "NFS is a distributed system. The lecture also lists ATM machines, CORBA, Java RMI, network printers, the web, and others.",
       },
       {
         id: 8,
         question:
-          "What does the design issue of 'naming' require in a distributed system?",
+          "In the layered communications model for distributed systems, Remote Procedure Call (RPC) belongs to which part of the stack?",
         options: [
-          "Names should change depending on which computer you're using",
-          "Names must have global meanings independent of location",
-          "Each computer should use its own local naming scheme",
-          "Names are only needed for user-facing resources",
+          "The data link layer",
+          "The packet switching layer",
+          "A higher-level protocol above reliable data streams",
+          "The physical layer",
         ],
-        correct: 1,
+        correct: 2,
         explanation:
-          "Naming requires that names have global meanings — the same name works everywhere, independent of the object's location, supported by a scalable name translation system.",
+          "RPC is a higher-level protocol that sits above reliable data streams in the layered communications model.",
       },
       {
         id: 9,
         question:
-          "What is the key concept behind the design issue of 'resource management'?",
+          "Which of the following is listed as a DISADVANTAGE of distributed systems?",
         options: [
-          "Load balancing — distributing work evenly across available resources",
-          "Authentication of users accessing resources",
-          "Ensuring data coherence across all nodes",
-          "Maintaining consistency of cached data",
+          "Incremental growth as workload increases",
+          "Better price-to-performance ratio",
+          "Complexity of software",
+          "Lower application turnaround time",
         ],
-        correct: 0,
+        correct: 2,
         explanation:
-          "Resource management is about deploying processing and communication resources to optimum effect for a changing workload — the key concept is load balancing.",
+          "Software complexity is a disadvantage. The advantages include incremental growth, better price-to-performance, and lower turnaround.",
       },
       {
         id: 10,
         question:
-          "Which three components make up the security design issue?",
+          "The three security design issues identified for distributed systems are:",
         options: [
-          "Encryption, Firewalls, Antivirus",
-          "Authentication, Access Control, Auditing",
-          "Confidentiality, Integrity, Availability",
-          "Naming, Access, Communication",
+          "Encryption, firewalls, and antivirus",
+          "Authentication, access control, and auditing",
+          "Hashing, certificates, and tokens",
+          "Intrusion detection, prevention, and recovery",
         ],
         correct: 1,
         explanation:
-          "The lecture identifies three security components: Authentication (right to access), Access Control (different levels for different users), and Auditing (logging every access as an audit trail).",
+          "The three security components are: Authentication (right to access), Access Control (different levels for different users), and Auditing (logging every access).",
       },
       {
         id: 11,
         question:
-          "Which of these is listed as both an advantage AND a disadvantage of distributed systems?",
+          "In the DS road map, which of the following is a fundamental low-level element?",
         options: [
-          "Incremental growth",
-          "Lower turnaround time",
-          "Price vs performance",
-          "Reliability",
+          "High availability",
+          "Distributed Shared Memory",
+          "Remote Procedure Call (RPC)",
+          "Transactions",
         ],
-        correct: 3,
+        correct: 2,
         explanation:
-          "Reliability appears on both lists. It's an advantage because redundancy can increase resilience, but also a challenge because failure modes in distributed systems are more complex than in single machines.",
+          "RPC is a fundamental low-level element. High availability and transactions are middleware level. DSM is application level.",
       },
       {
         id: 12,
         question:
-          "Which of the following is NOT an area covered by the 'consistency maintenance' design issue?",
+          "Which design issue is concerned with deploying processing and communications resources to handle a changing workload?",
         options: [
-          "Concurrent data access",
-          "Cache consistency",
-          "Load balancing",
-          "Consistent time / synchronisation",
+          "Naming",
+          "Consistency Maintenance",
+          "Resource Management",
+          "Software Structure",
         ],
         correct: 2,
         explanation:
-          "Consistency maintenance covers data (concurrent access), replication, cache, failure handling, time synchronisation, and user interface. Load balancing falls under resource management, not consistency.",
+          "Resource management is about deploying resources to optimum effect for a changing workload — the key concept is load balancing.",
+      },
+      {
+        id: 13,
+        question:
+          "Consistency maintenance in a distributed system does NOT directly concern:",
+        options: [
+          "Concurrent access to the same data",
+          "Replication of data for fault tolerance",
+          "Choosing the programming language for applications",
+          "Maintaining consistent time across nodes",
+        ],
+        correct: 2,
+        explanation:
+          "Consistency maintenance covers data, replication, cache, failure handling, time, and user interface — not programming language choice.",
+      },
+      {
+        id: 14,
+        question:
+          "The concept of 'openness' in distributed system software structure is achieved through:",
+        options: [
+          "Proprietary, closed-source components",
+          "Well-defined interfaces and APIs",
+          "Using a single vendor for all components",
+          "Avoiding data abstraction",
+        ],
+        correct: 1,
+        explanation:
+          "Openness is achieved through well-defined interfaces (APIs) that allow interworking with existing and new services.",
+      },
+      {
+        id: 15,
+        question:
+          "Which of the following is categorised under 'Distributed Operating Systems (middleware)' in the DS road map?",
+        options: [
+          "Threads and concurrency control",
+          "Network protocols",
+          "Scheduling and transactions",
+          "Distributed objects and security",
+        ],
+        correct: 2,
+        explanation:
+          "Scheduling and transactions sit at the middleware level. Threads and concurrency control are fundamentals. Distributed objects and security are application level.",
+      },
+      {
+        id: 16,
+        question:
+          "The 'Access' design issue in distributed systems requires that:",
+        options: [
+          "Only administrators can use system functions remotely",
+          "The same functions are usable everywhere with reasonable performance and data coherence",
+          "Access is restricted to local network users only",
+          "Each node maintains its own independent copy of all functions",
+        ],
+        correct: 1,
+        explanation:
+          "Access means the same functions are usable everywhere with reasonable performance, including an idea of data coherence.",
+      },
+      {
+        id: 17,
+        question:
+          "Why is the performance and reliability of communication techniques considered a critical design issue in distributed systems?",
+        options: [
+          "Because communication is optional in most distributed systems",
+          "Because the performance of the entire distributed system depends directly on its communication infrastructure",
+          "Because all distributed systems use the same communication protocol",
+          "Because communication only affects the user interface layer",
+        ],
+        correct: 1,
+        explanation:
+          "The performance and reliability of communication techniques directly determine the overall performance of the distributed system.",
+      },
+      {
+        id: 18,
+        question:
+          "Which real-world example is used in the lecture to illustrate the concept of 'Working Smarter'?",
+        options: [
+          "Michelangelo carrying his lunch up the scaffolding",
+          "Henry Ford's automobile assembly line",
+          "Road gangs building a highway",
+          "Multicore CPUs sharing workload",
+        ],
+        correct: 1,
+        explanation:
+          "Henry Ford's assembly line is used to illustrate 'Working Smarter' — reducing the amount of work needed through more efficient processes.",
+      },
+      {
+        id: 19,
+        question:
+          "Which of the following is NOT an example of a distributed system given in the lecture?",
+        options: [
+          "CORBA and Java RMI",
+          "Network File System (NFS)",
+          "A standalone desktop calculator application",
+          "An ATM (cash machine)",
+        ],
+        correct: 2,
+        explanation:
+          "A standalone desktop calculator is not a distributed system. NFS, CORBA, Java RMI, and ATMs are all examples given in the lecture.",
+      },
+      {
+        id: 20,
+        question:
+          "In the building blocks of DS communications, which layer deals with 'bits on a wire'?",
+        options: [
+          "Packet switching layer",
+          "Data link layer",
+          "Addressing and routing layer",
+          "Remote Procedure Call layer",
+        ],
+        correct: 1,
+        explanation:
+          "The data link layer deals with 'bits on a wire' — the lowest level of the communications model.",
       },
 
-      // --- GAP-FILL QUESTIONS ---
+      // ===== SEMINAR 1 =====
       {
         id: 21,
         question:
-          "In computing terms, what does 'Work Smarter' correspond to?",
+          "Which of the following is NOT listed as a key goal of a distributed system?",
         options: [
-          "Adding more machines to share the workload",
-          "Upgrading to faster hardware components",
-          "Using more efficient algorithms to reduce the work needed",
-          "Running processes in parallel across multiple cores",
+          "Scalability",
+          "Fault tolerance",
+          "Centralisation",
+          "Transparency",
         ],
         correct: 2,
         explanation:
-          "Work Smarter = better algorithms. The same hardware solves the problem faster because the software finds a more efficient approach — fewer steps, less work. This is distinct from better hardware (Work Harder) or more machines (Get Help).",
+          "Centralisation is the opposite of what distributed systems aim for. The goals include scalability, fault tolerance, transparency, and others.",
       },
       {
         id: 22,
         question:
-          "What does the design issue of 'access' require in a distributed system?",
+          "The goal of 'Scalability' in a distributed system encompasses which three dimensions?",
         options: [
-          "All data must be publicly available to any user",
-          "The same functions are usable everywhere with reasonable performance",
-          "Users must authenticate before accessing any resource",
-          "Resources can only be accessed from the machine they are stored on",
+          "Speed, cost, and reliability",
+          "Size, geography, and administration",
+          "Hardware, software, and networking",
+          "Latency, throughput, and bandwidth",
         ],
         correct: 1,
         explanation:
-          "Access means the same operations are available everywhere with reasonable performance, and includes the idea of data coherence — users see a consistent view regardless of where they access the system from.",
+          "Scalability covers: size (number of users/resources), geography (physical distance between nodes), and administration (number of organisations involved).",
       },
       {
         id: 23,
         question:
-          "Why is the performance of communication techniques critical in distributed systems?",
+          "Which sub-aspects fall under the goal of 'Performance' in a distributed system?",
         options: [
-          "Because communication is always faster than local processing",
-          "Because the entire system's performance depends on how reliably and quickly machines can exchange messages",
-          "Because distributed systems only use a single communication protocol",
-          "Because communication is only needed during system startup",
+          "Authentication, authorisation, and encryption",
+          "Location, replication, and failure",
+          "Latency, throughput, and resource allocation",
+          "Monitoring, debugging, and logging",
         ],
-        correct: 1,
+        correct: 2,
         explanation:
-          "Since machines in a distributed system coordinate entirely through message passing, the performance and reliability of that communication directly determines the overall system performance. Slow or unreliable communication bottlenecks everything.",
+          "Performance is measured via latency (response time), throughput (data processed per unit time), and resource allocation.",
       },
       {
         id: 24,
         question:
-          "A user in London and a user in Tokyo both edit the same shared spreadsheet at the same time. Which design issue does this primarily relate to?",
+          "The goal of 'Transparency' in a distributed system includes hiding which of the following from the user?",
         options: [
-          "Naming",
-          "Resource management",
-          "Consistency maintenance",
-          "Software structure",
+          "Location, replication, and failure",
+          "Cost, licensing, and vendor",
+          "Programming language, compiler, and IDE",
+          "Hardware brand, CPU model, and RAM size",
         ],
-        correct: 2,
+        correct: 0,
         explanation:
-          "Concurrent access to the same data from different locations is a consistency maintenance problem — the system must decide how to handle conflicting edits and ensure both users end up with a coherent result.",
+          "Transparency means hiding the distributed nature — covering location transparency, replication transparency, and failure transparency.",
       },
       {
         id: 25,
         question:
-          "A company moves a database from Server A to Server B, but all applications continue to access it using the same identifier without any changes. Which design issue does this demonstrate?",
+          "Which of the following is a sub-aspect of the Security goal in a distributed system?",
         options: [
-          "Access",
-          "Security",
-          "Naming",
-          "Resource management",
+          "Load balancing",
+          "Clock drift",
+          "Auditing",
+          "Data replication",
         ],
         correct: 2,
         explanation:
-          "This demonstrates good naming — the global name is independent of physical location. A name translation system maps the same identifier to the new location, so nothing breaks when the resource moves.",
+          "Security covers authentication, authorisation, encryption, and auditing. Load balancing is resource management, clock drift is scheduling.",
       },
       {
         id: 26,
         question:
-          "A streaming service notices that its US servers are at 95% capacity while its European servers are at 20%. What design issue needs to be addressed?",
+          "'Heterogeneity' as a challenge in distributed systems refers to:",
         options: [
-          "Consistency maintenance",
-          "Naming",
-          "Security",
-          "Resource management",
+          "All nodes running the same operating system and software",
+          "The variety and differences in networks, hardware, operating systems, programming languages, and developer implementations",
+          "The geographic spread of system nodes",
+          "The number of simultaneous users",
         ],
-        correct: 3,
+        correct: 1,
         explanation:
-          "This is a resource management / load balancing problem — the workload needs to be distributed more evenly across available resources so no single set of servers is overwhelmed while others sit idle.",
+          "Heterogeneity refers to the variety and differences across a distributed system — different networks, hardware, OSes, languages, and implementations.",
+      },
+      {
+        id: 27,
+        question:
+          "Which of the following is NOT an example of heterogeneity in distributed systems?",
+        options: [
+          "Different network protocols",
+          "Different operating systems",
+          "Different levels of user authentication",
+          "Different programming languages",
+        ],
+        correct: 2,
+        explanation:
+          "Different levels of user authentication relates to security, not heterogeneity. Heterogeneity covers networks, OS, hardware, languages, and implementations.",
+      },
+      {
+        id: 28,
+        question:
+          "In the context of DS challenges, 'Openness' refers to:",
+        options: [
+          "Making all source code publicly available",
+          "The ability of a system to be extended and re-implemented through well-defined interfaces",
+          "Allowing unrestricted access to all users",
+          "Using only open-source software components",
+        ],
+        correct: 1,
+        explanation:
+          "Openness is the challenge of designing a DS so it can be extended and integrated with other systems through well-defined, published interfaces.",
+      },
+      {
+        id: 29,
+        question:
+          "The challenge of 'Scheduling' in distributed systems involves which of the following concerns?",
+        options: [
+          "Authentication, authorisation, and encryption",
+          "Load balancing, synchronisation, and clock drift",
+          "Location, replication, and failure transparency",
+          "Size, geography, and administration",
+        ],
+        correct: 1,
+        explanation:
+          "Scheduling involves load balancing, synchronisation, and clock drift (the gradual divergence of clocks on different machines).",
+      },
+      {
+        id: 30,
+        question:
+          "Which types of transparency are specifically listed as challenges in distributed systems?",
+        options: [
+          "Cost, performance, and security transparency",
+          "Access, location, concurrency, replication, failure, and scaling transparency",
+          "Hardware, software, and network transparency",
+          "User, administrator, and developer transparency",
+        ],
+        correct: 1,
+        explanation:
+          "The six types are: access, location, concurrency, replication, failure, and scaling transparency.",
+      },
+      {
+        id: 31,
+        question:
+          "Which of the following is a challenge related to security in distributed systems?",
+        options: [
+          "Clock drift between nodes",
+          "Bottlenecks in decentralised systems and metadata growth",
+          "Geographic distribution of users",
+          "Differences in programming languages",
+        ],
+        correct: 1,
+        explanation:
+          "Security challenges include bottlenecks in decentralised systems and uncontrolled metadata growth.",
+      },
+      {
+        id: 32,
+        question:
+          "The 'Maintenance' challenge in distributed systems is primarily concerned with:",
+        options: [
+          "Upgrading hardware components",
+          "Monitoring and debugging",
+          "Replacing network cables",
+          "Training new users",
+        ],
+        correct: 1,
+        explanation:
+          "Maintenance is about monitoring system health and debugging problems across multiple distributed nodes.",
+      },
+      {
+        id: 33,
+        question:
+          "'Availability' as a goal of a distributed system is closely linked to which other concepts?",
+        options: [
+          "Heterogeneity and openness",
+          "Accessibility, replication, and fault tolerance",
+          "Latency, throughput, and resource allocation",
+          "Scheduling and load balancing",
+        ],
+        correct: 1,
+        explanation:
+          "Availability is closely linked to accessibility, replication, and fault tolerance — ensuring the system is accessible when needed.",
+      },
+      {
+        id: 34,
+        question:
+          "In a peer-to-peer (P2P) network using traditional desktop machines, what is a key concern for shared data availability?",
+        options: [
+          "Desktops always have faster processors than servers",
+          "Host machines may be powered off or disconnected at any time",
+          "P2P networks cannot transfer large files",
+          "Desktop machines cannot run network software",
+        ],
+        correct: 1,
+        explanation:
+          "Desktop machines may be powered off or disconnected at any time, making shared data unavailable — unlike dedicated always-on servers.",
+      },
+      {
+        id: 35,
+        question:
+          "How can data replication help address availability weaknesses in a P2P network?",
+        options: [
+          "By ensuring only one copy of data exists to avoid conflicts",
+          "By storing copies of data across multiple nodes so it remains accessible even if some hosts go offline",
+          "By encrypting all data so it cannot be lost",
+          "By routing all traffic through a central server",
+        ],
+        correct: 1,
+        explanation:
+          "Replication stores copies across multiple peers so data remains accessible even when some hosts go offline, though this introduces consistency challenges.",
+      },
+      {
+        id: 36,
+        question:
+          "Which of the following best describes 'Data Integrity' as a goal of a distributed system?",
+        options: [
+          "Ensuring data is transmitted as fast as possible",
+          "Ensuring data remains accurate, consistent, and unaltered during storage and transmission",
+          "Ensuring data is available to all users at all times",
+          "Ensuring data is stored in a single location for safety",
+        ],
+        correct: 1,
+        explanation:
+          "Data integrity ensures data remains accurate, consistent, and unaltered during storage, processing, and transmission.",
+      },
+      {
+        id: 37,
+        question:
+          "'Concurrency' as a goal of a distributed system is concerned with:",
+        options: [
+          "Ensuring only one process runs at a time",
+          "Multiple processes or users accessing shared resources simultaneously without conflict",
+          "Running all tasks sequentially for reliability",
+          "Limiting the number of users who can connect",
+        ],
+        correct: 1,
+        explanation:
+          "Concurrency supports multiple processes or users accessing shared resources simultaneously without conflict or inconsistency.",
+      },
+      {
+        id: 38,
+        question:
+          "Which challenge involves ensuring that replicated data remains consistent across all nodes?",
+        options: [
+          "Heterogeneity",
+          "Scheduling",
+          "Consistency and replication",
+          "Openness",
+        ],
+        correct: 2,
+        explanation:
+          "Consistency and replication is the challenge of ensuring all copies of data across nodes remain identical and up to date.",
       },
 
-      // --- P2P NETWORKS (from Week 1 Question Sheet) ---
+      // ===== QUESTION OF THE WEEK =====
       {
-        id: 13,
+        id: 39,
         question:
-          "What type of machines act as hosts in a peer-to-peer network?",
+          "In a P2P network using desktop computers, which of the following is a key reason shared data may become unavailable?",
         options: [
-          "Dedicated servers in data centres",
-          "Traditional desktop computers in users' homes or offices",
-          "Cloud-based virtual machines",
-          "Mainframe computers",
+          "Desktop computers cannot store large files",
+          "Users often turn their computers off when not using them or are away for extended periods",
+          "P2P protocols do not support file sharing",
+          "Desktop computers lack network interfaces",
         ],
         correct: 1,
         explanation:
-          "P2P networks rely on ordinary desktop machines rather than dedicated infrastructure — this is what creates many of the availability and trust challenges.",
+          "Users frequently turn off their computers when not using them and during extended absences, making any data stored on them unavailable to the network.",
       },
       {
-        id: 14,
+        id: 40,
         question:
-          "What was the original driving force behind peer-to-peer networking?",
+          "Why is the trustworthiness of participants a concern in a P2P network?",
         options: [
-          "Enterprise file storage",
-          "Video conferencing",
-          "Email communication",
-          "Music downloads",
-        ],
-        correct: 3,
-        explanation:
-          "Music sharing (e.g. Napster) was the original killer app for P2P. Users could tolerate occasional unavailability when downloading tracks.",
-      },
-      {
-        id: 15,
-        question:
-          "Which of the following is NOT identified as a risk of using home/office PCs as P2P hosts?",
-        options: [
-          "High server licensing costs",
-          "Extended user absences (holidays, travel)",
-          "Users turning their computers off",
-          "Network connections exposed to attack",
-        ],
-        correct: 0,
-        explanation:
-          "There are no server licensing costs in P2P — that's a client-server concern. The real P2P risks are around availability (machines off) and security (attacks, untrusted nodes).",
-      },
-      {
-        id: 16,
-        question:
-          "Why is the trustworthiness of P2P participants identified as a concern?",
-        options: [
-          "The owner of participating computers is likely unknown to other participants",
-          "They always use outdated software",
-          "They have unlimited bandwidth access",
-          "They are contractually required to share all files",
-        ],
-        correct: 0,
-        explanation:
-          "Because P2P participants are typically unknown to each other, their trustworthiness cannot be verified — and with current systems, owners have full control over the data on their machines.",
-      },
-      {
-        id: 17,
-        question: "How does replication address availability in P2P networks?",
-        options: [
-          "By using faster internet connections",
-          "By requiring all nodes to stay online 24/7",
-          "By spreading copies across many nodes so all being offline simultaneously is unlikely",
-          "By using dedicated backup servers",
+          "All participants must pass a background check before joining",
+          "Participants are typically known and verified by a central authority",
+          "The owner of a participating computer is likely unknown to other participants, so their trustworthiness cannot be established",
+          "P2P networks only allow trusted corporate users",
         ],
         correct: 2,
         explanation:
-          "If replicas are sufficiently widespread and numerous, the probability that ALL copies are unavailable at the same time can be reduced to a negligible level.",
+          "In a P2P network, the owner of a participating computer is likely unknown to other participants, so their trustworthiness and intentions cannot be verified.",
       },
       {
-        id: 18,
+        id: 41,
         question:
-          "What mechanism is used to verify data integrity across multiple replicas?",
+          "What control does the owner of a participating desktop have over shared data in a P2P network?",
         options: [
-          "Exchanging and comparing hashes of the data object",
-          "Manual file inspection",
-          "Sending duplicate copies via email",
-          "Running antivirus scans on each node",
+          "No control — the data is locked by the P2P protocol",
+          "Read-only access to shared objects",
+          "Full control — they may change or delete the data on their machine",
+          "Control is managed remotely by other peers",
         ],
-        correct: 0,
+        correct: 2,
         explanation:
-          "Nodes perform a consensus algorithm by exchanging hashes of the object's value and comparing them to detect inconsistencies or tampering.",
+          "With current hardware and operating systems, the owner of a peer machine has full control over the data on it and may change or delete shared objects.",
       },
       {
-        id: 19,
-        question: "How does a secure hash identifier work?",
-        options: [
-          "The file name is used as the unique ID",
-          "The object's ID is derived from its hash code",
-          "A random number is assigned when the file is uploaded",
-          "The uploader's IP address becomes the file ID",
-        ],
-        correct: 1,
-        explanation:
-          "The object's ID is derived from its hash code. When a client receives the object, it recalculates the hash and checks it matches the ID — if the data was tampered with, the hash won't match.",
-      },
-      {
-        id: 20,
+        id: 42,
         question:
-          "What type of attack are P2P network connections particularly vulnerable to?",
+          "Which type of attack is specifically mentioned as a threat to network connections between peers?",
         options: [
           "SQL injection",
-          "Cross-site scripting (XSS)",
           "Denial of Service (DoS) attacks",
-          "Man-in-the-browser attacks",
+          "Phishing attacks",
+          "Cross-site scripting",
+        ],
+        correct: 1,
+        explanation:
+          "Network connections between peers are exposed to attack, including Denial of Service (DoS) attacks that can disrupt availability.",
+      },
+      {
+        id: 43,
+        question:
+          "The severity of availability and security problems in a P2P network depends primarily on:",
+        options: [
+          "The number of peers in the network",
+          "The physical distance between peers",
+          "The application — some use cases tolerate delays better than others",
+          "The brand of hardware used",
         ],
         correct: 2,
         explanation:
-          "Network connections between peer computers are exposed to attack, with DoS attacks specifically highlighted as a vulnerability for P2P systems.",
+          "The importance varies by application — music downloads can tolerate delays, while file storage requires higher availability and integrity.",
+      },
+      {
+        id: 44,
+        question:
+          "How does widespread replication reduce the risk of data unavailability in a P2P network?",
+        options: [
+          "By compressing data so it transfers faster",
+          "By ensuring only one authoritative copy exists",
+          "By distributing enough copies that the probability of all being unavailable simultaneously becomes negligible",
+          "By storing all replicas on a single reliable server",
+        ],
+        correct: 2,
+        explanation:
+          "If data replicas are sufficiently widespread and numerous, the probability that all copies are unavailable simultaneously can be reduced to a negligible level.",
+      },
+      {
+        id: 45,
+        question:
+          "To ensure data integrity across multiple hosts in a P2P network, which technique is suggested?",
+        options: [
+          "Encrypting all data with a single shared password",
+          "A consensus algorithm that exchanges and compares hashes of the data object's value",
+          "Allowing each peer to maintain its own independent version",
+          "Restricting write access to the original uploader only",
+        ],
+        correct: 1,
+        explanation:
+          "Peers exchange hashes of a data object's value and compare them to establish agreement on the correct version, detecting tampering or accidental errors.",
+      },
+      {
+        id: 46,
+        question:
+          "In a Secure Hash identifier scheme, the object's ID is derived from:",
+        options: [
+          "The file name and creation date",
+          "The IP address of the host storing it",
+          "The hash code of the object's content",
+          "A random number assigned at upload",
+        ],
+        correct: 2,
+        explanation:
+          "A Secure Hash identifier derives the object's ID from a hash of its content — when received, the client recomputes the hash to verify integrity.",
+      },
+      {
+        id: 47,
+        question:
+          "When a client receives a data object in a hash-based P2P system, how is integrity verified?",
+        options: [
+          "The client checks the file size matches the expected value",
+          "The client recomputes the hash and checks it corresponds with the object's ID",
+          "The client asks the original uploader to confirm the data",
+          "The client compares the file name to a central directory",
+        ],
+        correct: 1,
+        explanation:
+          "The client recomputes the hash and checks it matches the object's ID. If they match, the data has not been altered.",
+      },
+      {
+        id: 48,
+        question:
+          "For which type of application are availability and data integrity concerns MORE important in a P2P network?",
+        options: [
+          "Casual music downloading where users can wait",
+          "Conventional applications such as file storage",
+          "Streaming background music playlists",
+          "Sharing publicly available news articles",
+        ],
+        correct: 1,
+        explanation:
+          "For conventional applications like file storage, where data integrity and immediate access are essential, these weaknesses become much more significant.",
       },
     ],
 
     flashcards: [
-      // --- CORE CONCEPTS ---
+      // ===== LECTURE 1 =====
       {
         id: 1,
-        front: "Give two definitions of a distributed system.",
-        back: "Coulouris: Hardware/software at networked computers that communicate and coordinate only by message passing.\n\nTanenbaum: A collection of independent computers that appears to users as a single computer.",
+        front: "What is a distributed system according to Tanenbaum?",
+        back: "A collection of independent computers that appear to the users of the system as a single computer.",
       },
       {
         id: 2,
-        front: "What are the three ways of doing things faster?",
-        back: "1) Work HARDER (brute force / crunch time)\n2) Work SMARTER (efficiency / shortcuts)\n3) Get HELP (collaboration / distribution)",
+        front: "What is a distributed system according to Coulouris?",
+        back: "Hardware or software components at networked computers that communicate and coordinate their actions only by message passing.",
       },
       {
         id: 3,
-        front: "How do the 'three ways to go faster' map to computing?",
-        back: "Work Harder = hardware performance (faster CPUs, more RAM)\nWork Smarter = better algorithms\nGet Help = distributed / parallel processing (multiple machines)",
+        front: "What are the two primary issues in distributed systems?",
+        back: "How do devices communicate (networking) and how do they interact (distributed software).",
       },
       {
         id: 4,
-        front: "Give six examples of distributed systems.",
-        back: "1) Network File System (NFS)\n2) The Web (page retrieval, CGI scripts)\n3) ATM / cash machines\n4) Network printers\n5) Distributed Shared Memory (DSM)\n6) Distributed objects (CORBA, Java RMI)",
+        front: "What does 'Work Harder' correspond to in computing?",
+        back: "Improving hardware performance, e.g. increasing processor clock speed.",
       },
-
-      // --- ISSUES ---
       {
         id: 5,
-        front: "Name the four key issues that must be addressed in distributed systems.",
-        back: "1) Costly communications — bandwidth and latency vs local processing\n2) Unreliable communications — messages lost, corrupted, machines unavailable\n3) Independent failure — system must keep working after partial failure\n4) Insecure communications — exposed to unauthorised / malicious access",
+        front: "What does 'Work Smarter' correspond to in computing?",
+        back: "Using more efficient algorithms to reduce the amount of work needed.",
       },
       {
         id: 6,
-        front: "What are the building blocks of DS communications?",
-        back: "Layered structure (OSI / TCP-IP):\n- Data link layer (bits on a wire)\n- Packet switching\n- Addressing and routing\n- Reliable data streams\n- RPC + higher protocols (HTTP, SNMP)\n\nBut DS is NOT strictly layered — mix and match as needed.",
+        front: "Give real-world examples of 'Working Smarter'.",
+        back: "Henry Ford's assembly line, McDonald's restaurants, racing lines in F1/athletics — all reduce the amount of work needed to accomplish a goal.",
       },
       {
         id: 7,
-        front: "What are the three levels of the DS road map?",
-        back: "1) FUNDAMENTALS (low-level): processes, threads, concurrency, synchronisation, RPC, naming, caching\n2) MIDDLEWARE (OS-level): scheduling, transactions, replication, fault-tolerance, persistence\n3) APPLICATION (high-level): DSM, distributed objects, security",
+        front: "What does 'Get Help' correspond to in computing?",
+        back: "Using distributed or parallel processing to divide work across multiple systems.",
       },
-
-      // --- DESIGN ISSUES ---
       {
         id: 8,
-        front: "Design Issue — NAMING: What is required?",
-        back: "Names must have GLOBAL meanings:\n- Independent of object location\n- Supported by a name translation system\n- Must scale and translate efficiently\n\nKey point: the same name works everywhere.",
+        front: "Give examples of distributed systems.",
+        back: "NFS, ATM machines, CORBA, Java RMI, DSM, Condor, NIS, ssh/telnet, network printers, web (page retrieval, CGI), network audio/video.",
       },
       {
         id: 9,
-        front: "Design Issue — ACCESS: What is required?",
-        back: "Same functions usable everywhere with reasonable performance.\n\nGlobal access includes DATA COHERENCE — all users see a consistent view of the data.",
+        front: "Describe the layered communications model.",
+        back: "OSI/TCP-IP layers: data link (bits on wire), packet switching, addressing/routing, reliable data streams, RPC and higher protocols (SNMP, HTTP).",
       },
       {
         id: 10,
-        front: "Design Issue — SOFTWARE STRUCTURE: What is openness?",
-        back: "Openness = software built with well-defined interfaces (APIs).\n\nData abstraction is important.\n\nKey challenge: design a framework that inter-works with existing AND new services without duplicating what already exists.",
+        front: "What is 'Independent Failure' in distributed systems?",
+        back: "The requirement that a distributed system continues working after failure of a network link or a remote computer.",
       },
       {
         id: 11,
-        front: "Design Issue — RESOURCE MANAGEMENT: What does it involve?",
-        back: "Deploying processing and communication resources to optimum effect for a changing workload.\n\nKey concept: LOAD BALANCING — distributing work evenly across available resources.",
+        front: "What are 'Costly Communications' in distributed systems?",
+        back: "Bandwidth and latencies are expensive when trying to match performance available to localised (single-box) processors.",
       },
       {
         id: 12,
-        front: "Design Issue — CONSISTENCY MAINTENANCE: What areas does it cover?",
-        back: "Consistency of:\n- Data (concurrent access)\n- Replication (fault tolerance)\n- Cache (performance / availability)\n- Failure handling (master/slave, e.g. DNS)\n- Time (synchronisation)\n- User Interface (ergonomics / usability)",
+        front: "What is a Remote Procedure Call (RPC)?",
+        back: "A higher-level communication protocol that allows a program to call a procedure on a remote machine as if it were local.",
       },
       {
         id: 13,
-        front: "Design Issue — SECURITY: What are the three components?",
-        back: "1) AUTHENTICATION — ensure users have the right to access resources\n2) ACCESS CONTROL — different levels of access for different users\n3) AUDITING — log every resource access as evidence (audit trail)",
+        front: "What are the fundamental DS elements?",
+        back: "Processes, threads, concurrency control, synchronisation, RPC, naming, caching, network protocols.",
       },
-
-      // --- SUMMARY ---
       {
         id: 14,
-        front: "Name four advantages of distributed systems.",
-        back: "1) Price vs performance (cheaper than one powerful machine)\n2) Lower application turnaround time\n3) Reliability (redundancy)\n4) Incremental growth as workload increases",
+        front: "What does the middleware layer include?",
+        back: "Scheduling, transactions, replication, fault-tolerance, persistence, high availability.",
       },
       {
         id: 15,
-        front: "Name four disadvantages of distributed systems.",
-        back: "1) Complexity of software (system and application level)\n2) Communications bottlenecks\n3) Weaker security (more attack surface)\n4) Reliability is also harder (failure modes are more complex)",
+        front: "What does the application layer include in DS?",
+        back: "Distributed Shared Memory, distributed objects, security, protected environments.",
       },
-
-      // --- P2P NETWORKS ---
       {
         id: 16,
-        front: "What type of machines act as hosts in a P2P network?",
-        back: "Traditional desktop computers in users' homes/offices — not dedicated servers.",
+        front: "What does the Naming design issue require?",
+        back: "Resource names must have global meaning, be independent of location, and be supported by an efficient name translation system.",
       },
       {
         id: 17,
-        front:
-          "Name three availability risks of using home/office PCs as P2P hosts.",
-        back: "1) Users turn machines off when not in use\n2) Extended absences (holidays, travel) cause prolonged downtime\n3) No guaranteed uptime — no obligation to stay online",
+        front: "What does the Access design issue require?",
+        back: "The same functions must be usable everywhere with reasonable performance, including an idea of data coherence across the system.",
       },
       {
         id: 18,
-        front: "Name three security/trust risks in a P2P network.",
-        back: "1) Identity of participants may be unknown — trustworthiness unverified\n2) Owners have full control — can modify or delete hosted data\n3) Network connections exposed to attacks (e.g. DoS)",
+        front: "What does the Communication design issue require?",
+        back: "The performance and reliability of communication techniques are critical to the overall performance of the distributed system.",
       },
       {
         id: 19,
-        front:
-          "Why does the impact of P2P risks depend on the application?",
-        back: "Low-stakes (e.g. music sharing) — users can wait for a host to come online.\nHigh-stakes (e.g. file storage) — availability and data integrity are critical.",
+        front: "What is 'Software Structure / Openness' in DS?",
+        back: "Designing software components with well-defined interfaces (APIs) that can inter-work with existing and new services.",
       },
       {
         id: 20,
-        front: "How does replication address availability in P2P?",
-        back: "By spreading copies across many nodes, the chance of ALL replicas being offline simultaneously becomes negligible.",
+        front: "What is 'Resource Management' in DS?",
+        back: "Deploying processing and communications resources optimally to handle a changing workload (load balancing).",
       },
       {
         id: 21,
-        front:
-          "How can data integrity be verified across multiple replicas?",
-        back: "Use a consensus algorithm — nodes exchange hashes of the data object and compare them to detect inconsistencies or tampering.",
+        front: "What does 'Consistency Maintenance' cover?",
+        back: "Ensuring coherent data, replication, caching, failure handling, consistent time, and user interface across a distributed system.",
       },
       {
         id: 22,
-        front: "What is a secure hash identifier and how does it work?",
-        back: "The object's ID is derived from its hash code. When received, the client recalculates the hash and checks it matches the ID. If tampered with, the hash won't match.",
+        front: "What is 'Authentication' in DS security?",
+        back: "Ensuring that users have the right to access resources in the distributed system.",
       },
       {
         id: 23,
-        front:
-          '"To what extent" does replication overcome P2P weaknesses?',
-        back: "Availability: very well (enough copies = near-constant access).\nIntegrity/Trust: needs additional mechanisms — consensus algorithms and hash-based verification. Replication alone is not enough.",
+        front: "What is 'Access Control' in DS security?",
+        back: "Providing different levels of access for different users.",
       },
       {
         id: 24,
-        front: "What are the two core risk categories in P2P networks?",
-        back: "1) Availability — nodes going offline unpredictably\n2) Integrity/Trust — nodes being untrustworthy, data being altered or corrupted",
+        front: "What is 'Auditing' in DS security?",
+        back: "Logging every access to a resource to create an audit trail for evidence and accountability.",
       },
       {
         id: 25,
-        front: "What is the fundamental trade-off of P2P vs client-server?",
-        back: "P2P trades the reliability and control of dedicated servers for decentralisation and shared resources across ordinary machines.",
+        front: "What are the advantages of distributed systems?",
+        back: "Better price-to-performance ratio, lower application turnaround, reliability, incremental growth.",
+      },
+      {
+        id: 26,
+        front: "What are the disadvantages of distributed systems?",
+        back: "Software complexity, communication bottlenecks, weaker security, reliability concerns.",
+      },
+
+      // ===== SEMINAR 1 =====
+      {
+        id: 27,
+        front: "What is Scalability as a goal of DS?",
+        back: "The ability of a DS to handle growth in three dimensions: size (number of users/resources), geography (physical distance between nodes), and administration (number of organisations involved).",
+      },
+      {
+        id: 28,
+        front: "What is Fault Tolerance as a goal of DS?",
+        back: "The ability of a DS to continue operating correctly even when components fail — encompasses reliability and tolerance of partial failures.",
+      },
+      {
+        id: 29,
+        front: "What is Efficiency as a goal of DS?",
+        back: "The ability of a DS to make optimal use of system resources without unnecessary waste.",
+      },
+      {
+        id: 30,
+        front: "How is Performance measured in DS?",
+        back: "Measured via latency (response time), throughput (data processed per unit time), and resource allocation (how well resources are distributed across tasks).",
+      },
+      {
+        id: 31,
+        front: "What is Data Integrity as a goal of DS?",
+        back: "Ensuring data remains accurate, consistent, and unaltered during storage, processing, and transmission across the distributed system.",
+      },
+      {
+        id: 32,
+        front: "What is Concurrency as a goal of DS?",
+        back: "Supporting multiple processes or users accessing shared resources simultaneously without conflict or inconsistency.",
+      },
+      {
+        id: 33,
+        front: "What is Transparency as a goal of DS?",
+        back: "Hiding the distributed nature of the system from users and applications — covers location transparency, replication transparency, and failure transparency.",
+      },
+      {
+        id: 34,
+        front: "What is Replication as a goal of DS?",
+        back: "Maintaining multiple copies of data or services across different nodes to improve availability, fault tolerance, and performance.",
+      },
+      {
+        id: 35,
+        front: "What is Availability as a goal of DS?",
+        back: "Ensuring the system and its resources are accessible when needed — closely linked to replication and fault tolerance.",
+      },
+      {
+        id: 36,
+        front: "What is the Security goal of DS?",
+        back: "Protecting the system through authentication (verifying identity), authorisation (granting permissions), encryption (protecting data in transit/at rest), and auditing (logging access).",
+      },
+      {
+        id: 37,
+        front: "What is Maintainability as a goal of DS?",
+        back: "The ease with which a DS can be monitored, updated, repaired, and evolved over time.",
+      },
+      {
+        id: 38,
+        front: "What is Heterogeneity as a challenge?",
+        back: "The variety and differences across a DS — includes different networks/protocols, computer hardware, operating systems, programming languages, and implementations by different developers.",
+      },
+      {
+        id: 39,
+        front: "What is Openness as a challenge?",
+        back: "The challenge of designing a DS so it can be extended and integrated with other systems through well-defined, published interfaces.",
+      },
+      {
+        id: 40,
+        front: "What specific security challenges exist in DS?",
+        back: "Specific challenges include bottlenecks in decentralised systems and uncontrolled metadata growth.",
+      },
+      {
+        id: 41,
+        front: "What is Scalability as a challenge?",
+        back: "The difficulty of maintaining performance and manageability as the system grows in users, resources, or geographic spread.",
+      },
+      {
+        id: 42,
+        front: "What is Fault Tolerance as a challenge?",
+        back: "Handling failures such as node crashes gracefully so the overall system continues to function.",
+      },
+      {
+        id: 43,
+        front: "What is Concurrency & Synchronisation as a challenge?",
+        back: "Managing simultaneous access to shared resources and keeping distributed processes coordinated.",
+      },
+      {
+        id: 44,
+        front: "Name the six types of transparency.",
+        back: "Access (hide differences in data access), Location (hide where resources are), Concurrency (hide that resources are shared), Replication (hide that data is copied), Failure (hide component failures), Scaling (hide system resizing).",
+      },
+      {
+        id: 45,
+        front: "What is Consistency & Replication as a challenge?",
+        back: "Ensuring that all copies of data across nodes remain identical and up to date, especially after updates.",
+      },
+      {
+        id: 46,
+        front: "What is Resource Management as a challenge?",
+        back: "Efficiently allocating and coordinating processing, storage, and network resources across distributed nodes.",
+      },
+      {
+        id: 47,
+        front: "What is the Scheduling challenge?",
+        back: "Coordinating task execution across nodes — involves load balancing, synchronisation, and handling clock drift between machines.",
+      },
+      {
+        id: 48,
+        front: "What is the Maintenance challenge?",
+        back: "The difficulty of monitoring system health and debugging problems across multiple distributed nodes.",
+      },
+      {
+        id: 49,
+        front: "What is Clock Drift?",
+        back: "The gradual divergence of clocks on different nodes in a DS, making synchronisation and event ordering difficult.",
+      },
+      {
+        id: 50,
+        front: "What is the P2P Availability Concern?",
+        back: "In peer-to-peer networks using desktop machines, hosts may be powered off or disconnected at any time, making shared data unavailable.",
+      },
+      {
+        id: 51,
+        front: "What is the P2P Security Concern?",
+        back: "Desktop machines in homes/offices typically lack enterprise-grade security, making shared data vulnerable to unauthorised access or tampering.",
+      },
+      {
+        id: 52,
+        front: "How does Data Replication mitigate P2P issues?",
+        back: "Storing copies of data across multiple peers so that data remains accessible even when some hosts go offline, though this introduces consistency challenges.",
+      },
+
+      // ===== QUESTION OF THE WEEK =====
+      {
+        id: 53,
+        front: "What is the P2P Availability Problem?",
+        back: "Users turn off desktop computers when not in use or away for extended periods, making any shared data stored on them unavailable to the network.",
+      },
+      {
+        id: 54,
+        front: "What is the Unknown Trustworthiness problem in P2P?",
+        back: "In a P2P network, the owner of a participating computer is likely unknown to other participants, so their trustworthiness and intentions cannot be verified.",
+      },
+      {
+        id: 55,
+        front: "What is the Owner Data Control Risk in P2P?",
+        back: "With current hardware and operating systems, the owner of a peer machine has full control over the data on it and may change or delete shared objects.",
+      },
+      {
+        id: 56,
+        front: "What is the DoS Attack Exposure in P2P?",
+        back: "Network connections between peers are exposed to attack, including Denial of Service (DoS) attacks that can disrupt availability.",
+      },
+      {
+        id: 57,
+        front: "Why is P2P severity application-dependent?",
+        back: "The importance of availability and security problems varies by application — music downloads can tolerate delays, while file storage requires higher availability and integrity.",
+      },
+      {
+        id: 58,
+        front: "How does replication address availability in P2P?",
+        back: "If data replicas are sufficiently widespread and numerous, the probability that all copies are unavailable simultaneously can be reduced to a negligible level.",
+      },
+      {
+        id: 59,
+        front: "What is a Consensus Algorithm for Integrity?",
+        back: "Peers exchange hashes of a data object's value and compare them to establish agreement on the correct version, detecting tampering or accidental errors.",
+      },
+      {
+        id: 60,
+        front: "What is a Secure Hash Identifier?",
+        back: "A scheme where an object's ID is derived from its hash code — when the object is received, the client recomputes the hash and checks it matches the ID to verify integrity.",
+      },
+      {
+        id: 61,
+        front: "What is the Replication Trade-off?",
+        back: "Replication addresses availability and integrity but increases the number of machines holding data (widening the attack surface) and introduces consistency challenges.",
       },
     ],
 
     shortAnswers: [
-      // --- LECTURE CONTENT ---
+      // ===== LECTURE 1 =====
       {
         id: 1,
         question:
-          "Define what a distributed system is, using two definitions from the literature, and explain how they differ in emphasis.",
-        marks: 4,
+          "What are the two primary issues when computer-based devices interact in a distributed system?",
+        marks: 2,
         markingGuide: [
-          "Coulouris definition: hardware/software at networked computers that communicate and coordinate only by message passing",
-          "Tanenbaum definition: a collection of independent computers that appears to users as a single computer",
-          "Coulouris emphasises the mechanism — communication happens through message passing only (no shared memory)",
-          "Tanenbaum emphasises the user's perspective — the distribution should be invisible to the user",
+          "How the devices communicate (networking)",
+          "How they interact (distributed software)",
         ],
-        hint: "Think about whether each definition focuses on how the system works internally or how it looks from the outside.",
+        hint: "Think about the difference between the physical connection and the software coordination.",
       },
       {
         id: 2,
         question:
-          "Describe the four key issues that must be addressed when building a distributed system.",
-        marks: 4,
+          "State the Tanenbaum definition of a distributed system.",
+        marks: 2,
         markingGuide: [
-          "Costly communications: bandwidth and latency are expensive compared to local processing within a single machine",
-          "Unreliable communications: connections may be unavailable, messages may be lost or corrupted, remote computers may be down",
-          "Independent failure: the distributed system needs to continue working even after failure of part of the network or individual computers",
-          "Insecure communications: network connections are exposed to unauthorised access that may be malicious",
+          "A collection of independent computers",
+          "That appear to the users of the system as a single computer",
         ],
-        hint: "Think about what could go wrong when you start connecting computers together over a network — cost, reliability, partial failure, and who might be listening.",
+        hint: "This definition focuses on the user's perspective.",
       },
       {
         id: 3,
         question:
-          "Explain the 'consistency maintenance' design issue, describing at least four areas where consistency must be maintained.",
-        marks: 5,
+          "Explain how 'Work Harder', 'Work Smarter', and 'Get Help' map to computing concepts.",
+        marks: 3,
         markingGuide: [
-          "Data consistency: managing concurrent access to the same data by multiple users or processes",
-          "Replication consistency: ensuring replicated copies of data remain consistent for fault tolerance",
-          "Cache consistency: keeping cached data consistent with the original for performance and availability",
-          "Failure consistency: maintaining consistent behaviour when components fail (e.g. master/slave relationships in DNS)",
-          "Time consistency: synchronising clocks across distributed nodes",
-          "User interface consistency: maintaining a consistent and usable interface (ergonomics/ease of use)",
+          "Work Harder = improving hardware performance",
+          "Work Smarter = using better algorithms",
+          "Get Help = distributed/parallel processing",
         ],
-        hint: "Think about all the different things that could get 'out of sync' when you have many computers working together — data, copies, cached versions, what happens during failures, and even time itself.",
+        hint: "Think about three different strategies for making something faster.",
       },
       {
         id: 4,
         question:
-          "Compare the advantages and disadvantages of distributed systems. Why might reliability appear on both lists?",
-        marks: 4,
+          "Give three examples of distributed systems mentioned in the lecture.",
+        marks: 3,
         markingGuide: [
-          "Advantages include: better price-to-performance ratio, lower application turnaround, reliability through redundancy, incremental growth",
-          "Disadvantages include: software complexity, communications bottlenecks, weaker security, reliability challenges",
-          "Reliability is an advantage because redundancy means the system can survive individual failures — if one node goes down, others continue",
-          "Reliability is also a disadvantage because failure modes in distributed systems are more complex — partial failures, network partitions, and inconsistent states are harder to handle than a single machine simply crashing",
+          "Any three from: NFS, ATM machines, web page retrieval, network printers, ssh/telnet, Java RMI, CORBA, NIS, DSM, network audio/video, Condor",
         ],
-        hint: "Think about what happens when one computer in a group of ten fails versus when a single standalone computer fails — there's a positive side and a much trickier side.",
+        hint: "Think about systems where multiple computers work together to provide a service.",
       },
-
-      // --- P2P CONTENT ---
       {
         id: 5,
         question:
-          "Explain two implications of using home desktop computers as hosts in a P2P network.",
+          "What are the four key issues that must be addressed in distributed systems?",
         marks: 4,
         markingGuide: [
-          "Availability issue: users turn their machines off when not in use, making data inaccessible",
-          "Availability issue: extended absences (holidays, travel) cause prolonged unavailability",
-          "Security/trust issue: participants are likely unknown, so trustworthiness cannot be verified",
-          "Security/trust issue: owners have full control over data and may modify or delete it",
-          "Security issue: network connections between peers are exposed to attacks including DoS",
+          "Costly communications — bandwidth and latency vs local processing",
+          "Unreliable communications — messages lost, corrupted, machines unavailable",
+          "Independent failure — system must keep working after partial failure",
+          "Insecure communications — exposed to unauthorised/malicious access",
         ],
-        hint: "Think about what happens when someone goes on holiday, and whether you'd trust a stranger with your data.",
+        hint: "Think about what could go wrong when connecting computers over a network.",
       },
       {
         id: 6,
         question:
-          "Describe how replication can overcome availability issues in a P2P network.",
+          "What does the Naming design issue require for resource names in a distributed system?",
         marks: 3,
         markingGuide: [
-          "Data is copied/replicated across multiple different nodes in the network",
-          "If replicas are sufficiently widespread and numerous, the chance of all being unavailable simultaneously is negligible",
-          "This means data remains accessible even when individual nodes go offline",
+          "Names must have global meaning",
+          "Be independent of resource location",
+          "Be supported by an efficient name translation system that scales well",
         ],
-        hint: "Consider what happens when you have many copies of something spread across many places.",
+        hint: "Think about what happens when a resource moves to a different server.",
       },
       {
         id: 7,
         question:
-          "Explain how secure hash identifiers help maintain data integrity in a P2P network.",
-        marks: 4,
+          "Why is distributed systems communication described as 'not so layered' compared to the OSI/TCP-IP model?",
+        marks: 2,
         markingGuide: [
-          "The object's ID is derived from / based on its hash code",
-          "The hash code acts as the address used to locate and identify the object",
-          "When a client receives the object, it recalculates the hash",
-          "The recalculated hash is compared with the ID to verify the data hasn't been tampered with",
+          "Because distributed systems mix and match protocols, APIs, and services as required",
+          "Rather than strictly following a layered hierarchy",
         ],
-        hint: "Think about how you might create a fingerprint for a piece of data that could be checked later.",
+        hint: "Think about the difference between strict network layers and practical DS communication.",
       },
       {
         id: 8,
         question:
-          "Why might P2P availability concerns matter more for file storage than for music downloads?",
+          "List the three elements of security design in distributed systems and briefly describe each.",
         marks: 3,
         markingGuide: [
-          "Music downloads: users can tolerate waiting for a host to come back online — delay is acceptable",
-          "File storage: requires reliable, consistent access to data — availability is critical",
-          "File storage: data integrity matters more — files may be important documents that cannot be lost or corrupted",
+          "Authentication — verifying users have the right to access resources",
+          "Access Control — assigning different levels of access to different users",
+          "Auditing — logging all resource access as an audit trail",
         ],
-        hint: "Think about the consequences of waiting for a song vs waiting for an important document.",
+        hint: "Think: Who are you? What can you do? What did you do?",
       },
       {
         id: 9,
         question:
-          "Describe the consensus approach to verifying data integrity across multiple hosts in a P2P network.",
+          "Name two advantages and two disadvantages of distributed systems.",
+        marks: 4,
+        markingGuide: [
+          "Advantages: better price-to-performance, lower turnaround, reliability, incremental growth",
+          "Disadvantages: software complexity, communication bottlenecks, weaker security, reliability concerns",
+        ],
+        hint: "Think about both the benefits of spreading work across machines and the complications it introduces.",
+      },
+      {
+        id: 10,
+        question:
+          "What is meant by 'consistency maintenance' in distributed systems? Give three specific concerns.",
+        marks: 4,
+        markingGuide: [
+          "Ensuring coherence across the system",
+          "Concerns include: concurrent data access, data replication for fault tolerance, cache management, failure handling, consistent time, and user interface consistency",
+        ],
+        hint: "Think about all the different things that could get 'out of sync'.",
+      },
+      {
+        id: 11,
+        question:
+          "What does 'resource management' refer to in the context of distributed systems design?",
+        marks: 2,
+        markingGuide: [
+          "Deploying processing and communications resources to optimum effect for handling a changing workload",
+          "Commonly known as load balancing",
+        ],
+        hint: "Think about distributing work evenly across available machines.",
+      },
+      {
+        id: 12,
+        question:
+          "Describe the three layers of the DS road map.",
         marks: 3,
         markingGuide: [
-          "Multiple hosts holding replicas exchange hashes of the data object's value",
-          "The exchanged hashes are compared with each other to check for consistency",
-          "If hashes match, the data is agreed upon as correct; if they differ, tampering or error is detected",
+          "Fundamentals: processes, threads, RPC, naming, caching, protocols",
+          "Middleware: scheduling, transactions, replication, fault-tolerance",
+          "Application: DSM, distributed objects, security",
         ],
-        hint: "Imagine several people each have a copy of a document — how could they check they all have the same version?",
+        hint: "Think about low-level building blocks, middle-layer services, and high-level applications.",
+      },
+      {
+        id: 13,
+        question:
+          "What does 'openness' mean in the context of distributed system software structure?",
+        marks: 2,
+        markingGuide: [
+          "Software components are designed with well-defined interfaces (APIs)",
+          "So they can interwork with both existing and new services without duplicating functionality",
+        ],
+        hint: "Think about how different software components can work together through standard interfaces.",
+      },
+      {
+        id: 14,
+        question:
+          "Why does 'getting help' in distributed computing come with risks?",
+        marks: 3,
+        markingGuide: [
+          "Adding more components introduces coordination overhead",
+          "Potential communication failures",
+          "Security vulnerabilities and increased software complexity",
+        ],
+        hint: "Think about what happens when you add more people to a project.",
+      },
+      {
+        id: 15,
+        question:
+          "What role does message passing play in the Coulouris definition of a distributed system?",
+        marks: 2,
+        markingGuide: [
+          "It is the sole mechanism by which hardware or software components at networked computers communicate and coordinate their actions",
+        ],
+        hint: "Focus on the word 'only' in Coulouris's definition.",
+      },
+      {
+        id: 16,
+        question:
+          "What does the 'Access' design issue require in a distributed system?",
+        marks: 2,
+        markingGuide: [
+          "The same functions must be usable everywhere with reasonable performance",
+          "The system must provide some idea of data coherence so that users see consistent data regardless of where they access it",
+        ],
+        hint: "Think about using the same service from different locations.",
+      },
+      {
+        id: 17,
+        question:
+          "Why is the Communication design issue considered critical in distributed systems?",
+        marks: 2,
+        markingGuide: [
+          "Because the performance and reliability of the communication techniques used directly determine the overall performance of the distributed system",
+        ],
+        hint: "Everything in a DS depends on how well machines can talk to each other.",
+      },
+      {
+        id: 18,
+        question:
+          "List the five layers of the building blocks communications model mentioned in the lecture.",
+        marks: 5,
+        markingGuide: [
+          "Data link layer (bits on a wire)",
+          "Packet switching",
+          "Addressing and routing",
+          "Reliable data streams",
+          "Higher-level protocols such as RPC, SNMP, and HTTP",
+        ],
+        hint: "Start from the lowest physical level and work up to application-level protocols.",
+      },
+      {
+        id: 19,
+        question:
+          "Give two real-world examples used in the lecture to illustrate the concept of 'Working Smarter'.",
+        marks: 2,
+        markingGuide: [
+          "Henry Ford's automobile assembly line",
+          "McDonald's restaurants — both reduce the work needed through more efficient processes",
+          "Racing lines in F1/athletics were also mentioned",
+        ],
+        hint: "Think about famous examples of efficiency improvements.",
+      },
+
+      // ===== SEMINAR 1 =====
+      {
+        id: 20,
+        question:
+          "List the key goals of a distributed system as presented in the seminar.",
+        marks: 4,
+        markingGuide: [
+          "The key goals are: scalability, fault tolerance, efficiency, performance, data integrity, concurrency, transparency, replication, availability, security, and maintainability",
+        ],
+        hint: "There are eleven goals — think about what you'd want from a system that uses multiple computers.",
+      },
+      {
+        id: 21,
+        question:
+          "Explain the three dimensions of scalability in a distributed system.",
+        marks: 3,
+        markingGuide: [
+          "Size scalability means handling more users and resources",
+          "Geographic scalability means operating across large physical distances",
+          "Administrative scalability means functioning across multiple organisational boundaries",
+        ],
+        hint: "Think about three different ways a system might need to grow.",
+      },
+      {
+        id: 22,
+        question:
+          "What is meant by 'transparency' as a goal of a distributed system, and what three aspects does it cover?",
+        marks: 4,
+        markingGuide: [
+          "Transparency means hiding the distributed nature of the system so it appears as a single coherent system",
+          "Location transparency — hiding where resources are",
+          "Replication transparency — hiding that data is copied",
+          "Failure transparency — hiding component failures from users",
+        ],
+        hint: "The user shouldn't know or care that the system is distributed.",
+      },
+      {
+        id: 23,
+        question:
+          "Describe the four sub-aspects of the Security goal in a distributed system.",
+        marks: 4,
+        markingGuide: [
+          "Authentication verifies user identity",
+          "Authorisation determines what permissions a user has",
+          "Encryption protects data in transit and at rest",
+          "Auditing logs all access to resources for accountability and evidence",
+        ],
+        hint: "Think: Who are you? What can you do? Is it protected? Is it logged?",
+      },
+      {
+        id: 24,
+        question:
+          "What does 'heterogeneity' mean as a challenge in distributed systems? Give three specific examples.",
+        marks: 4,
+        markingGuide: [
+          "Heterogeneity refers to the variety and differences that exist across a distributed system",
+          "Examples include different network protocols, different operating systems (e.g. Windows, Linux, macOS), different programming languages, different computer hardware, and implementations by different developers",
+        ],
+        hint: "Think about all the ways computers in a distributed system might be different from each other.",
+      },
+      {
+        id: 25,
+        question:
+          "List the six types of transparency identified as challenges in distributed systems and briefly explain each.",
+        marks: 6,
+        markingGuide: [
+          "Access transparency hides differences in how data is accessed",
+          "Location transparency hides where resources physically reside",
+          "Concurrency transparency hides that resources are being shared by multiple users",
+          "Replication transparency hides that data has been copied across nodes",
+          "Failure transparency hides that a component has failed",
+          "Scaling transparency hides that the system has been resized",
+        ],
+        hint: "Six things the system should hide from users — think about access, location, sharing, copies, failures, and growth.",
+      },
+      {
+        id: 26,
+        question:
+          "What specific security challenges are mentioned for distributed systems beyond the general security goal?",
+        marks: 2,
+        markingGuide: [
+          "Bottlenecks that arise in decentralised security systems",
+          "The uncontrolled growth of metadata",
+        ],
+        hint: "These are practical challenges, not the high-level security goals.",
+      },
+      {
+        id: 27,
+        question:
+          "What three concerns does the 'Scheduling' challenge in distributed systems involve?",
+        marks: 3,
+        markingGuide: [
+          "Load balancing — distributing work evenly across nodes",
+          "Synchronisation — coordinating processes",
+          "Clock drift — the gradual divergence of clocks on different machines, which makes event ordering difficult",
+        ],
+        hint: "Think about coordinating work, keeping things in sync, and the problem of time.",
+      },
+      {
+        id: 28,
+        question:
+          "Explain the difference between 'fault tolerance' as a goal and 'fault tolerance' as a challenge.",
+        marks: 3,
+        markingGuide: [
+          "As a goal, fault tolerance is the desired property that a system continues operating correctly despite component failures",
+          "As a challenge, it refers to the practical difficulty of implementing failure handling — detecting node crashes, rerouting work, and maintaining service continuity",
+        ],
+        hint: "One is what you want to achieve, the other is how hard it is to actually do it.",
+      },
+      {
+        id: 29,
+        question:
+          "How does 'replication' serve as both a goal and a source of challenges?",
+        marks: 4,
+        markingGuide: [
+          "As a goal, replication improves availability, fault tolerance, and performance by maintaining multiple copies of data",
+          "As a challenge, keeping all copies synchronised and consistent — especially after updates — is technically difficult and can introduce conflicts",
+        ],
+        hint: "Having copies is good for reliability, but keeping them all the same is hard.",
+      },
+      {
+        id: 30,
+        question:
+          "In a P2P network using traditional desktop machines, what are the implications for the availability of shared data?",
+        marks: 3,
+        markingGuide: [
+          "Desktop machines may be powered off, disconnected, or restarted at any time",
+          "Unlike dedicated servers, these hosts have no guaranteed uptime",
+          "So the availability of shared data objects is inherently unreliable",
+        ],
+        hint: "Think about what happens when you leave work and turn off your PC.",
+      },
+      {
+        id: 31,
+        question:
+          "In a P2P network using traditional desktop machines, what are the implications for the security of shared data?",
+        marks: 3,
+        markingGuide: [
+          "Desktop machines typically lack enterprise-grade security measures such as firewalls, intrusion detection, and physical security",
+          "This makes shared data vulnerable to unauthorised access, malware, and tampering",
+        ],
+        hint: "Compare a home PC to a professionally managed server in a data centre.",
+      },
+      {
+        id: 32,
+        question:
+          "How can data replication address the availability and security weaknesses in a P2P network, and what limitations does it introduce?",
+        marks: 4,
+        markingGuide: [
+          "Replication stores copies across multiple peers so data remains accessible even when some hosts go offline",
+          "It can improve resilience to data loss from individual machine failures",
+          "However, replication introduces consistency challenges — keeping all copies synchronised",
+          "It can worsen security concerns by increasing the number of machines that hold sensitive data",
+        ],
+        hint: "More copies help with availability but create new problems.",
+      },
+      {
+        id: 33,
+        question:
+          "Explain the relationship between 'availability' and 'fault tolerance' as goals of a distributed system.",
+        marks: 3,
+        markingGuide: [
+          "They are closely linked — availability ensures the system is accessible when needed",
+          "Fault tolerance ensures it keeps working when components fail",
+          "Fault tolerance directly supports availability: if the system tolerates a node failure without downtime, it remains available to users",
+        ],
+        hint: "If the system handles failures well, it stays available.",
+      },
+      {
+        id: 34,
+        question:
+          "What is meant by 'consistency and replication' as a challenge, and why is it difficult to achieve?",
+        marks: 3,
+        markingGuide: [
+          "It refers to ensuring that all replicated copies of data across different nodes remain identical and up to date",
+          "This is difficult because updates must be propagated to all replicas, and if nodes are temporarily unreachable or updates arrive in different orders, copies can diverge",
+        ],
+        hint: "Think about what happens when multiple copies of data are updated at the same time.",
+      },
+      {
+        id: 35,
+        question:
+          "Why is 'resource management' listed as a challenge in distributed systems?",
+        marks: 3,
+        markingGuide: [
+          "Processing, storage, and network resources are spread across multiple nodes with different capacities and workloads",
+          "Allocating and coordinating these resources efficiently — without bottlenecks or waste — requires complex decision-making",
+          "This complexity does not exist in a single-machine system",
+        ],
+        hint: "Managing resources across many machines is harder than managing one machine.",
+      },
+
+      // ===== QUESTION OF THE WEEK =====
+      {
+        id: 36,
+        question:
+          "Explain why shared data availability is a problem in P2P networks that use traditional desktop computers.",
+        marks: 3,
+        markingGuide: [
+          "Users frequently turn off their computers when not using them and during extended absences or transit",
+          "Since there is no dedicated always-on server, any data stored exclusively on that machine becomes completely unavailable to the network whenever it is offline",
+        ],
+        hint: "What happens to the data when the only computer storing it is turned off?",
+      },
+      {
+        id: 37,
+        question:
+          "Describe two security risks associated with shared data in a P2P network of desktop machines.",
+        marks: 4,
+        markingGuide: [
+          "The trustworthiness of participants is unknown — owners may tamper with or delete shared data since they have full control over their machines",
+          "Network connections between peers are exposed to attacks including DoS attacks, which can disrupt both availability and data transfer",
+        ],
+        hint: "Think about who controls the data and what can happen to the network connection.",
+      },
+      {
+        id: 38,
+        question:
+          "Why does the severity of P2P availability and security weaknesses depend on the application?",
+        marks: 3,
+        markingGuide: [
+          "For applications like music downloads, users can tolerate waiting for a host to come back online, so availability is less critical",
+          "For conventional applications like file storage, where data integrity and immediate access are essential, these weaknesses become much more significant",
+        ],
+        hint: "Compare waiting for a song versus waiting for an important document.",
+      },
+      {
+        id: 39,
+        question:
+          "Explain how replication reduces the probability of data being unavailable in a P2P network.",
+        marks: 3,
+        markingGuide: [
+          "By distributing copies of data across multiple peers, the system ensures that data remains accessible even if some hosts are offline",
+          "If replicas are sufficiently widespread and numerous, the probability that all copies are simultaneously unavailable drops to a negligible level",
+        ],
+        hint: "What are the chances that ALL copies are offline at the same time?",
+      },
+      {
+        id: 40,
+        question:
+          "Describe the consensus algorithm approach used to ensure data integrity across multiple hosts.",
+        marks: 3,
+        markingGuide: [
+          "Peers exchange hashes of a data object's value and compare them",
+          "If the hashes match, the data is considered consistent and untampered",
+          "This allows the network to detect both accidental corruption and deliberate tampering by establishing a consensus on the correct version",
+        ],
+        hint: "Think about how multiple people can verify they all have the same version of something.",
+      },
+      {
+        id: 41,
+        question:
+          "How does a Secure Hash identifier scheme work to verify data integrity in a P2P system?",
+        marks: 3,
+        markingGuide: [
+          "The object's ID is derived from a hash of its content",
+          "When a client receives the object, it recomputes the hash and checks that it corresponds with the ID",
+          "If they match, the data has not been altered; if they differ, the data has been tampered with or corrupted during transfer",
+        ],
+        hint: "The data's fingerprint IS its name — so you can always check if the name matches the data.",
+      },
+      {
+        id: 42,
+        question:
+          "What are the limitations of using replication to solve P2P security and availability problems?",
+        marks: 3,
+        markingGuide: [
+          "While replication improves availability, it increases the number of machines holding copies of data, which widens the attack surface for security threats",
+          "It also introduces consistency challenges — keeping all replicas synchronised after updates requires coordination, and conflicting versions may arise if peers modify data independently",
+        ],
+        hint: "More copies help availability but make security and consistency harder.",
       },
     ],
   },

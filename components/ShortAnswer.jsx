@@ -19,28 +19,72 @@ export default function ShortAnswer({ questions }) {
     setError(null);
 
     try {
-      const res = await fetch("/api/mark", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          question: question.question,
-          answer: answer.trim(),
-          marks: question.marks,
-          markingGuide: question.markingGuide,
-        }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        setError(data.error || "Something went wrong.");
+      const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
+      if (!apiKey) {
+        setError("OpenAI API key not configured.");
         return;
       }
 
-      setResult(data);
+      const systemPrompt = `You are a fair, encouraging academic marker for a university Distributed Systems module.
+
+You will receive a short-answer question, the total marks available, a marking guide listing the key points expected, and a student's answer.
+
+Your job:
+1. Assess which key points from the marking guide the student has addressed (even if worded differently).
+2. Award marks proportionally based on how many key points were covered.
+3. Provide constructive, encouraging feedback.
+
+Respond with ONLY valid JSON (no markdown, no backticks) in this exact format:
+{
+  "score": <number out of total marks>,
+  "feedback": "<2-3 sentences of encouraging, constructive feedback>",
+  "pointsHit": ["<key point covered>", ...],
+  "pointsMissed": ["<key point missed>", ...]
+}
+
+Be fair — give credit for correct understanding even if the wording isn't perfect. Round to the nearest 0.5 mark. Be warm and encouraging in tone.`;
+
+      const userPrompt = `Question: ${question.question}
+
+Total marks: ${question.marks}
+
+Key points to look for:
+${question.markingGuide.map((p, i) => `${i + 1}. ${p}`).join("\n")}
+
+Student's answer:
+${answer.trim()}`;
+
+      const res = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+          model: "gpt-4.1-nano",
+          messages: [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: userPrompt },
+          ],
+          temperature: 0.3,
+          max_completion_tokens: 800,
+        }),
+      });
+
+      if (!res.ok) {
+        setError("Failed to get AI feedback. Please try again.");
+        return;
+      }
+
+      const data = await res.json();
+      const content = data.choices[0].message.content.trim();
+      const cleaned = content.replace(/```json|```/g, "").trim();
+      const parsed = JSON.parse(cleaned);
+
+      setResult(parsed);
       setCompletedQuestions((prev) => ({
         ...prev,
-        [question.id]: { answer: answer.trim(), result: data },
+        [question.id]: { answer: answer.trim(), result: parsed },
       }));
     } catch (err) {
       setError("Network error. Check your connection and try again.");
