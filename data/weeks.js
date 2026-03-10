@@ -1,9 +1,12 @@
+import { week1Guide } from "./guides/week1";
+
 export const weeks = {
   1: {
     id: 1,
     title: "Introduction to Distributed Systems",
     subtitle: "Definitions, Design Issues, Goals, Challenges & P2P Networks",
     emoji: "🌐",
+    guide: week1Guide,
 
     mcqs: [
       // ===== LECTURE 1 =====

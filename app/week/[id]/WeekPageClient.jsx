@@ -8,10 +8,12 @@ import MCQ from "@/components/MCQ";
 import Flashcards from "@/components/Flashcards";
 import ShortAnswer from "@/components/ShortAnswer";
 import Teach from "@/components/Teach";
+import StudyGuide from "@/components/StudyGuide";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 
 const allTabs = [
-  { id: "learn", label: "Learn", emoji: "\u{1F4D6}", description: "Step-by-step guided lesson", requiresTeach: true },
+  { id: "guide", label: "Study Guide", emoji: "\u{1F4D6}", description: "Read through the material", requiresGuide: true },
+  { id: "learn", label: "Learn", emoji: "\u{1F9E0}", description: "Step-by-step guided lesson", requiresTeach: true },
   { id: "mcq", label: "MCQs", emoji: "\u{1F4DD}", description: "Test your knowledge" },
   { id: "flashcards", label: "Flashcards", emoji: "\u{1F3B4}", description: "Review key concepts" },
   { id: "short", label: "Short Answer", emoji: "\u270D\uFE0F", description: "AI-marked responses" },
@@ -21,8 +23,14 @@ export default function WeekPageClient() {
   const params = useParams();
   const weekId = parseInt(params.id);
   const week = weeks[weekId];
-  const tabs = allTabs.filter((t) => !t.requiresTeach || week?.teach);
-  const [activeTab, setActiveTab] = useState(week?.teach ? "learn" : "mcq");
+  const tabs = allTabs.filter((t) => {
+    if (t.requiresGuide) return !!week?.guide;
+    if (t.requiresTeach) return !!week?.teach;
+    return true;
+  });
+  const [activeTab, setActiveTab] = useState(
+    week?.guide ? "guide" : week?.teach ? "learn" : "mcq"
+  );
 
   if (!week) {
     return (
@@ -93,6 +101,7 @@ export default function WeekPageClient() {
           {/* Tab description */}
           <p className="text-sm text-slate mb-6">
             {tabs.find((t) => t.id === activeTab)?.description}
+            {activeTab === "guide" && week.guide && ` — ${week.guide.sections.length} sections`}
             {activeTab === "learn" && week.teach && ` — ${week.teach.nodes.length} topics, ${week.teach.nodes.reduce((s, n) => s + n.granules.length, 0)} concepts`}
             {activeTab === "mcq" && ` — ${week.mcqs.length} questions`}
             {activeTab === "flashcards" && ` — ${week.flashcards.length} cards`}
@@ -104,6 +113,7 @@ export default function WeekPageClient() {
           </p>
 
           {/* Active component */}
+          {activeTab === "guide" && week.guide && <StudyGuide guide={week.guide} />}
           {activeTab === "learn" && week.teach && <Teach teach={week.teach} />}
           {activeTab === "mcq" && <MCQ questions={week.mcqs} />}
           {activeTab === "flashcards" && <Flashcards cards={week.flashcards} />}
