@@ -1,5 +1,6 @@
 import { week1Guide } from "./guides/week1";
 import { week2Guide } from "./guides/week2";
+import { week3Guide } from "./guides/week3";
 
 export const weeks = {
   1: {
@@ -2314,6 +2315,634 @@ export const weeks = {
           "A single model cannot optimally handle all types of interaction (e.g. real-time streaming, file uploads, notifications all have different needs)",
         ],
         hint: "Think about why WhatsApp and Google Drive both use multiple models.",
+      },
+    ],
+  },
+
+  3: {
+    id: 3,
+    title: "Time & Coordination in Distributed Systems",
+    subtitle: "Clock Synchronization, Logical Clocks, Vector Clocks & Mutual Exclusion",
+    emoji: "⏰",
+    guide: week3Guide,
+
+    mcqs: [
+      // ===== LECTURE 3 =====
+      {
+        id: 1,
+        question:
+          "Why is clock synchronization important in distributed systems?",
+        options: [
+          "To ensure all nodes use the same programming language",
+          "To measure delays, order events, and maintain consistent state",
+          "To reduce the number of nodes in the network",
+          "To eliminate the need for message passing",
+        ],
+        correct: 1,
+        explanation:
+          "Clock synchronization is needed to measure delays between components, order events consistently, synchronize streams, timestamp transactions, and support security protocols.",
+      },
+      {
+        id: 2,
+        question: "Clock skew refers to:",
+        options: [
+          "The rate at which a clock deviates from a reference over time",
+          "The instantaneous difference between two clock values",
+          "The maximum message transmission delay",
+          "The time taken to execute a process step",
+        ],
+        correct: 1,
+        explanation:
+          "Clock skew is the instantaneous difference between the values of two clocks at any given moment. Clock drift is the rate of deviation over time.",
+      },
+      {
+        id: 3,
+        question: "Clock drift rate measures:",
+        options: [
+          "The difference between two clocks at a single moment",
+          "The difference per unit of time from an ideal reference clock",
+          "The total number of clock ticks per second",
+          "The latency of network messages",
+        ],
+        correct: 1,
+        explanation:
+          "Drift rate is the difference per unit of time from some ideal reference clock — it describes how quickly a clock gains or loses time.",
+      },
+      {
+        id: 4,
+        question:
+          "External synchronization means synchronizing clocks to:",
+        options: [
+          "Each other (no external source)",
+          "An authoritative external time source like UTC",
+          "The fastest clock in the network",
+          "The slowest clock in the network",
+        ],
+        correct: 1,
+        explanation:
+          "External synchronization means each clock is synchronized to an authoritative external source such as UTC, within a bound D.",
+      },
+      {
+        id: 5,
+        question:
+          "If all clocks are externally synchronized within bound D of UTC, the maximum skew between any two clocks is:",
+        options: ["D", "2D", "D/2", "D²"],
+        correct: 1,
+        explanation:
+          "If each clock is within D of UTC, in the worst case one is +D and another is −D from UTC, giving a maximum inter-clock skew of 2D.",
+      },
+      {
+        id: 6,
+        question: "A synchronous distributed system has known bounds for:",
+        options: [
+          "Clock drift rate, message delay, and process execution time",
+          "Number of processes, memory size, and disk speed",
+          "Programming language, operating system, and hardware",
+          "Network bandwidth, CPU cores, and RAM",
+        ],
+        correct: 0,
+        explanation:
+          "A synchronous system has known upper bounds on clock drift rate, maximum message transmission delay, and time to execute each step.",
+      },
+      {
+        id: 7,
+        question: "In Cristian's algorithm, the client estimates the one-way network delay as:",
+        options: [
+          "t1 − t0",
+          "(t1 − t0) / 2",
+          "t0 + t1",
+          "min × 2",
+        ],
+        correct: 1,
+        explanation:
+          "Cristian's algorithm estimates one-way delay as half the round-trip time: (t1 − t0) / 2, where t0 is the send time and t1 is the receive time.",
+      },
+      {
+        id: 8,
+        question: "A key limitation of Cristian's algorithm is:",
+        options: [
+          "It requires all nodes to participate",
+          "The time server is a single point of failure",
+          "It only works on LANs",
+          "It cannot handle UTC time",
+        ],
+        correct: 1,
+        explanation:
+          "Cristian's algorithm relies on a single time server — if it fails, synchronization stops. It also does not deal with faulty servers.",
+      },
+      {
+        id: 9,
+        question: "The Berkeley algorithm is an example of:",
+        options: [
+          "External synchronization",
+          "Internal synchronization",
+          "Logical time ordering",
+          "Vector clock synchronization",
+        ],
+        correct: 1,
+        explanation:
+          "Berkeley is an internal synchronization algorithm — it averages clock values among participating nodes without requiring an external UTC source.",
+      },
+      {
+        id: 10,
+        question: "In the Berkeley algorithm, the master node:",
+        options: [
+          "Sets all clocks to its own time",
+          "Polls slaves, computes an average, and sends adjustments",
+          "Forwards UTC signals to all slaves",
+          "Increments a logical counter on each slave",
+        ],
+        correct: 1,
+        explanation:
+          "The master polls all slaves for their clock values, estimates their actual times using round-trip measurements, computes an average, and sends each node the required adjustment.",
+      },
+      {
+        id: 11,
+        question: "What happens if the master in the Berkeley algorithm fails?",
+        options: [
+          "All clocks stop immediately",
+          "A new master can be elected to take over",
+          "The system switches to external synchronization",
+          "All slaves reset their clocks to zero",
+        ],
+        correct: 1,
+        explanation:
+          "If the master fails, a new master can be elected from the remaining nodes to continue the synchronization process.",
+      },
+      {
+        id: 12,
+        question: "NTP organizes time servers into a hierarchy called:",
+        options: ["Layers", "Tiers", "Strata", "Levels"],
+        correct: 2,
+        explanation:
+          "NTP uses a stratum hierarchy. Stratum 1 servers connect directly to reference clocks; higher stratum numbers are further from the source and generally less accurate.",
+      },
+      {
+        id: 13,
+        question: "Which NTP synchronization mode is best suited for high-speed LANs?",
+        options: [
+          "Symmetric",
+          "Procedure-call",
+          "Multicast",
+          "Broadcast",
+        ],
+        correct: 2,
+        explanation:
+          "Multicast mode is designed for high-speed LANs where a server multicasts time to all clients on the network.",
+      },
+      {
+        id: 14,
+        question: "NTP achieves accuracy of approximately:",
+        options: [
+          "1 second over the Internet",
+          "10ms over the Internet, ~1ms on LANs",
+          "1 microsecond everywhere",
+          "100ms on LANs only",
+        ],
+        correct: 1,
+        explanation:
+          "NTP achieves synchronisation accuracy of tens of milliseconds over Internet paths and approximately 1 millisecond on LANs.",
+      },
+      {
+        id: 15,
+        question: "Lamport introduced logical time because:",
+        options: [
+          "Physical clocks are too expensive",
+          "Physical clocks cannot be perfectly synchronized in distributed systems",
+          "Logical time is faster to compute",
+          "UTC was not yet invented",
+        ],
+        correct: 1,
+        explanation:
+          "Lamport (1978) introduced logical time because clocks cannot be perfectly synchronized across distributed systems, so he proposed abandoning physical time in favour of causal event ordering.",
+      },
+      {
+        id: 16,
+        question: "The happened-before relation (→) is:",
+        options: [
+          "A total order on all events",
+          "A partial order on events reflecting causal flow",
+          "An equivalence relation",
+          "Only applicable to events at the same process",
+        ],
+        correct: 1,
+        explanation:
+          "The happened-before relation is a partial order — it captures causal relationships but not all events are comparable (some are concurrent).",
+      },
+      {
+        id: 17,
+        question:
+          "Two events a and b are concurrent (a || b) when:",
+        options: [
+          "a → b",
+          "b → a",
+          "Neither a → b nor b → a",
+          "They happen at the same physical time",
+        ],
+        correct: 2,
+        explanation:
+          "Events are concurrent when there is no causal chain connecting them — neither happened before the other.",
+      },
+      {
+        id: 18,
+        question: "In Lamport clocks, rule LC1 states:",
+        options: [
+          "Set the clock to the received timestamp",
+          "Increment Li by 1 before each event at process pi",
+          "Take the maximum of all clock values",
+          "Reset the clock after each message send",
+        ],
+        correct: 1,
+        explanation:
+          "LC1: Li is incremented by 1 before each event at process pi, ensuring a monotonically increasing counter.",
+      },
+      {
+        id: 19,
+        question:
+          "When process pj receives message (m, t) with Lamport clocks, it sets Lj to:",
+        options: [
+          "t",
+          "Lj + 1",
+          "max(Lj, t) + 1",
+          "t + Lj",
+        ],
+        correct: 2,
+        explanation:
+          "On receiving (m, t), pj sets Lj := max(Lj, t) and then increments by 1 (applying LC1) before timestamping the receive event.",
+      },
+      {
+        id: 20,
+        question:
+          "The key limitation of Lamport clocks is:",
+        options: [
+          "They are too slow to compute",
+          "L(e) < L(e') does NOT imply e → e'",
+          "They require physical clock access",
+          "They only work with two processes",
+        ],
+        correct: 1,
+        explanation:
+          "While e → e' implies L(e) < L(e'), the converse is not true. Lamport clocks cannot determine whether two events are causally related or concurrent just from their timestamps.",
+      },
+      {
+        id: 21,
+        question: "Vector clocks overcome Lamport clocks by:",
+        options: [
+          "Using physical time alongside logical time",
+          "Maintaining an array of N integers to detect concurrency",
+          "Using a single global counter",
+          "Eliminating the need for message passing",
+        ],
+        correct: 1,
+        explanation:
+          "Vector clocks maintain an array of N integers (one per process), which allows them to determine both causal ordering and concurrency between events.",
+      },
+      {
+        id: 22,
+        question:
+          "In vector clocks, events a and b are concurrent if:",
+        options: [
+          "V(a) < V(b)",
+          "V(b) < V(a)",
+          "V(a) = V(b)",
+          "Neither V(a) ≤ V(b) nor V(b) ≤ V(a)",
+        ],
+        correct: 3,
+        explanation:
+          "Two events are concurrent when their vector timestamps are incomparable — neither is element-wise less than or equal to the other.",
+      },
+      {
+        id: 23,
+        question:
+          "With vector clocks, V(a) < V(b) means:",
+        options: [
+          "a and b are concurrent",
+          "b happened before a",
+          "a happened before b",
+          "a and b are at the same process",
+        ],
+        correct: 2,
+        explanation:
+          "V(a) < V(b) (all elements of V(a) ≤ corresponding elements of V(b), with at least one strict inequality) means a → b.",
+      },
+      {
+        id: 24,
+        question:
+          "What is mutual exclusion in distributed systems?",
+        options: [
+          "Allowing multiple processes to access a resource simultaneously",
+          "Ensuring only one process can access a shared resource at a time",
+          "Preventing all communication between processes",
+          "Replicating resources across all nodes",
+        ],
+        correct: 1,
+        explanation:
+          "Mutual exclusion ensures that only one process can access a shared resource at a time, preventing conflicts.",
+      },
+      {
+        id: 25,
+        question:
+          "The main disadvantage of centralized mutual exclusion is:",
+        options: [
+          "It is too complex to implement",
+          "It requires voting from all nodes",
+          "The coordinator is a single point of failure",
+          "It uses token passing",
+        ],
+        correct: 2,
+        explanation:
+          "Centralized mutual exclusion relies on a single coordinator — if it fails, the entire system loses the ability to manage resource access.",
+      },
+      {
+        id: 26,
+        question:
+          "In voting-based decentralized mutual exclusion, a process can access the resource when it receives:",
+        options: [
+          "Permission from any single node",
+          "A majority vote from multiple nodes",
+          "A token from the coordinator",
+          "A broadcast acknowledgement",
+        ],
+        correct: 1,
+        explanation:
+          "In the voting-based approach, a process must receive permission from a majority of nodes before it can access the shared resource.",
+      },
+      {
+        id: 27,
+        question:
+          "In token-based mutual exclusion, the main risk is:",
+        options: [
+          "Too many tokens being created",
+          "The token being lost",
+          "Deadlock from voting",
+          "Clock drift affecting the token",
+        ],
+        correct: 1,
+        explanation:
+          "If the unique token is lost (e.g. the holding process crashes), recovery mechanisms are needed to regenerate it.",
+      },
+    ],
+
+    flashcards: [
+      {
+        front: "What is clock skew?",
+        back: "The instantaneous difference between the values of two clocks at any given moment.",
+      },
+      {
+        front: "What is clock drift?",
+        back: "The rate at which a clock deviates from a reference clock over time, measured as drift rate (difference per unit of time from an ideal clock).",
+      },
+      {
+        front: "What is UTC?",
+        back: "Coordinated Universal Time — the international time standard used as the reference for clock synchronization, maintained by atomic clocks.",
+      },
+      {
+        front: "What is external synchronization?",
+        back: "Synchronizing each clock to an authoritative external source (e.g. UTC) such that |S(t) − Ci(t)| < D.",
+      },
+      {
+        front: "What is internal synchronization?",
+        back: "Synchronizing clocks with each other (no external source) such that |Ci(t) − Cj(t)| < D for every pair.",
+      },
+      {
+        front: "Does external synchronization imply internal synchronization?",
+        back: "Yes. If all clocks are within D of UTC, they are within 2D of each other. But internal synchronization does NOT imply external.",
+      },
+      {
+        front: "What defines a synchronous distributed system?",
+        back: "Known upper bounds on: (1) clock drift rate, (2) maximum message transmission delay, (3) time to execute each step.",
+      },
+      {
+        front: "How does Cristian's algorithm estimate network delay?",
+        back: "It records t0 (request sent) and t1 (reply received), and estimates one-way delay as (t1 − t0) / 2.",
+      },
+      {
+        front: "What is the accuracy bound of Cristian's algorithm?",
+        back: "±((t1 − t0)/2 − min), where min is the minimum known transit time.",
+      },
+      {
+        front: "What are the limitations of Cristian's algorithm?",
+        back: "Single point of failure (one time server), does not handle faulty servers, assumes symmetric network delays.",
+      },
+      {
+        front: "How does the Berkeley algorithm work?",
+        back: "A master polls slaves for clock values, estimates their times using round-trip, computes the average, and sends adjustments to each node.",
+      },
+      {
+        front: "What happens if the Berkeley master fails?",
+        back: "A new master can be elected from the remaining nodes to take over the synchronization role.",
+      },
+      {
+        front: "Cristian's vs Berkeley: key difference?",
+        back: "Cristian's = external synchronization (uses UTC server). Berkeley = internal synchronization (averages peer clocks, no external source needed).",
+      },
+      {
+        front: "What is the NTP stratum hierarchy?",
+        back: "Stratum 1: directly connected to UTC/atomic clocks. Stratum 2: synced to stratum 1. Stratum 3: synced to stratum 2. Higher = less accurate.",
+      },
+      {
+        front: "What are NTP's three synchronization modes?",
+        back: "Multicast (high-speed LAN), Procedure-call (like Cristian's), Symmetric (between server pairs for highest accuracy). All use UDP.",
+      },
+      {
+        front: "What accuracy does NTP achieve?",
+        back: "~10 milliseconds over Internet paths, ~1 millisecond on LANs.",
+      },
+      {
+        front: "Why did Lamport introduce logical time?",
+        back: "Because physical clocks cannot be perfectly synchronized, so he proposed using causal event ordering instead of physical timestamps.",
+      },
+      {
+        front: "What is the happened-before relation (→)?",
+        back: "A partial order on events: e → e' if (1) same process and e is first, (2) e is a send and e' is the receive, or (3) transitivity.",
+      },
+      {
+        front: "What does it mean for events to be concurrent (a || b)?",
+        back: "Neither a → b nor b → a — there is no causal chain connecting them.",
+      },
+      {
+        front: "What are the two rules for Lamport clocks?",
+        back: "LC1: Increment Li by 1 before each event. LC2: On send, piggyback t = Li; on receive (m,t), set Lj := max(Lj, t) then increment.",
+      },
+      {
+        front: "Key property of Lamport clocks?",
+        back: "e → e' implies L(e) < L(e'). But the converse is NOT true: L(e) < L(e') does not imply e → e'. Cannot detect concurrency.",
+      },
+      {
+        front: "How do vector clocks improve on Lamport clocks?",
+        back: "They use an array of N integers instead of a single counter, which allows detection of both causal ordering AND concurrency.",
+      },
+      {
+        front: "What are the vector clock rules?",
+        back: "VC1: All zeros initially. VC2: Increment own element before each event. VC3: Include full vector on messages. VC4: On receive, take element-wise max then increment own.",
+      },
+      {
+        front: "How do you compare vector timestamps?",
+        back: "V(a) ≤ V(b) if all elements of V(a) ≤ V(b). If V(a) < V(b), then a → b. If neither V(a) ≤ V(b) nor V(b) ≤ V(a), then a || b.",
+      },
+      {
+        front: "What is mutual exclusion?",
+        back: "Ensuring only one process can access a shared resource at a time, preventing conflicts from concurrent access.",
+      },
+      {
+        front: "How does centralized mutual exclusion work?",
+        back: "A coordinator manages access: processes request access, coordinator grants or queues, process releases when done, next in queue is granted.",
+      },
+      {
+        front: "Pros and cons of centralized mutual exclusion?",
+        back: "Pros: simple, fair, avoids conflicts. Cons: single point of failure — if coordinator crashes, system stops.",
+      },
+      {
+        front: "What is voting-based decentralized mutual exclusion?",
+        back: "A process requests permission from multiple nodes and must receive a majority vote before accessing the resource. No single point of failure but slower.",
+      },
+      {
+        front: "What is token-based mutual exclusion?",
+        back: "A unique token circulates among processes; only the holder can access the resource. Fast (one message to transfer) but token loss requires recovery.",
+      },
+    ],
+
+    shortAnswer: [
+      {
+        id: 1,
+        question:
+          "Explain why clock synchronization is important in distributed systems. Give three specific examples.",
+        marks: 3,
+        markingGuide: [
+          "Measuring delays between distributed components requires synchronized clocks",
+          "Ordering events consistently to maintain a correct global state",
+          "Business transactions, security protocols, and real-time stream synchronization all depend on accurate time",
+        ],
+        hint: "Think about what goes wrong if clocks disagree.",
+      },
+      {
+        id: 2,
+        question:
+          "Define clock skew and clock drift. Explain the difference between them.",
+        marks: 3,
+        markingGuide: [
+          "Clock skew: instantaneous difference between two clock values at a given moment",
+          "Clock drift: rate at which a clock deviates from a reference over time (drift rate)",
+          "Skew is a snapshot difference; drift is the ongoing rate of divergence",
+        ],
+        hint: "One is a measurement at a point in time, the other is a rate.",
+      },
+      {
+        id: 3,
+        question:
+          "Compare external and internal clock synchronization. Does one imply the other?",
+        marks: 4,
+        markingGuide: [
+          "External: each clock synced to an authoritative source (UTC) within bound D",
+          "Internal: clocks synced with each other within bound D",
+          "External implies internal (within 2D), but internal does NOT imply external",
+          "Clear explanation of why the implication is one-directional",
+        ],
+        hint: "If all clocks are within D of UTC, what's the worst-case difference between two clocks?",
+      },
+      {
+        id: 4,
+        question:
+          "Describe Cristian's algorithm. Include the formula for estimating the time and its accuracy bound.",
+        marks: 4,
+        markingGuide: [
+          "Client sends request, records t0 (send time) and t1 (receive time)",
+          "Server returns its current time in the reply",
+          "Client sets clock to server_time + (t1 − t0)/2",
+          "Accuracy: ±((t1 − t0)/2 − min) where min is minimum transit time",
+        ],
+        hint: "Think about what t0, t1, and min represent.",
+      },
+      {
+        id: 5,
+        question:
+          "Describe the Berkeley algorithm and explain how it differs from Cristian's method.",
+        marks: 4,
+        markingGuide: [
+          "Master polls slaves for clock values, estimates their times using round-trip",
+          "Master computes average and sends adjustments (not absolute times)",
+          "Cristian's is external (uses UTC server); Berkeley is internal (averages peers)",
+          "Berkeley can elect a new master if the current one fails",
+        ],
+        hint: "Focus on where the 'reference time' comes from in each algorithm.",
+      },
+      {
+        id: 6,
+        question:
+          "Explain the NTP stratum hierarchy and its three synchronization modes.",
+        marks: 4,
+        markingGuide: [
+          "Stratum 1 = primary servers connected to UTC/atomic clocks; higher strata = less accurate",
+          "Multicast mode for high-speed LANs",
+          "Procedure-call mode similar to Cristian's algorithm",
+          "Symmetric mode between server pairs for highest accuracy; all use UDP",
+        ],
+        hint: "Think about the trade-off between accuracy and scalability at each stratum level.",
+      },
+      {
+        id: 7,
+        question:
+          "Define the happened-before relation (→). Give an example of concurrent events.",
+        marks: 3,
+        markingGuide: [
+          "Partial order: e → e' if same-process ordering, send→receive, or transitivity",
+          "Concurrent events: neither a → b nor b → a (no causal chain connects them)",
+          "Example: events at different processes with no message chain between them",
+        ],
+        hint: "Consider two processes that never exchange messages.",
+      },
+      {
+        id: 8,
+        question:
+          "State the two rules for Lamport logical clocks (LC1 and LC2). What is the key limitation?",
+        marks: 4,
+        markingGuide: [
+          "LC1: Increment Li by 1 before each event at process pi",
+          "LC2a: On send, piggyback t = Li; LC2b: On receive (m,t), set Lj := max(Lj, t) then increment",
+          "e → e' implies L(e) < L(e')",
+          "Limitation: L(e) < L(e') does NOT imply e → e' — cannot detect concurrency",
+        ],
+        hint: "Think about what you can and cannot infer from comparing two Lamport timestamps.",
+      },
+      {
+        id: 9,
+        question:
+          "Explain how vector clocks improve on Lamport clocks. State the rules (VC1–VC4).",
+        marks: 5,
+        markingGuide: [
+          "Use an array of N integers instead of a single counter",
+          "VC1: Initially all zeros; VC2: Increment own element before each event",
+          "VC3: Include full vector on every message; VC4: On receive, take element-wise max then increment",
+          "Can determine both causal ordering and concurrency from timestamps",
+          "V(a) < V(b) ↔ a → b; incomparable timestamps mean concurrent events",
+        ],
+        hint: "Focus on what information is preserved that Lamport clocks lose.",
+      },
+      {
+        id: 10,
+        question:
+          "Compare centralized and decentralized approaches to mutual exclusion in distributed systems.",
+        marks: 4,
+        markingGuide: [
+          "Centralized: single coordinator manages a queue — simple but single point of failure",
+          "Decentralized voting: majority agreement needed — no single point of failure but slower",
+          "Decentralized token: circulate a unique token — fast but risk of token loss",
+          "Trade-off between simplicity/performance and fault tolerance",
+        ],
+        hint: "Think about what happens when a node crashes in each approach.",
+      },
+      {
+        id: 11,
+        question:
+          "A system has three processes. Using Lamport clocks (all starting at 0): p1 has event a then sends m1 to p2, p2 receives m1 (event c) then has event d, p3 has event e then receives m2 from p2 after d. What are the Lamport timestamps for events a, c, d, and f (receive of m2)?",
+        marks: 4,
+        markingGuide: [
+          "a at p1: L = 1 (increment before event)",
+          "p1 sends m1 after b at L=2, piggybacking t=2",
+          "c at p2: max(0, 2) + 1 = 3",
+          "d at p2: L = 4; f at p3 receiving m2 with t=4: max(L_p3, 4) + 1",
+        ],
+        hint: "Apply LC1 and LC2 step by step. Remember to take the max before incrementing on receive.",
       },
     ],
   },
