@@ -1,4 +1,5 @@
 import { week1Guide } from "./guides/week1";
+import { week2Guide } from "./guides/week2";
 
 export const weeks = {
   1: {
@@ -1492,6 +1493,827 @@ export const weeks = {
           "It also introduces consistency challenges — keeping all replicas synchronised after updates requires coordination, and conflicting versions may arise if peers modify data independently",
         ],
         hint: "More copies help availability but make security and consistency harder.",
+      },
+    ],
+  },
+
+  2: {
+    id: 2,
+    title: "Communication Models in Distributed Systems",
+    subtitle: "Message Passing, RPC, Pub-Sub, P2P, Streaming & Synchronous vs Asynchronous",
+    emoji: "📡",
+    guide: week2Guide,
+
+    mcqs: [
+      // ===== LECTURE 2 =====
+      {
+        id: 1,
+        question:
+          "In distributed systems, communication models define how:",
+        options: [
+          "Hardware components are physically connected",
+          "Different processes and nodes interact with each other",
+          "Programming languages are chosen for development",
+          "Users authenticate with the system",
+        ],
+        correct: 1,
+        explanation:
+          "Communication models define how different processes and nodes interact with each other, influencing system design, efficiency, and reliability.",
+      },
+      {
+        id: 2,
+        question:
+          "Which of the following is NOT one of the seven key communication models covered?",
+        options: [
+          "Message Passing",
+          "Tuple Space Model",
+          "Client-Server Model",
+          "Data Streaming Model",
+        ],
+        correct: 2,
+        explanation:
+          "The seven models are: Message Passing, Shared Memory, RPC, Publish-Subscribe, Data Streaming, P2P, and Tuple Space. Client-Server is a system architecture, not one of the seven communication models listed.",
+      },
+      {
+        id: 3,
+        question:
+          "In the Message Passing model, what is required to transmit data between processes?",
+        options: [
+          "Shared memory access",
+          "A central coordinator",
+          "Message serialization and deserialization",
+          "A tuple space",
+        ],
+        correct: 2,
+        explanation:
+          "Message Passing requires message serialization (converting data to a transmittable format) and deserialization (converting it back) to send data over a network.",
+      },
+      {
+        id: 4,
+        question:
+          "Which of the following is an example of the Message Passing model?",
+        options: [
+          "Hadoop HDFS",
+          "JavaSpaces",
+          "RabbitMQ",
+          "Apache ZooKeeper",
+        ],
+        correct: 2,
+        explanation:
+          "RabbitMQ is a message queue system — an example of Message Passing. HDFS is Shared Memory, JavaSpaces and ZooKeeper are Tuple Space examples.",
+      },
+      {
+        id: 5,
+        question:
+          "The Shared Memory model requires which mechanism to prevent conflicts?",
+        options: [
+          "Message brokers",
+          "Synchronization mechanisms (locks, semaphores)",
+          "Hash-based verification",
+          "Event-driven callbacks",
+        ],
+        correct: 1,
+        explanation:
+          "The Shared Memory model requires synchronization mechanisms like locks and semaphores to prevent conflicts when multiple processes read/write to the same shared space.",
+      },
+      {
+        id: 6,
+        question:
+          "Which distributed system technology is an example of the Shared Memory model?",
+        options: [
+          "Apache Kafka",
+          "gRPC",
+          "Distributed Shared Memory (DSM)",
+          "BitTorrent",
+        ],
+        correct: 2,
+        explanation:
+          "DSM and Distributed File Systems (Google File System, Hadoop HDFS) are examples of the Shared Memory model.",
+      },
+      {
+        id: 7,
+        question:
+          "What does RPC abstract away from the developer?",
+        options: [
+          "Data storage details",
+          "Network communication details",
+          "User interface design",
+          "Database query optimization",
+        ],
+        correct: 1,
+        explanation:
+          "RPC abstracts network communication details, allowing a developer to invoke a function on a remote system as if it were a local function call.",
+      },
+      {
+        id: 8,
+        question:
+          "The RPC model follows which sequence?",
+        options: [
+          "Server sends request → Client processes → Client responds",
+          "Client sends request → Server processes → Server sends response",
+          "Publisher sends event → Broker distributes → Subscriber receives",
+          "Both peers exchange data simultaneously",
+        ],
+        correct: 1,
+        explanation:
+          "RPC follows: Client sends request → Server processes request → Server sends response.",
+      },
+      {
+        id: 9,
+        question:
+          "Which of the following is an example of RPC?",
+        options: [
+          "Apache Kafka",
+          "BitTorrent",
+          "Java RMI (Remote Method Invocation)",
+          "MQTT",
+        ],
+        correct: 2,
+        explanation:
+          "Java RMI, gRPC, and Apache Thrift are examples of the RPC model.",
+      },
+      {
+        id: 10,
+        question:
+          "In the Publish-Subscribe model, publishers send messages:",
+        options: [
+          "Directly to specific subscribers",
+          "Without knowing who the subscribers are",
+          "Only to authenticated receivers",
+          "Through shared memory",
+        ],
+        correct: 1,
+        explanation:
+          "In Publish-Subscribe, publishers send messages without knowing who the subscribers are — a message broker handles distribution. This is what makes it a decoupled architecture.",
+      },
+      {
+        id: 11,
+        question:
+          "Which is a key advantage of the Publish-Subscribe model?",
+        options: [
+          "Low infrastructure requirements",
+          "Synchronous communication",
+          "Decoupled architecture — publishers and subscribers evolve independently",
+          "Direct connection between sender and receiver",
+        ],
+        correct: 2,
+        explanation:
+          "The key advantage is decoupled architecture — publishers and subscribers don't need to know about each other and can evolve independently.",
+      },
+      {
+        id: 12,
+        question:
+          "Which of the following is an example of the Publish-Subscribe model?",
+        options: [
+          "Java RMI",
+          "Hadoop HDFS",
+          "Google Cloud Pub/Sub",
+          "Skype",
+        ],
+        correct: 2,
+        explanation:
+          "Apache Kafka, MQTT, and Google Cloud Pub/Sub are examples of the Publish-Subscribe model.",
+      },
+      {
+        id: 13,
+        question:
+          "The Data Streaming model is characterised by:",
+        options: [
+          "Request-response patterns",
+          "Continuous data flow using a push model",
+          "Shared tuple spaces",
+          "Blocking synchronous calls",
+        ],
+        correct: 1,
+        explanation:
+          "Data Streaming uses continuous data flow (push model) where data is sent as it becomes available, suitable for real-time analytics and monitoring.",
+      },
+      {
+        id: 14,
+        question:
+          "In a Peer-to-Peer (P2P) model, nodes act as:",
+        options: [
+          "Only clients",
+          "Only servers",
+          "Both clients and servers",
+          "Message brokers",
+        ],
+        correct: 2,
+        explanation:
+          "In P2P, all nodes act as both clients and servers, sharing resources and data without a central authority.",
+      },
+      {
+        id: 15,
+        question:
+          "Which is a disadvantage of the P2P communication model?",
+        options: [
+          "Single point of failure",
+          "Difficult to maintain consistency",
+          "Cannot scale with more nodes",
+          "Requires a central server",
+        ],
+        correct: 1,
+        explanation:
+          "P2P has no single point of failure (that's an advantage), but it is difficult to maintain consistency across all nodes and has security risks.",
+      },
+      {
+        id: 16,
+        question:
+          "The Tuple Space model is based on which coordination approach?",
+        options: [
+          "The Observer Pattern",
+          "The Linda Coordination Model",
+          "The Actor Model",
+          "The MapReduce framework",
+        ],
+        correct: 1,
+        explanation:
+          "The Tuple Space model is based on the Linda Coordination Model, where processes write, read, and take data tuples from a shared space.",
+      },
+      {
+        id: 17,
+        question:
+          "What makes the Tuple Space model unique compared to Message Passing?",
+        options: [
+          "It requires faster network connections",
+          "Processes are decoupled in time and space — they don't need to be online simultaneously",
+          "It only works with synchronous communication",
+          "It requires a central server",
+        ],
+        correct: 1,
+        explanation:
+          "The Tuple Space model is decoupled in time and space — a producer can write a tuple and disconnect, and a consumer can read it later.",
+      },
+
+      // ===== SEMINAR 2 =====
+      {
+        id: 18,
+        question:
+          "In a synchronous distributed system, which of the following is true?",
+        options: [
+          "There are no bounds on process execution speeds",
+          "Messages may take unlimited time to arrive",
+          "Each message is received within a known bounded time",
+          "Clock drift rates are unknown",
+        ],
+        correct: 2,
+        explanation:
+          "In a synchronous DS: execution time has known bounds, messages are received within known bounded time, and clock drift has known bounds.",
+      },
+      {
+        id: 19,
+        question:
+          "In an asynchronous distributed system, there are no bounds on:",
+        options: [
+          "Only process execution speeds",
+          "Only message transmission delays",
+          "Process execution speeds, message transmission delays, and clock drift rates",
+          "Only clock drift rates",
+        ],
+        correct: 2,
+        explanation:
+          "In an asynchronous DS, there are no bounds on any of: process execution speeds, message transmission delays, or clock drift rates.",
+      },
+      {
+        id: 20,
+        question:
+          "Synchronous communication provides simpler coordination but introduces:",
+        options: [
+          "Security vulnerabilities",
+          "Increased latency",
+          "Data corruption",
+          "Memory leaks",
+        ],
+        correct: 1,
+        explanation:
+          "Synchronous communication means the sender waits for the receiver to respond, which gives simpler coordination but increases latency.",
+      },
+      {
+        id: 21,
+        question:
+          "Which of the following is NOT a valid reason why communication is critical in distributed systems?",
+        options: [
+          "Data sharing between processes",
+          "Synchronization and coordination",
+          "Fault tolerance and consistency",
+          "To increase CPU performance",
+        ],
+        correct: 3,
+        explanation:
+          "Communication is critical for data sharing, synchronization, and fault tolerance — NOT for increasing CPU performance. CPU performance is a hardware concern.",
+      },
+      {
+        id: 22,
+        question:
+          "What are the two advantages of RPC identified in the seminar?",
+        options: [
+          "Encryption and authentication",
+          "Makes remote calls look local and simplifies distributed programming",
+          "Load balancing and caching",
+          "Decoupled architecture and event-driven design",
+        ],
+        correct: 1,
+        explanation:
+          "RPC advantages: (1) makes remote calls look local, and (2) simplifies distributed programming. Serialization is a requirement, not an advantage.",
+      },
+      {
+        id: 23,
+        question:
+          "Which three challenges in distributed communication are paired with their solutions?",
+        options: [
+          "Latency → More hardware, Fault Tolerance → Faster CPUs, Security → Load balancing",
+          "Latency → Efficient protocols and caching, Fault Tolerance → Replication and retries, Security → Encryption and authentication",
+          "Latency → Encryption, Fault Tolerance → Caching, Security → Replication",
+          "Latency → Tuple spaces, Fault Tolerance → Shared memory, Security → Message passing",
+        ],
+        correct: 1,
+        explanation:
+          "Latency → efficient protocols/caching, Fault Tolerance → replication/retries, Security → encryption/authentication.",
+      },
+      {
+        id: 24,
+        question:
+          "WhatsApp uses which communication model for group messages?",
+        options: [
+          "Message Passing (TCP)",
+          "P2P Model",
+          "Publish-Subscribe",
+          "Shared Memory",
+        ],
+        correct: 2,
+        explanation:
+          "WhatsApp uses Message Passing (TCP) for text messages, Publish-Subscribe for group messages, and P2P for voice/video calls.",
+      },
+      {
+        id: 25,
+        question:
+          "Google Drive uses which model as its primary model for file access?",
+        options: [
+          "P2P Model",
+          "Tuple Space Model",
+          "Client-Server Model",
+          "Data Streaming Model",
+        ],
+        correct: 2,
+        explanation:
+          "Google Drive's primary model for file access and synchronization is the Client-Server Model.",
+      },
+
+      // ===== QUESTION OF THE WEEK =====
+      {
+        id: 26,
+        question:
+          "For uploading and downloading lecture materials in a cloud-based LMS, which model is most suitable?",
+        options: [
+          "Peer-to-Peer Model",
+          "Client-Server Model",
+          "Tuple Space Model",
+          "Data Streaming Model",
+        ],
+        correct: 1,
+        explanation:
+          "Client-Server Model is most suitable — the LMS needs centralised cloud storage where students/professors upload/download files using HTTP(S) REST APIs.",
+      },
+      {
+        id: 27,
+        question:
+          "For receiving real-time notifications when a professor posts a new assignment, which model is most suitable?",
+        options: [
+          "Shared Memory Model",
+          "RPC Model",
+          "Publish-Subscribe Model",
+          "Tuple Space Model",
+        ],
+        correct: 2,
+        explanation:
+          "Publish-Subscribe — the LMS publishes an event when a new assignment is uploaded, and all subscribed students get notified asynchronously.",
+      },
+      {
+        id: 28,
+        question:
+          "For collaborating on shared documents in real time, which model is suggested?",
+        options: [
+          "Client-Server Model",
+          "Data Streaming Model",
+          "Peer-to-Peer (P2P) Model",
+          "Message Passing with TCP sockets",
+        ],
+        correct: 2,
+        explanation:
+          "P2P Model — direct peer-to-peer communication is more efficient than constantly requesting updates from a central server. Uses WebRTC or Operational Transformation (OT) algorithms.",
+      },
+      {
+        id: 29,
+        question:
+          "For streaming live lectures with interactive participation, which model is identified?",
+        options: [
+          "Shared Memory Model",
+          "Tuple Space Model",
+          "Message Passing Model",
+          "Client-Server Model only",
+        ],
+        correct: 2,
+        explanation:
+          "Message Passing Model — live streaming requires continuous data exchange using protocols like WebRTC, RTP, and MQTT. In practice, live lectures combine Client-Server, Publish-Subscribe, and Message Passing.",
+      },
+      {
+        id: 30,
+        question:
+          "The LMS live lecture scenario demonstrates that real-world features often require:",
+        options: [
+          "Exactly one communication model per feature",
+          "Only the Client-Server model",
+          "A combination of multiple communication models",
+          "No specific communication model",
+        ],
+        correct: 2,
+        explanation:
+          "Live lectures combine Client-Server (hosting/distributing video), Publish-Subscribe (notifications), and Message Passing (real-time chat/Q&A).",
+      },
+    ],
+
+    flashcards: [
+      // ===== LECTURE 2 =====
+      {
+        id: 1,
+        front: "What do communication models define in distributed systems?",
+        back: "How different processes and nodes interact with each other. They influence system design, efficiency, and reliability.",
+      },
+      {
+        id: 2,
+        front: "Name the seven key communication models.",
+        back: "Message Passing, Shared Memory, RPC, Publish-Subscribe, Data Streaming, Peer-to-Peer (P2P), and Tuple Space.",
+      },
+      {
+        id: 3,
+        front: "What is Message Passing?",
+        back: "Processes communicate by sending and receiving messages over a network. Requires serialization/deserialization. Can be synchronous or asynchronous.",
+      },
+      {
+        id: 4,
+        front: "Give examples of Message Passing.",
+        back: "Sockets (TCP, UDP), RPC, Message Queue Systems (RabbitMQ, Kafka), REST APIs, gRPC.",
+      },
+      {
+        id: 5,
+        front: "What is the Shared Memory Model?",
+        back: "Processes communicate by reading and writing to a shared memory space. Provides global memory abstraction. Requires synchronization mechanisms (locks, semaphores).",
+      },
+      {
+        id: 6,
+        front: "Give examples of the Shared Memory Model.",
+        back: "Distributed Shared Memory (DSM), Distributed File Systems (Google File System, Hadoop HDFS).",
+      },
+      {
+        id: 7,
+        front: "What is Remote Procedure Call (RPC)?",
+        back: "Allows a process to invoke a function on a remote system as if it were a local function call. Abstracts network communication details.",
+      },
+      {
+        id: 8,
+        front: "What is the RPC sequence?",
+        back: "Client sends request → Server processes request → Server sends response. Can be blocking (synchronous) or non-blocking (asynchronous).",
+      },
+      {
+        id: 9,
+        front: "Give examples of RPC.",
+        back: "gRPC (Google), Apache Thrift, Java RMI (Remote Method Invocation).",
+      },
+      {
+        id: 10,
+        front: "What is the Publish-Subscribe Model?",
+        back: "Event-based messaging where publishers send messages without knowing who subscribers are. A message broker handles distribution. Decoupled and asynchronous.",
+      },
+      {
+        id: 11,
+        front: "Give examples of Publish-Subscribe.",
+        back: "Apache Kafka, MQTT (Message Queuing Telemetry Transport), Google Cloud Pub/Sub.",
+      },
+      {
+        id: 12,
+        front: "What is the Data Streaming Model?",
+        back: "Processes continuously send and receive data in real time using a push model. Suitable for real-time analytics and monitoring.",
+      },
+      {
+        id: 13,
+        front: "Give examples of Data Streaming.",
+        back: "Apache Kafka, Apache Flink, Spark Streaming.",
+      },
+      {
+        id: 14,
+        front: "What is the Peer-to-Peer (P2P) Model?",
+        back: "All nodes act as both clients and servers, sharing resources without a central authority. Decentralized, highly scalable, but consistency and security are challenges.",
+      },
+      {
+        id: 15,
+        front: "Give examples of P2P.",
+        back: "BitTorrent, Blockchain (Bitcoin, Ethereum), Skype (older versions).",
+      },
+      {
+        id: 16,
+        front: "What is the Tuple Space Model?",
+        back: "Processes interact through a shared tuple space — writing, reading, and taking data tuples. Based on the Linda Coordination Model. Decoupled in time and space.",
+      },
+      {
+        id: 17,
+        front: "Give examples of Tuple Space.",
+        back: "JavaSpaces, Apache ZooKeeper, TIBCO Rendezvous.",
+      },
+      {
+        id: 18,
+        front: "What does 'decoupled in time and space' mean for Tuple Space?",
+        back: "Processes don't need to be online simultaneously — a producer can write a tuple and disconnect, and a consumer can read it later.",
+      },
+
+      // ===== SEMINAR 2 =====
+      {
+        id: 19,
+        front: "What defines a Synchronous Distributed System?",
+        back: "Known bounds on: execution time per step, message transmission time, and clock drift rate from real time.",
+      },
+      {
+        id: 20,
+        front: "What defines an Asynchronous Distributed System?",
+        back: "No bounds on: process execution speeds, message transmission delays, or clock drift rates.",
+      },
+      {
+        id: 21,
+        front: "Synchronous vs Asynchronous communication trade-off?",
+        back: "Synchronous: sender waits for response — simpler coordination but increased latency. Asynchronous: sender proceeds without waiting — more efficient but harder to handle failures.",
+      },
+      {
+        id: 22,
+        front: "Why is communication critical in distributed systems? (3 reasons)",
+        back: "1) Data sharing between processes, 2) Synchronization and coordination, 3) Fault tolerance and consistency. NOT 'to increase CPU performance'.",
+      },
+      {
+        id: 23,
+        front: "What are the two advantages of RPC?",
+        back: "1) Makes remote calls look local, 2) Simplifies distributed programming.",
+      },
+      {
+        id: 24,
+        front: "Name the three challenges in distributed communication and their solutions.",
+        back: "Latency → efficient protocols/caching. Fault Tolerance → replication/retries. Security → encryption/authentication.",
+      },
+      {
+        id: 25,
+        front: "What communication models does WhatsApp use?",
+        back: "Message Passing (TCP) for text messages, Publish-Subscribe for group messages, P2P for voice/video calls.",
+      },
+      {
+        id: 26,
+        front: "What communication models does Google Drive use?",
+        back: "Client-Server (file access), Message Passing (file sync), Publish-Subscribe (real-time updates), P2P (Docs collaboration), RPC (service-to-service).",
+      },
+
+      // ===== QUESTION OF THE WEEK =====
+      {
+        id: 27,
+        front: "LMS: Uploading/downloading materials → which model?",
+        back: "Client-Server Model — centralised cloud storage, HTTP(S) REST APIs for file transfers.",
+      },
+      {
+        id: 28,
+        front: "LMS: Real-time notifications → which model?",
+        back: "Publish-Subscribe — LMS publishes events, subscribed students get notified. Uses Pub/Sub or WebSockets.",
+      },
+      {
+        id: 29,
+        front: "LMS: Real-time document collaboration → which model?",
+        back: "Peer-to-Peer (P2P) — direct P2P is more efficient than polling a central server. Uses WebRTC or Operational Transformation (OT).",
+      },
+      {
+        id: 30,
+        front: "LMS: Live lecture streaming → which model?",
+        back: "Message Passing — continuous data exchange using WebRTC, RTP, MQTT. In practice combines Client-Server, Pub-Sub, and Message Passing.",
+      },
+      {
+        id: 31,
+        front: "Why do live lectures need multiple communication models?",
+        back: "Client-Server hosts/distributes video. Publish-Subscribe notifies when lecture starts. Message Passing handles real-time chat, reactions, Q&A.",
+      },
+    ],
+
+    shortAnswers: [
+      // ===== LECTURE 2 =====
+      {
+        id: 1,
+        question:
+          "What are communication models in distributed systems, and why are they important?",
+        marks: 2,
+        markingGuide: [
+          "Communication models define how different processes and nodes interact with each other",
+          "They influence system design, efficiency, and reliability",
+        ],
+        hint: "Think about what communication models actually determine in the system.",
+      },
+      {
+        id: 2,
+        question:
+          "List the seven key communication models covered in the lecture.",
+        marks: 3,
+        markingGuide: [
+          "Message Passing, Shared Memory Model, Remote Procedure Call (RPC), Publish-Subscribe, Data Streaming, Peer-to-Peer (P2P), Tuple Space Model",
+        ],
+        hint: "There are exactly seven models — think about different ways processes can exchange information.",
+      },
+      {
+        id: 3,
+        question:
+          "Describe the Message Passing model and give two examples.",
+        marks: 3,
+        markingGuide: [
+          "Processes communicate by sending and receiving messages over a network",
+          "Can be synchronous or asynchronous, requires serialization/deserialization",
+          "Examples: Sockets (TCP/UDP), RabbitMQ, Kafka, REST APIs, gRPC",
+        ],
+        hint: "Think about explicitly sending data from one process to another.",
+      },
+      {
+        id: 4,
+        question:
+          "How does the Shared Memory model differ from Message Passing? What synchronization mechanisms does it require?",
+        marks: 3,
+        markingGuide: [
+          "Shared Memory: processes read/write to a shared memory space rather than exchanging messages",
+          "Provides a global memory abstraction — no explicit message exchange needed",
+          "Requires synchronization mechanisms like locks and semaphores to prevent conflicts",
+        ],
+        hint: "One model sends messages, the other reads/writes to a shared space.",
+      },
+      {
+        id: 5,
+        question:
+          "Explain how RPC works and why it is useful for distributed programming.",
+        marks: 3,
+        markingGuide: [
+          "RPC allows a process to invoke a function on a remote system as if it were local",
+          "Sequence: client sends request → server processes → server sends response",
+          "Useful because it abstracts network communication details, simplifying distributed programming",
+        ],
+        hint: "The key benefit is making remote calls 'look local'.",
+      },
+      {
+        id: 6,
+        question:
+          "What distinguishes the Publish-Subscribe model from direct Message Passing?",
+        marks: 3,
+        markingGuide: [
+          "In Publish-Subscribe, publishers send messages without knowing who the subscribers are — it's decoupled",
+          "A message broker sits between publishers and subscribers",
+          "In Message Passing, the sender typically knows the receiver and communicates directly",
+        ],
+        hint: "Think about who knows about whom in each model.",
+      },
+      {
+        id: 7,
+        question:
+          "Describe the Tuple Space model and explain what 'decoupled in time and space' means.",
+        marks: 3,
+        markingGuide: [
+          "Processes interact through a shared tuple space by writing, reading, and taking data tuples",
+          "Based on the Linda Coordination Model",
+          "Decoupled in time and space means processes don't need to be online simultaneously — a producer can write a tuple and disconnect, a consumer can read it later",
+        ],
+        hint: "Think about a shared noticeboard where people can leave and collect messages at different times.",
+      },
+      {
+        id: 8,
+        question:
+          "Compare the advantages and disadvantages of the P2P communication model.",
+        marks: 4,
+        markingGuide: [
+          "Advantages: no single point of failure, scales well with more nodes",
+          "Disadvantages: difficult to maintain consistency across all nodes, security risks due to lack of central control",
+        ],
+        hint: "Think about what happens when there's no central authority.",
+      },
+
+      // ===== SEMINAR 2 =====
+      {
+        id: 9,
+        question:
+          "Compare synchronous and asynchronous distributed systems.",
+        marks: 4,
+        markingGuide: [
+          "Synchronous: known bounds on execution time, message transmission time, and clock drift",
+          "Asynchronous: no bounds on process speeds, message delays, or clock drift",
+          "Synchronous gives simpler coordination but increased latency",
+          "Asynchronous is more efficient but harder to handle failures",
+        ],
+        hint: "Think about what you can and cannot guarantee about timing.",
+      },
+      {
+        id: 10,
+        question:
+          "Give three valid reasons why communication is critical in distributed systems. What is a commonly given incorrect reason?",
+        marks: 3,
+        markingGuide: [
+          "Valid: data sharing between processes, synchronization and coordination, fault tolerance and consistency",
+          "Incorrect: 'to increase CPU performance' — communication is about coordination, not CPU speed",
+        ],
+        hint: "Think about what communication enables between machines, not within a single machine.",
+      },
+      {
+        id: 11,
+        question:
+          "Name the three key challenges in distributed communication and the solution approach for each.",
+        marks: 3,
+        markingGuide: [
+          "Latency → efficient protocols and caching",
+          "Fault Tolerance → replication and retries",
+          "Security → encryption and authentication",
+        ],
+        hint: "Each challenge has a specific category of solution.",
+      },
+      {
+        id: 12,
+        question:
+          "Analyse the communication models used by WhatsApp.",
+        marks: 3,
+        markingGuide: [
+          "Message Passing (TCP) for text messages",
+          "Publish-Subscribe for group messages",
+          "P2P Model for voice/video calls",
+        ],
+        hint: "Think about three different features of WhatsApp and which model suits each.",
+      },
+      {
+        id: 13,
+        question:
+          "Analyse the communication models used by Google Drive.",
+        marks: 5,
+        markingGuide: [
+          "Client-Server Model for primary file access and synchronization",
+          "Message Passing for file synchronization across devices",
+          "Publish-Subscribe for real-time collaboration updates",
+          "P2P for Google Docs collaboration",
+          "RPC for efficient communication between services",
+        ],
+        hint: "Google Drive uses five different models — think about each feature separately.",
+      },
+
+      // ===== QUESTION OF THE WEEK =====
+      {
+        id: 14,
+        question:
+          "For a cloud-based LMS, explain which communication model is most suitable for uploading and downloading lecture materials, and justify your choice.",
+        marks: 3,
+        markingGuide: [
+          "Client-Server Model is most suitable",
+          "The LMS needs centralised cloud storage for files",
+          "Uses HTTP(S) REST APIs for file transfers between client devices and the server",
+        ],
+        hint: "Think about where the files are stored and how they're accessed.",
+      },
+      {
+        id: 15,
+        question:
+          "For a cloud-based LMS, explain which communication model is most suitable for real-time assignment notifications, and justify your choice.",
+        marks: 3,
+        markingGuide: [
+          "Publish-Subscribe Model is most suitable",
+          "The LMS publishes an event when a new assignment is uploaded",
+          "All subscribed students receive notifications asynchronously without the publisher needing to know who they are",
+        ],
+        hint: "Think about one publisher and many receivers who need instant updates.",
+      },
+      {
+        id: 16,
+        question:
+          "For a cloud-based LMS, explain which communication model is most suitable for real-time document collaboration, and justify your choice.",
+        marks: 3,
+        markingGuide: [
+          "Peer-to-Peer (P2P) Model is suggested",
+          "Direct P2P communication is more efficient than constantly polling a central server",
+          "Uses WebRTC or Operational Transformation (OT) algorithms for low-latency updates",
+        ],
+        hint: "Think about multiple users editing the same document simultaneously.",
+      },
+      {
+        id: 17,
+        question:
+          "For a cloud-based LMS, explain which communication model is most suitable for streaming live lectures with interactive participation, and justify your choice.",
+        marks: 4,
+        markingGuide: [
+          "Message Passing Model is the primary model for real-time data exchange",
+          "Uses protocols like WebRTC, RTP, and MQTT for live data transmission",
+          "In practice, live lectures combine multiple models: Client-Server for hosting/distributing video, Publish-Subscribe for start notifications, Message Passing for chat/Q&A",
+        ],
+        hint: "This feature needs continuous data flow AND interactive communication — consider if one model is enough.",
+      },
+      {
+        id: 18,
+        question:
+          "Why do real-world distributed systems typically use a combination of communication models rather than a single model?",
+        marks: 3,
+        markingGuide: [
+          "Different features have different requirements — e.g. file storage needs client-server but notifications need pub-sub",
+          "Each model has specific strengths and trade-offs that suit different use cases",
+          "A single model cannot optimally handle all types of interaction (e.g. real-time streaming, file uploads, notifications all have different needs)",
+        ],
+        hint: "Think about why WhatsApp and Google Drive both use multiple models.",
       },
     ],
   },
