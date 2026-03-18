@@ -36,7 +36,7 @@ export default function WeekPageClient() {
     return (
       <div className="flex min-h-screen">
         <Sidebar />
-        <main className="ml-[260px] flex-1 p-8 flex items-center justify-center">
+        <main className="md:ml-[260px] flex-1 p-8 flex items-center justify-center">
           <div className="text-center">
             <div className="text-6xl mb-4">🔒</div>
             <h2 className="text-2xl font-bold text-navy mb-2">
@@ -53,12 +53,12 @@ export default function WeekPageClient() {
     <div className="flex min-h-screen">
       <Sidebar />
 
-      <main className="ml-[260px] flex-1 min-h-screen">
+      <main className="md:ml-[260px] flex-1 min-h-screen">
         {/* Header */}
         <header className="sticky top-0 z-40 bg-cream/80 backdrop-blur-lg border-b border-line">
-          <div className="max-w-4xl mx-auto px-8 pt-6 pb-0">
+          <div className="max-w-4xl mx-auto px-4 md:px-8 pt-6 pb-0">
             {/* Week info + theme switcher */}
-            <div className="flex items-start justify-between mb-4">
+            <div className="flex items-start justify-between mb-4 pl-10 md:pl-0">
               <div className="flex items-center gap-3">
                 <span className="text-3xl">{week.emoji}</span>
                 <div>
@@ -77,7 +77,7 @@ export default function WeekPageClient() {
             </div>
 
             {/* Tabs */}
-            <div className="flex gap-1">
+            <div className="flex gap-1 overflow-x-auto scrollbar-none">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
@@ -97,7 +97,7 @@ export default function WeekPageClient() {
         </header>
 
         {/* Content */}
-        <div className="max-w-4xl mx-auto px-8 py-8">
+        <div className="max-w-4xl mx-auto px-4 md:px-8 py-8">
           {/* Tab description */}
           <p className="text-sm text-slate mb-6">
             {tabs.find((t) => t.id === activeTab)?.description}
