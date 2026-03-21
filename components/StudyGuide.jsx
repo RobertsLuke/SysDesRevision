@@ -105,6 +105,40 @@ function Block({ block }) {
   }
 
   if (block.type === "comparison") {
+    // Two-column format with leftTitle/rightTitle/leftItems/rightItems
+    if (block.leftItems) {
+      return (
+        <div className="grid grid-cols-2 gap-3 mb-4">
+          <div className="bg-card-alt rounded-xl p-4">
+            <div className="text-xs font-bold text-terra uppercase tracking-wider mb-2">
+              {block.leftTitle}
+            </div>
+            <ul className="space-y-1.5">
+              {block.leftItems.map((item, i) => (
+                <li key={i} className="flex items-start gap-2 text-sm text-navy/80">
+                  <span className="text-terra mt-1 flex-shrink-0">•</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="bg-card-alt rounded-xl p-4">
+            <div className="text-xs font-bold text-steel uppercase tracking-wider mb-2">
+              {block.rightTitle}
+            </div>
+            <ul className="space-y-1.5">
+              {block.rightItems.map((item, i) => (
+                <li key={i} className="flex items-start gap-2 text-sm text-navy/80">
+                  <span className="text-steel mt-1 flex-shrink-0">•</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      );
+    }
+    // Original format with items: [{ label, content }]
     return (
       <div className="grid grid-cols-2 gap-3 mb-4">
         {block.items.map((item, i) => (
