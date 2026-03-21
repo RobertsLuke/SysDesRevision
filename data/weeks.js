@@ -2806,7 +2806,7 @@ export const weeks = {
       },
     ],
 
-    shortAnswer: [
+    shortAnswers: [
       {
         id: 1,
         question:
@@ -3440,7 +3440,7 @@ export const weeks = {
       },
     ],
 
-    shortAnswer: [
+    shortAnswers: [
       {
         id: 1,
         question:
@@ -4046,7 +4046,7 @@ export const weeks = {
       },
     ],
 
-    shortAnswer: [
+    shortAnswers: [
       {
         id: 1,
         question:
@@ -4656,7 +4656,7 @@ export const weeks = {
       },
     ],
 
-    shortAnswer: [
+    shortAnswers: [
       {
         id: 1,
         question:
@@ -5268,7 +5268,7 @@ export const weeks = {
       },
     ],
 
-    shortAnswer: [
+    shortAnswers: [
       {
         id: 1,
         question:
