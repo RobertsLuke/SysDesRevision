@@ -1,6 +1,10 @@
 import { week1Guide } from "./guides/week1";
 import { week2Guide } from "./guides/week2";
 import { week3Guide } from "./guides/week3";
+import { week4Guide } from "./guides/week4";
+import { week5Guide } from "./guides/week5";
+import { week6Guide } from "./guides/week6";
+import { week7Guide } from "./guides/week7";
 
 export const weeks = {
   1: {
@@ -2946,10 +2950,2474 @@ export const weeks = {
       },
     ],
   },
+
+  4: {
+    id: 4,
+    title: "Distributed Shared Memory",
+    subtitle: "DSM Models, Consistency, Cache Coherence & NUMA",
+    emoji: "🧠",
+    guide: week4Guide,
+
+    mcqs: [
+      // ===== LECTURE 4 =====
+      {
+        id: 1,
+        question:
+          "Which of the following best describes Distributed Shared Memory (DSM)?",
+        options: [
+          "A single high-performance server that stores all data centrally",
+          "An abstraction that allows computers without shared physical memory to share a unified address space",
+          "A hardware component that links multiple CPUs to one RAM module",
+          "A protocol for passing messages between distributed processes",
+        ],
+        correct: 1,
+        explanation:
+          "DSM is an abstraction used for sharing data between computers that do not share physical memory, allowing them to share memory as if it were a single, unified address space.",
+      },
+      {
+        id: 2,
+        question:
+          "Which of the following is the primary motivation for using DSM?",
+        options: [
+          "To increase the number of physical CPUs in a system",
+          "To eliminate the programmer's need to manage explicit message passing",
+          "To provide persistent storage across distributed nodes",
+          "To improve hardware clock synchronization",
+        ],
+        correct: 1,
+        explanation:
+          "The key aim of DSM is to eliminate the programmer's need to manage explicit message passing when writing distributed applications, simplifying the programming model.",
+      },
+      {
+        id: 3,
+        question:
+          "Which DSM key feature ensures that users do not need to know memory is distributed?",
+        options: ["Scalability", "Consistency", "Transparency", "Synchronisation"],
+        correct: 2,
+        explanation:
+          "Transparency means users and programmers don't need to know the memory is distributed — remote memory access looks identical to local access.",
+      },
+      {
+        id: 4,
+        question:
+          "What is the main advantage of centralised DSM over distributed DSM?",
+        options: [
+          "Better fault tolerance",
+          "No bottleneck on memory access",
+          "Simpler to manage and easier consistency control",
+          "Memory is spread across multiple nodes",
+        ],
+        correct: 2,
+        explanation:
+          "Centralised DSM keeps all data in one place managed by a single server, making it simpler to manage and easier to control consistency.",
+      },
+      {
+        id: 5,
+        question: "What is the main disadvantage of centralised DSM?",
+        options: [
+          "Too complex to implement",
+          "Single point of failure",
+          "Memory is spread across many nodes",
+          "Incompatible with page-based sharing",
+        ],
+        correct: 1,
+        explanation:
+          "Centralised DSM has a single point of failure — if the central server fails, the entire system loses access to shared memory.",
+      },
+      {
+        id: 6,
+        question:
+          "In page-based DSM, what happens when a process attempts to access a non-local page?",
+        options: [
+          "The process is terminated immediately",
+          "A message is broadcast to all nodes",
+          "A hardware page fault is triggered and the OS fetches the page from the remote machine",
+          "The page is created locally with default values",
+        ],
+        correct: 2,
+        explanation:
+          "An attempt to reference a non-local page causes a hardware page fault, which traps to the OS. The OS sends a message to the remote machine, which finds the page and sends it back.",
+      },
+      {
+        id: 7,
+        question:
+          "Which of the following is a disadvantage of page-based DSM?",
+        options: [
+          "It cannot work with large datasets",
+          "Pages cannot be shared between more than two nodes",
+          "High overhead due to entire pages being sent across the network, and susceptibility to false sharing",
+          "It requires object serialisation for every access",
+        ],
+        correct: 2,
+        explanation:
+          "Page-based DSM has high overhead because entire fixed-size pages are transferred over the network, and unrelated variables on the same page cause false sharing.",
+      },
+      {
+        id: 8,
+        question: "False sharing in page-based DSM occurs when:",
+        options: [
+          "Two processes share a global lock incorrectly",
+          "Two processes repeatedly transfer a page because they access different variables that happen to be on the same page",
+          "A page is duplicated on more than three nodes simultaneously",
+          "The OS fails to handle a page fault correctly",
+        ],
+        correct: 1,
+        explanation:
+          "False sharing occurs when two unrelated variables reside on the same page. Processors accessing these unrelated variables cause the page to travel back and forth — generating network traffic with no actual data dependency.",
+      },
+      {
+        id: 9,
+        question:
+          "Which of the following correctly describes object-based DSM?",
+        options: [
+          "Memory is divided into fixed-size pages mapped across nodes",
+          "Memory is divided into language-level objects stored on different nodes, with access via method interfaces",
+          "All shared variables are replicated on every node",
+          "Sharing is implemented by communication between compiler-inserted library calls",
+        ],
+        correct: 1,
+        explanation:
+          "In object-based DSM, memory is divided into user-defined objects. Objects are stored on different nodes and processes request them as needed. Interaction is limited to the object interface.",
+      },
+      {
+        id: 10,
+        question:
+          "Compared to page-based DSM, object-based DSM is generally:",
+        options: [
+          "Less efficient due to larger transfer sizes",
+          "More efficient because it transfers only the needed object rather than an entire page",
+          "More susceptible to false sharing",
+          "Simpler to implement consistency for",
+        ],
+        correct: 1,
+        explanation:
+          "Object-based DSM reduces unnecessary data transfers because only the relevant object is transferred, not an entire memory page — reducing both false sharing and network overhead.",
+      },
+      {
+        id: 11,
+        question:
+          "In shared variable DSM, which type of variable is accessible by more than one process?",
+        options: [
+          "Ordinary variables",
+          "Synchronisation variables",
+          "Shared variables",
+          "Local variables",
+        ],
+        correct: 2,
+        explanation:
+          "Shared variable DSM has three types: ordinary, shared, and synchronisation. Shared variables are annotated by the programmer and replicated/distributed across nodes.",
+      },
+      {
+        id: 12,
+        question: "Library-based DSM implements sharing through:",
+        options: [
+          "Hardware page fault mechanisms",
+          "Communication between language runtime instances via compiler-inserted library calls",
+          "Object serialisation and remote method invocation",
+          "Broadcasting all writes to all nodes immediately",
+        ],
+        correct: 1,
+        explanation:
+          "In library-based DSM, processes make library calls (inserted by a compiler) when they access DSM data items. The libraries handle local access and inter-node communication at runtime.",
+      },
+      {
+        id: 13,
+        question: "Which DSM model is matched to the IVY system?",
+        options: [
+          "Object-based",
+          "Shared variable",
+          "Library-based",
+          "Page-based",
+        ],
+        correct: 3,
+        explanation:
+          "IVY (Kai Li, 1986) is the first page-based software DSM system, built on top of NORMA systems to emulate shared memory using the OS's virtual memory management.",
+      },
+      {
+        id: 14,
+        question:
+          "Which DSM model is most closely associated with Java RMI and CORBA?",
+        options: [
+          "Page-based",
+          "Object-based",
+          "Shared variable",
+          "Library-based",
+        ],
+        correct: 1,
+        explanation:
+          "Object-based DSM uses Remote Method Invocations (RMI) — programs share data by invoking methods on remote objects. Java RMI and CORBA are key examples.",
+      },
+      {
+        id: 15,
+        question:
+          "Which consistency model guarantees that all processes see memory updates immediately, in real-time global clock order?",
+        options: [
+          "Sequential consistency",
+          "Causal consistency",
+          "Eventual consistency",
+          "Strict consistency",
+        ],
+        correct: 3,
+        explanation:
+          "Strict consistency guarantees that all processes see memory updates immediately and in real-time order — every read returns the value of the most recent write. It is the strongest model but impractical in real distributed systems.",
+      },
+      {
+        id: 16,
+        question:
+          "Sequential consistency guarantees that:",
+        options: [
+          "All reads return the most recent write immediately",
+          "All processes see operations in the same logical order, though not necessarily real-time order",
+          "Causally related writes are seen in order",
+          "All nodes converge to the same state eventually",
+        ],
+        correct: 1,
+        explanation:
+          "Sequential consistency guarantees a consistent logical order of operations across all processes, but does not require real-time ordering — making it more practical than strict consistency.",
+      },
+      {
+        id: 17,
+        question:
+          "Causal consistency guarantees that:",
+        options: [
+          "All processes see all writes immediately",
+          "All processes see all operations in the same total order",
+          "Causally related writes are seen in order, but concurrent writes may appear in different orders",
+          "All replicas converge once updates stop",
+        ],
+        correct: 2,
+        explanation:
+          "Causal consistency requires that if A → B (A causally precedes B), all processes must see A before B. However, causally independent (concurrent) writes may be seen in different orders.",
+      },
+      {
+        id: 18,
+        question:
+          "Which consistency model is best suited to highly scalable distributed systems where temporary inconsistencies are acceptable?",
+        options: [
+          "Strict",
+          "Sequential",
+          "Causal",
+          "Eventual",
+        ],
+        correct: 3,
+        explanation:
+          "Eventual consistency allows temporary inconsistencies but guarantees all nodes will converge to the same state once updates stop. It is preferred by large-scale systems like AWS S3, Google Drive, and Dropbox.",
+      },
+      {
+        id: 19,
+        question:
+          "In weak consistency, when is consistency enforced?",
+        options: [
+          "After every write operation",
+          "After every read operation",
+          "Only at explicit synchronisation points",
+          "Continuously in real-time",
+        ],
+        correct: 2,
+        explanation:
+          "Weak consistency only enforces consistency at explicit synchronisation points — when a process explicitly requests the latest data. This improves performance at the cost of allowing stale reads between sync points.",
+      },
+      {
+        id: 20,
+        question:
+          "Which consistency model is used by AWS S3, Google Drive, Dropbox, and Azure for their global storage services?",
+        options: [
+          "Strict consistency",
+          "Sequential consistency",
+          "Causal consistency",
+          "Eventual consistency",
+        ],
+        correct: 3,
+        explanation:
+          "These major cloud storage services use eventual consistency because it provides high scalability, availability, and performance while tolerating temporary inconsistencies.",
+      },
+      {
+        id: 21,
+        question:
+          "Why is strict consistency generally impractical for wide-area distributed systems?",
+        options: [
+          "It requires all nodes to use the same operating system",
+          "It requires globally synchronised clocks and instantaneous propagation, which are impossible over a network",
+          "It does not support concurrent reads",
+          "It is incompatible with page-based DSM",
+        ],
+        correct: 1,
+        explanation:
+          "Strict consistency requires globally synchronised clocks and instantaneous propagation of writes — neither of which is achievable in real distributed systems with network latency.",
+      },
+      {
+        id: 22,
+        question:
+          "In write-invalidate cache coherence, when a node writes to a shared block it:",
+        options: [
+          "Broadcasts the new value to all nodes holding a copy",
+          "Sends an invalidation message to all nodes holding a copy",
+          "Requests permission from the page manager before writing",
+          "Copies the block to every node immediately",
+        ],
+        correct: 1,
+        explanation:
+          "Write-invalidate sends an invalidation message to all nodes holding a copy. They discard their copies, and future reads will trigger a fetch of the updated data. This is more efficient than write-update as it avoids pushing data that may not be needed.",
+      },
+      {
+        id: 23,
+        question:
+          "Which approach to cache coherence consumes more network bandwidth per write?",
+        options: [
+          "Write-invalidate",
+          "Write-update",
+          "Write-back",
+          "Write-through",
+        ],
+        correct: 1,
+        explanation:
+          "Write-update broadcasts the new value to all nodes with a copy, consuming more bandwidth per write. Write-invalidate only sends a small invalidation message, making it more bandwidth-efficient.",
+      },
+      {
+        id: 24,
+        question:
+          "NUMA (Non-Uniform Memory Access) differs from UMA (Uniform Memory Access) in that:",
+        options: [
+          "NUMA has no shared virtual address space",
+          "Remote memory access in NUMA is significantly slower than local memory access",
+          "NUMA caches all remote accesses transparently",
+          "NUMA requires a central memory server",
+        ],
+        correct: 1,
+        explanation:
+          "In NUMA, all CPUs share a single virtual address space but remote memory access is much slower than local — typically a 10:1 ratio. NUMA makes no attempt to hide this performance difference, unlike hardware-cached shared memory systems.",
+      },
+      {
+        id: 25,
+        question:
+          "In a NORMA (No Remote Memory Access) system, how does page-based DSM enable shared memory?",
+        options: [
+          "By broadcasting all memory writes to every node",
+          "By emulating a multiprocessor using the MMU and OS to handle page migration on page fault",
+          "By maintaining a centralised memory server that all nodes query",
+          "By requiring all data to be replicated on every node",
+        ],
+        correct: 1,
+        explanation:
+          "IVY implemented software DSM on NORMA systems by using the OS and MMU — on a page fault for a non-local page, the OS migrates the page from the owning node, transparently emulating shared memory.",
+      },
+      {
+        id: 26,
+        question:
+          "Which of the following is an advantage of DSM over explicit message passing?",
+        options: [
+          "DSM always provides stronger consistency guarantees",
+          "DSM eliminates the need for locks and barriers",
+          "DSM requires no marshalling/unmarshalling and pointers remain valid",
+          "DSM is always faster than message passing",
+        ],
+        correct: 2,
+        explanation:
+          "A key advantage of DSM over message passing is that data does not need to be marshalled/unmarshalled for transmission, and pointers remain valid since processes share an address space.",
+      },
+    ],
+
+    flashcards: [
+      {
+        front: "What is Distributed Shared Memory (DSM)?",
+        back: "An abstraction used for sharing data between computers that do not share physical memory. Multiple computers share memory as if it were a single unified address space.",
+      },
+      {
+        front: "What is the main aim of DSM?",
+        back: "To eliminate the programmer's need to manage explicit message passing, simplifying distributed application development.",
+      },
+      {
+        front: "What are the four key features of DSM?",
+        back: "1. Transparency — users don't know memory is distributed. 2. Scalability — more nodes can be added. 3. Consistency Control — key challenge, ensures correct views. 4. Synchronisation — locks, semaphores, barriers.",
+      },
+      {
+        front: "What are the two DSM architectures?",
+        back: "Centralised: single server manages all memory — simple but single point of failure. Distributed: memory spread across nodes — no bottleneck but harder consistency.",
+      },
+      {
+        front: "What are the four DSM models?",
+        back: "1. Page-based (e.g. IVY). 2. Object-based (e.g. Java RMI, CORBA). 3. Shared Variable. 4. Library-based (e.g. OpenMP, MPI, Linda).",
+      },
+      {
+        front: "How does page-based DSM work?",
+        back: "Pages are mapped across nodes. Local page access is hardware-speed. Non-local access causes a page fault → OS fetches the page from the remote machine → instruction restarts.",
+      },
+      {
+        front: "What was IVY?",
+        back: "The first page-based software DSM system (Kai Li, 1986), built on NORMA systems. It used the OS's MMU to handle page migration on page fault to emulate shared memory.",
+      },
+      {
+        front: "What is false sharing in page-based DSM?",
+        back: "When two processes repeatedly transfer a page because they access different, unrelated variables on the same page — causing unnecessary network traffic with no real data dependency.",
+      },
+      {
+        front: "How can false sharing be reduced?",
+        back: "Use smaller page sizes, use finer-grained DSM (object/variable-based), or restructure data so unrelated variables are on different pages.",
+      },
+      {
+        front: "How does object-based DSM work?",
+        back: "Memory is divided into language-level objects stored on different nodes. Processes request objects via method interfaces. The system ensures only one copy of an object is updated at a time.",
+      },
+      {
+        front: "Object-based vs page-based DSM: key difference?",
+        back: "Object-based is more efficient — transfers only the needed object, not a whole page. Less false sharing. Cons: complex consistency management, serialisation overhead.",
+      },
+      {
+        front: "What are the three variable types in shared variable DSM?",
+        back: "1. Ordinary — private. 2. Shared — replicated across nodes; annotated as read-only, migratory, write-shared, or conventional. 3. Synchronisation — coordinates access.",
+      },
+      {
+        front: "How does library-based DSM work?",
+        back: "A compiler inserts library calls when processes access DSM data. The libraries handle local access and inter-node communication at runtime to maintain consistency. Examples: Orca, Linda, OpenMP, MPI.",
+      },
+      {
+        front: "What does strict consistency guarantee?",
+        back: "All processes see memory updates immediately, in real-time global clock order. Every read returns the most recent write. The strongest model but impractical (requires globally synchronised clocks).",
+      },
+      {
+        front: "What does sequential consistency guarantee?",
+        back: "All processes see all operations in the same logical order (not necessarily real-time). Does not require global clocks. Expensive synchronisation — not ideal for performance-sensitive apps.",
+      },
+      {
+        front: "What does causal consistency guarantee?",
+        back: "If A causally precedes B (A → B), all processes must see A before B. Concurrent (independent) writes may appear in any order. Balances ordering and efficiency.",
+      },
+      {
+        front: "What does eventual consistency guarantee?",
+        back: "If no new updates occur, all nodes will eventually converge to the same state. Temporary inconsistencies are allowed. Best for highly scalable systems. Used by AWS S3, Google Drive, Dropbox, Azure.",
+      },
+      {
+        front: "What does weak consistency guarantee?",
+        back: "Consistency is only enforced at explicit synchronisation points. High performance — no overhead per write. Cons: data may be out of date between sync points.",
+      },
+      {
+        front: "Which consistency model is preferred for global cloud storage?",
+        back: "Eventual consistency — highly scalable, high availability, optimises performance. Tolerable temporary inconsistencies for most cloud storage use cases.",
+      },
+      {
+        front: "Why is strict consistency impractical in wide-area systems?",
+        back: "It requires globally synchronised clocks and instantaneous write propagation — impossible over real networks with latency. The overhead would make the system unusable.",
+      },
+      {
+        front: "What is write-invalidate cache coherence?",
+        back: "When a node writes to a shared block, it sends an invalidation message to all nodes holding a copy. They discard their copies. Future reads re-fetch the updated data.",
+      },
+      {
+        front: "What is write-update cache coherence?",
+        back: "When a node writes to a shared block, it broadcasts the new value to all nodes holding a copy. They update their caches immediately — reduces future read latency but uses more bandwidth.",
+      },
+      {
+        front: "Write-invalidate vs write-update: which is preferred?",
+        back: "Write-invalidate is generally preferred — only a small invalidation message is sent, avoiding unnecessary bandwidth consumption for data that may not be re-read.",
+      },
+      {
+        front: "What is NUMA?",
+        back: "Non-Uniform Memory Access — a multiprocessor architecture with a single virtual address space, but remote memory access is much slower than local (typically 10:1 ratio). No attempt to hide poor non-local performance.",
+      },
+      {
+        front: "How does NUMA manage pages for performance?",
+        back: "Read-only pages can be replicated locally. Read-write pages can be migrated to the most active node. A page scanner daemon monitors access patterns and freezes pages that migrate too frequently.",
+      },
+      {
+        front: "What are the two cache coherence strategies in DSM?",
+        back: "Write-invalidate (send invalidation on write — efficient) and write-update (broadcast new value on write — lower read latency but higher bandwidth).",
+      },
+      {
+        front: "What are three advantages of DSM over message passing?",
+        back: "1. No marshalling/unmarshalling needed. 2. Pointers remain valid. 3. Familiar synchronisation primitives (locks, barriers) instead of custom protocols.",
+      },
+      {
+        front: "What is the 'owner' concept in page-based DSM?",
+        back: "The owner of a page is the processor that most recently wrote it. To read: get from owner (owner goes read-only). To write: acquire ownership and invalidate all other copies.",
+      },
+      {
+        front: "What are three future trends in DSM?",
+        back: "1. AI optimisation — predicting memory access patterns. 2. Edge/fog computing — local memory sharing reduces centralised cloud dependency. 3. Blockchain-based DSM — tamper-proof, secure memory sharing.",
+      },
+      {
+        front: "What are the three main challenges in DSM?",
+        back: "1. Network delays — remote access latency. 2. False sharing — page-level granularity causes unnecessary transfers. 3. Consistency overhead — stronger models require more synchronisation traffic.",
+      },
+    ],
+
+    shortAnswer: [
+      {
+        id: 1,
+        question:
+          "Define Distributed Shared Memory (DSM) and explain the abstraction it provides.",
+        marks: 3,
+        markingGuide: [
+          "DSM is an abstraction for sharing data between computers that do not share physical memory",
+          "Allows multiple computers to share memory as a single unified address space",
+          "Processes on different machines can read and write shared memory transparently as if on a single machine",
+        ],
+        hint: "Focus on what the programmer sees vs what is actually happening physically.",
+      },
+      {
+        id: 2,
+        question:
+          "Compare centralised and distributed DSM architectures. Identify one advantage and one disadvantage of each.",
+        marks: 4,
+        markingGuide: [
+          "Centralised: single server manages all shared memory — advantage: simple to manage and easier consistency control",
+          "Centralised disadvantage: single point of failure (if server fails, system stops)",
+          "Distributed: memory spread across nodes — advantage: no bottleneck, better fault tolerance",
+          "Distributed disadvantage: harder to manage consistency across nodes",
+        ],
+        hint: "Think about what happens when a node fails in each architecture.",
+      },
+      {
+        id: 3,
+        question:
+          "Describe how page-based DSM works. Include how non-local page accesses are handled.",
+        marks: 4,
+        markingGuide: [
+          "Pages are mapped across different nodes; each page is present on exactly one machine",
+          "Local page access is handled in hardware at full memory speed",
+          "Non-local access causes a hardware page fault which traps to the OS",
+          "OS sends a message to the remote machine; remote machine sends the page; faulting instruction restarts",
+        ],
+        hint: "Trace the steps from a program accessing a non-local page to completion.",
+      },
+      {
+        id: 4,
+        question:
+          "Explain false sharing in page-based DSM. Why does it occur and how does it affect performance?",
+        marks: 3,
+        markingGuide: [
+          "False sharing: two processes access different variables on the same page, causing the page to be transferred repeatedly",
+          "It occurs because page granularity is coarser than the data actually needed — unrelated variables share a page",
+          "Performance impact: the page travels back and forth between machines generating unnecessary network traffic",
+        ],
+        hint: "Consider what happens when two independent processes each use one variable stored on the same page.",
+      },
+      {
+        id: 5,
+        question:
+          "Compare object-based DSM and page-based DSM. Why is object-based generally more efficient?",
+        marks: 4,
+        markingGuide: [
+          "Page-based transfers entire fixed-size pages; object-based transfers only the needed object",
+          "Object-based reduces false sharing (access is limited to the specific object)",
+          "Object-based provides access control through method interfaces; page-based does not",
+          "Object-based cons: complex consistency management and serialisation overhead (e.g. Java RMI)",
+        ],
+        hint: "Think about what gets transferred over the network in each model.",
+      },
+      {
+        id: 6,
+        question:
+          "Describe the five consistency models covered in Week 4: strict, sequential, causal, eventual, and weak.",
+        marks: 5,
+        markingGuide: [
+          "Strict: all processes see updates immediately in real-time global order — highest overhead, impractical in real systems",
+          "Sequential: all processes see operations in same logical order — doesn't require physical time, expensive synchronisation",
+          "Causal: causally related writes seen in order; concurrent writes can appear in any order — balances order and efficiency",
+          "Eventual: temporary inconsistencies allowed; all nodes converge once updates stop — highly scalable",
+          "Weak: consistency only at synchronisation points — high performance, data may be stale between syncs",
+        ],
+        hint: "For each model, think about: what is guaranteed, and what is the performance cost?",
+      },
+      {
+        id: 7,
+        question:
+          "Why is sequential consistency problematic for page-based DSM systems in wide-area networks?",
+        marks: 3,
+        markingGuide: [
+          "Sequential consistency requires every write to be globally ordered, forcing synchronisation across all nodes",
+          "In page-based DSM, every write may invalidate entire pages across all nodes holding copies",
+          "Wide-area network latency amplifies the problem — each invalidation round-trip takes significant time, causing page thrashing",
+        ],
+        hint: "Consider what sequential consistency forces the system to do on each write, and how page granularity makes this worse.",
+      },
+      {
+        id: 8,
+        question:
+          "Explain write-invalidate and write-update cache coherence strategies in DSM. Which is generally preferred and why?",
+        marks: 4,
+        markingGuide: [
+          "Write-invalidate: on write, send invalidation to all nodes holding a copy — they discard their copies",
+          "Write-update: on write, broadcast the new value to all nodes holding a copy — they update immediately",
+          "Write-invalidate is generally preferred because it sends only a small invalidation message, saving bandwidth",
+          "Write-update consumes more bandwidth per write by pushing data that may not be needed again",
+        ],
+        hint: "Consider what travels over the network in each strategy.",
+      },
+      {
+        id: 9,
+        question:
+          "Explain what NUMA is and how it differs from a uniform memory access (UMA) system.",
+        marks: 3,
+        markingGuide: [
+          "NUMA: Non-Uniform Memory Access — single virtual address space visible to all CPUs, but remote memory access is much slower than local (typically 10:1 ratio)",
+          "UMA: all memory accesses take the same time regardless of which CPU makes them",
+          "NUMA makes no attempt to hide poor non-local performance (unlike hardware-cached systems), but allows page migration/replication to improve locality",
+        ],
+        hint: "Focus on what 'non-uniform' means in terms of access times.",
+      },
+      {
+        id: 10,
+        question:
+          "What consistency model would you recommend for each of the following use cases, and why: (a) a shared financial audit log, (b) a 'who is online' presence indicator, (c) a collaborative document editor?",
+        marks: 4,
+        markingGuide: [
+          "(a) Financial audit log: Sequential or Strict consistency — all nodes must see writes in the same order; misordering could corrupt audit records",
+          "(b) Who is online: Eventual consistency — temporary inconsistencies tolerable; scalability and availability are more important than perfect accuracy",
+          "(c) Collaborative editing: Causal consistency — edits that depend on previous edits must appear in order; concurrent edits can diverge temporarily",
+          "Clear justification connecting the use case requirements to the consistency model's guarantees",
+        ],
+        hint: "For each use case, ask: how bad is a temporary inconsistency? How important is ordering?",
+      },
+      {
+        id: 11,
+        question:
+          "A distributed analytics platform uses page-based DSM with sequential consistency and experiences severe performance degradation. Explain why this combination causes problems, and suggest a better consistency model with justification.",
+        marks: 5,
+        markingGuide: [
+          "Page-based DSM transfers entire pages — even a one-byte change invalidates the whole page across all nodes",
+          "Sequential consistency forces global write ordering — every write triggers network-wide synchronisation",
+          "Combined: frequent fine-grained analytics writes cause continuous page invalidations and re-fetches across nodes (page thrashing)",
+          "Better model: eventual or weak consistency — analytics workloads tolerate slightly stale data",
+          "Justification: reduces synchronisation traffic; pages are only transferred when explicitly needed at sync points or eventually, not after every write",
+        ],
+        hint: "Think about what sequential consistency forces to happen after every write, and how page-based granularity amplifies the problem.",
+      },
+    ],
+  },
+
+  5: {
+    id: 5,
+    title: "Web Services & Naming",
+    subtitle: "SOAP, REST, WSDL, Naming Systems, QoS & Grid Computing",
+    emoji: "🌐",
+    guide: week5Guide,
+
+    mcqs: [
+      {
+        id: 1,
+        question: "Which of the following best describes a web service?",
+        options: [
+          "A website that displays HTML pages to users",
+          "A standardised way for applications to communicate over a network, independent of platform or language",
+          "A desktop application that connects to the internet",
+          "A database that stores web pages",
+        ],
+        correct: 1,
+        explanation:
+          "A web service allows different systems to exchange data independently of OS or programming language — it is not a website and not a desktop app.",
+      },
+      {
+        id: 2,
+        question: "Which of the following is NOT an example of a web service?",
+        options: [
+          "Google Maps API",
+          "A desktop calculator app",
+          "A stock market tracking API",
+          "An online payment system",
+        ],
+        correct: 1,
+        explanation:
+          "A desktop calculator has no network communication — it is not a web service.",
+      },
+      {
+        id: 3,
+        question: "The correct interaction pattern in web service architecture is:",
+        options: [
+          "Find → Bind → Publish",
+          "Bind → Find → Publish",
+          "Publish → Find → Bind",
+          "Publish → Bind → Find",
+        ],
+        correct: 2,
+        explanation:
+          "Provider publishes (to registry), consumer finds (in registry), then consumer binds (to provider).",
+      },
+      {
+        id: 4,
+        question: "The Service Registry contains:",
+        options: [
+          "The source code of the web service",
+          "Data about the service provider including address, contact, and technical details",
+          "The consumer's authentication credentials",
+          "Copies of all data exchanged between provider and consumer",
+        ],
+        correct: 1,
+        explanation:
+          "The registry stores provider data: address, contact information, and technical details of the service.",
+      },
+      {
+        id: 5,
+        question: "What does WSDL tell a client application?",
+        options: [
+          "The programming language the service is written in",
+          "What the web service does and all information required to connect and use it",
+          "The internal database schema of the provider",
+          "How many users are currently connected",
+        ],
+        correct: 1,
+        explanation:
+          "WSDL provides everything a client needs: what the service does, its location, its methods, and its message types.",
+      },
+      {
+        id: 6,
+        question: "WSDL defines web services as a collection of:",
+        options: [
+          "Database tables",
+          "Network end points or ports",
+          "Server IP addresses",
+          "Programming functions",
+        ],
+        correct: 1,
+        explanation:
+          "WSDL defines web services as collections of network end points or ports.",
+      },
+      {
+        id: 7,
+        question: "SOAP is described as a lightweight protocol based on:",
+        options: [
+          "JSON over TCP",
+          "XML over HTTP",
+          "HTML over FTP",
+          "Binary over UDP",
+        ],
+        correct: 1,
+        explanation:
+          "SOAP is XML-based and operates over HTTP (and also SMTP and TCP).",
+      },
+      {
+        id: 8,
+        question: "The root element of a SOAP message is the:",
+        options: ["Header", "Body", "Envelope", "Payload"],
+        correct: 2,
+        explanation:
+          "The Envelope is the root element that encapsulates all details in the SOAP message.",
+      },
+      {
+        id: 9,
+        question: "The SOAP Header typically contains:",
+        options: [
+          "The actual data being exchanged",
+          "Authentication credentials and complex type definitions",
+          "The service location URL",
+          "Error codes and stack traces",
+        ],
+        correct: 1,
+        explanation:
+          "The Header contains authentication credentials and can define complex types used in the message.",
+      },
+      {
+        id: 10,
+        question: "Which is NOT listed as a SOAP advantage?",
+        options: [
+          "Platform independent",
+          "Works on HTTP",
+          "Recommended by W3C",
+          "Faster than REST",
+        ],
+        correct: 3,
+        explanation:
+          "SOAP is actually slower than REST. Its advantages are platform independence, HTTP compatibility, and W3C recommendation.",
+      },
+      {
+        id: 11,
+        question: "REST uses which standard methods for communication?",
+        options: [
+          "PUBLISH, FIND, BIND",
+          "SEND, RECEIVE, ACKNOWLEDGE",
+          "GET, POST, PUT, DELETE",
+          "READ, WRITE, EXECUTE, MODIFY",
+        ],
+        correct: 2,
+        explanation:
+          "REST uses standard HTTP methods: GET, POST, PUT, DELETE.",
+      },
+      {
+        id: 12,
+        question: "Which web service approach is better suited for a banking system?",
+        options: [
+          "REST — because it is faster",
+          "SOAP — because it is more secure",
+          "Neither — banking doesn't use web services",
+          "Both are equally suitable",
+        ],
+        correct: 1,
+        explanation:
+          "SOAP is more secure, making it better suited for financial transactions where security is paramount.",
+      },
+      {
+        id: 13,
+        question: "Which web service approach is better suited for a social media app?",
+        options: [
+          "SOAP — because it supports XML",
+          "REST — because it is lightweight, fast, and scalable",
+          "Neither — social media doesn't use web services",
+          "SOAP — because social media needs complex transactions",
+        ],
+        correct: 1,
+        explanation:
+          "REST is preferred for social media: lightweight JSON, scalable, easy integration with web/mobile, supports multiple platforms (Facebook, Twitter, Instagram).",
+      },
+      {
+        id: 14,
+        question: "A URL (e.g. www.port.ac.uk) is an example of:",
+        options: [
+          "An identifier",
+          "A human-readable name",
+          "A memory address",
+          "An attribute-based name",
+        ],
+        correct: 1,
+        explanation:
+          "URLs are human-readable names — meaningful to people.",
+      },
+      {
+        id: 15,
+        question: "A MAC address (00:1A:2B:3C:4D:5E) is an example of:",
+        options: [
+          "A human-readable name",
+          "An identifier",
+          "An address",
+          "An attribute-based name",
+        ],
+        correct: 1,
+        explanation:
+          "A MAC address is an identifier — it uniquely identifies a network interface.",
+      },
+      {
+        id: 16,
+        question: "A memory address (e.g. 0x7FFF5A1B3C) is an example of:",
+        options: [
+          "A human-readable name",
+          "An identifier",
+          "An address",
+          "An attribute-based name",
+        ],
+        correct: 2,
+        explanation:
+          "Memory addresses point to specific locations — they are addresses.",
+      },
+      {
+        id: 17,
+        question: "Database table names and cloud storage tags are examples of:",
+        options: [
+          "Human-readable names",
+          "Identifiers",
+          "Addresses",
+          "Attribute-based names",
+        ],
+        correct: 3,
+        explanation:
+          "Database table names and cloud tags are attribute-based names — based on resource properties.",
+      },
+      {
+        id: 18,
+        question: "DNS is an example of which naming scheme?",
+        options: [
+          "Flat naming",
+          "Hierarchical naming",
+          "Attribute-based naming",
+          "Random naming",
+        ],
+        correct: 1,
+        explanation:
+          "DNS uses a tree-structured hierarchy — the classic example of hierarchical naming.",
+      },
+      {
+        id: 19,
+        question: "Which naming scheme has no structure and is used in P2P networks?",
+        options: [
+          "Hierarchical naming",
+          "Flat naming",
+          "Attribute-based naming",
+          "Sequential naming",
+        ],
+        correct: 1,
+        explanation:
+          "Flat naming has no structure — used in P2P networks like BitTorrent.",
+      },
+      {
+        id: 20,
+        question: "Name resolution is the process of:",
+        options: [
+          "Creating new names for resources",
+          "Mapping a name to an address or identifier",
+          "Deleting unused names from the system",
+          "Encrypting names for security",
+        ],
+        correct: 1,
+        explanation:
+          "Name resolution maps a name to an address or identifier (e.g. DNS resolving a domain name to an IP address).",
+      },
+      {
+        id: 21,
+        question: "Caching in name resolution introduces challenges with:",
+        options: ["Security", "Consistency", "Scalability", "Naming structure"],
+        correct: 1,
+        explanation:
+          "Caching improves efficiency but introduces consistency challenges — cached data may become stale.",
+      },
+      {
+        id: 22,
+        question: "Which is NOT a sub-aspect of QoS Security?",
+        options: [
+          "Non-repudiation",
+          "Authentication",
+          "Load balancing",
+          "Encryption",
+        ],
+        correct: 2,
+        explanation:
+          "QoS Security includes non-repudiation, authentication, authorisation, encryption, traceability, and access control — not load balancing.",
+      },
+      {
+        id: 23,
+        question: "Which QoS metric measures the ability to function with different languages and platforms?",
+        options: [
+          "Availability",
+          "Scalability",
+          "Interoperability",
+          "Accessibility",
+        ],
+        correct: 2,
+        explanation:
+          "Interoperability = the ability to function across different languages and platforms.",
+      },
+      {
+        id: 24,
+        question: "Grid computing is best described as:",
+        options: [
+          "A replacement for distributed computing",
+          "A specialised form of distributed computing connecting heterogeneous systems",
+          "A type of cloud storage",
+          "A single-machine parallel processing technique",
+        ],
+        correct: 1,
+        explanation:
+          "Grid computing is a specialised form of distributed computing that connects heterogeneous systems for large-scale tasks.",
+      },
+      {
+        id: 25,
+        question: "A key difference between distributed and grid computing is resource ownership:",
+        options: [
+          "Both are always owned by a single entity",
+          "Distributed resources are often owned by one entity; grid resources can be owned by multiple entities",
+          "Grid resources are always owned by one entity",
+          "Neither has defined resource ownership",
+        ],
+        correct: 1,
+        explanation:
+          "Distributed computing resources are often owned by one entity; grid computing resources can span multiple organisations.",
+      },
+      {
+        id: 26,
+        question: "Which is NOT listed as a benefit of distributed systems?",
+        options: [
+          "Scalability",
+          "Fault tolerance",
+          "Guaranteed zero downtime",
+          "Cost-effectiveness",
+        ],
+        correct: 2,
+        explanation:
+          "Distributed systems improve fault tolerance but do not guarantee zero downtime — failures still happen, they are just more contained.",
+      },
+    ],
+
+    flashcards: [
+      {
+        front: "What is a web service?",
+        back: "A standardised way for applications to communicate over a network, independent of OS or programming language.",
+      },
+      {
+        front: "What does 'platform and language agnostic' mean for web services?",
+        back: "A client in any language on any platform can consume a web service written in a different language on a different platform.",
+      },
+      {
+        front: "What are the three roles in web service architecture?",
+        back: "Service Provider (offers and publishes), Service Registry (lists), Service Consumer/Requester (finds and calls).",
+      },
+      {
+        front: "What is the interaction pattern in web service architecture?",
+        back: "Publish → Find → Bind. Provider publishes to registry, consumer finds in registry, consumer binds to provider.",
+      },
+      {
+        front: "What does the Service Provider do?",
+        back: "Creates web services, describes them in WSDL, and publishes descriptions to the service registry.",
+      },
+      {
+        front: "What are the three core web service standards?",
+        back: "SOAP (communication), XML (data representation), WSDL (service description).",
+      },
+      {
+        front: "What does WSDL stand for and what does it do?",
+        back: "Web Services Description Language — tells the client what the service does, its location, its methods, and the SOAP message types it sends and accepts.",
+      },
+      {
+        front: "What is the WSDL 'postcard' analogy?",
+        back: "WSDL is like a postcard with the address of the web service — it tells the client where the service is and what it can deliver.",
+      },
+      {
+        front: "What does SOAP stand for?",
+        back: "Simple Object Access Protocol.",
+      },
+      {
+        front: "What is SOAP?",
+        back: "A lightweight XML-based protocol for exchanging information in a decentralised distributed environment over HTTP. Also works over SMTP and TCP.",
+      },
+      {
+        front: "What are the three parts of a SOAP message?",
+        back: "Envelope (root element — encapsulates all), Header (authentication, complex types — optional), Body (actual data — call/response).",
+      },
+      {
+        front: "List four SOAP advantages.",
+        back: "Ideal for web service communication, W3C recommended, platform/OS independent, works on HTTP (passes through firewalls).",
+      },
+      {
+        front: "SOAP vs REST: format difference?",
+        back: "SOAP uses XML. REST uses JSON or XML (JSON preferred — lighter weight).",
+      },
+      {
+        front: "SOAP vs REST: when to use each?",
+        back: "SOAP: security-critical apps (e.g. banking). REST: modern web/mobile apps needing speed and scalability (e.g. social media).",
+      },
+      {
+        front: "Why is REST preferred for social media?",
+        back: "Lightweight (JSON smaller than XML), scalable, easy integration with web/mobile apps, supports multiple platforms. Used by Facebook, Twitter, Instagram.",
+      },
+      {
+        front: "Why is naming fundamental in distributed systems?",
+        back: "Enables resource sharing, simplifies system management, supports user-friendly interaction using meaningful names.",
+      },
+      {
+        front: "What are the four types of names?",
+        back: "Human-readable (URLs, emails), Identifiers (IP/MAC/UUID), Addresses (memory/file paths), Attribute-based (DB tags, hashtags).",
+      },
+      {
+        front: "Is a MAC address an identifier or an address?",
+        back: "An identifier — it uniquely identifies a network interface. Not an address (addresses point to locations).",
+      },
+      {
+        front: "What is flat naming?",
+        back: "No structure — unstructured identifiers used in P2P networks (e.g. BitTorrent). Harder to scale.",
+      },
+      {
+        front: "What is hierarchical naming?",
+        back: "Organised like a tree — the classic example is DNS (e.g. www.port.ac.uk). Scales well due to distributed structure.",
+      },
+      {
+        front: "What is name resolution?",
+        back: "The process of mapping a name to an address or identifier (e.g. DNS resolving a domain name to an IP address).",
+      },
+      {
+        front: "What trade-off does caching introduce in name resolution?",
+        back: "Caching improves performance (stores recent resolutions locally) but introduces consistency challenges — cached data may become stale.",
+      },
+      {
+        front: "What are the three challenges in naming systems?",
+        back: "Scalability (large numbers of names), Consistency (correct mappings), Security (name spoofing prevention).",
+      },
+      {
+        front: "What are the six QoS Security sub-aspects?",
+        back: "Non-repudiation, authentication, authorisation, encryption, traceability, access control.",
+      },
+      {
+        front: "What is QoS Interoperability?",
+        back: "The ability of a service to function with different languages and/or platforms. Challenge: conformance of web services to the protocols.",
+      },
+      {
+        front: "What are the four benefits of distributed systems?",
+        back: "Scalability, fault tolerance, resource sharing, cost-effectiveness.",
+      },
+      {
+        front: "What is grid computing?",
+        back: "A specialised form of distributed computing connecting heterogeneous systems to work on large-scale tasks across multiple organisations.",
+      },
+      {
+        front: "Distributed vs grid: resource ownership?",
+        back: "Distributed: often owned by a single entity. Grid: resources can be owned by multiple entities across organisations.",
+      },
+      {
+        front: "Distributed vs grid: performance optimisation?",
+        back: "Distributed: optimises local resources. Grid: optimises global resources across the network.",
+      },
+      {
+        front: "Grid computing applications vs distributed computing applications?",
+        back: "Grid: biomedical research, weather forecasting, financial modelling. Distributed: online gaming, cloud computing, web services, big data (Hadoop).",
+      },
+    ],
+
+    shortAnswer: [
+      {
+        id: 1,
+        question:
+          "Define what a web service is and explain what makes it different from a website.",
+        marks: 3,
+        markingGuide: [
+          "A standardised way for applications to communicate over a network",
+          "Independent of the underlying OS or programming language (platform/language agnostic)",
+          "A website serves HTML to humans; a web service provides data and functionality to other applications via standardised protocols",
+        ],
+        hint: "Think about who (or what) the consumer of the service is.",
+      },
+      {
+        id: 2,
+        question:
+          "Name and describe the three components of web service architecture. What is the interaction pattern?",
+        marks: 4,
+        markingGuide: [
+          "Service Provider — creates and offers web services, describes them in WSDL, publishes to registry",
+          "Service Registry — stores provider data: address, contact info, and technical details",
+          "Service Consumer — retrieves info from registry, uses description to bind to and invoke the service",
+          "Interaction pattern: Publish → Find → Bind",
+        ],
+        hint: "Who offers it, who lists it, who uses it — and in what order?",
+      },
+      {
+        id: 3,
+        question:
+          "What are the three core standards/protocols for web services? Briefly describe each.",
+        marks: 3,
+        markingGuide: [
+          "SOAP — a standard way for communication between services and clients (XML-based protocol over HTTP)",
+          "XML — a uniform data representation and exchange format",
+          "WSDL — a standard meta-language to describe the services offered",
+        ],
+        hint: "Communication, data format, service description.",
+      },
+      {
+        id: 4,
+        question:
+          "Describe the three elements of a SOAP message.",
+        marks: 3,
+        markingGuide: [
+          "Envelope — root element; identifies the XML document as a SOAP message and encapsulates all details",
+          "Header — contains authentication credentials and can define complex types (optional)",
+          "Body — contains the actual data: call and response information",
+        ],
+        hint: "Container, metadata, payload.",
+      },
+      {
+        id: 5,
+        question:
+          "Compare SOAP and REST on four dimensions.",
+        marks: 4,
+        markingGuide: [
+          "Format: SOAP uses XML; REST uses JSON or XML",
+          "Speed: SOAP is slower; REST is faster and simpler",
+          "Security: SOAP is more secure; REST is lighter weight",
+          "Protocols: SOAP works over HTTP/SMTP/TCP; REST uses standard HTTP methods (GET, POST, PUT, DELETE)",
+        ],
+        hint: "Format, speed, security, and protocol.",
+      },
+      {
+        id: 6,
+        question:
+          "Describe the four types of names used in computing. Give an example of each and classify: is a MAC address an identifier or an address?",
+        marks: 4,
+        markingGuide: [
+          "Human-readable: meaningful to people — URLs, email addresses, file names",
+          "Identifiers: uniquely identify resources — IP addresses, MAC addresses, UUIDs",
+          "Addresses: point to specific locations — memory addresses, device paths, network file paths",
+          "Attribute-based: based on resource properties — database table names, cloud storage tags",
+        ],
+        hint: "A MAC address uniquely identifies — it is an identifier, not an address.",
+      },
+      {
+        id: 7,
+        question:
+          "Describe the three naming schemes and give an example of each.",
+        marks: 3,
+        markingGuide: [
+          "Flat naming — no structure, unstructured identifiers, used in P2P networks (e.g. BitTorrent)",
+          "Hierarchical naming — tree structure (e.g. DNS, www.port.ac.uk)",
+          "Attribute-based naming — based on resource properties (e.g. database queries, cloud storage tags)",
+        ],
+        hint: "No structure, tree structure, property-based.",
+      },
+      {
+        id: 8,
+        question:
+          "What is name resolution? What trade-off does caching introduce?",
+        marks: 3,
+        markingGuide: [
+          "Name resolution is the process of mapping a name to an address or identifier (e.g. DNS resolving domain → IP)",
+          "Caching stores recent resolutions locally, improving performance and reducing repeated lookups",
+          "Caching introduces consistency challenges — cached data may become stale, pointing to outdated addresses",
+        ],
+        hint: "The classic performance vs consistency trade-off.",
+      },
+      {
+        id: 9,
+        question:
+          "List the six sub-aspects of QoS Security and explain why security is listed as a QoS metric for web services.",
+        marks: 4,
+        markingGuide: [
+          "Six sub-aspects: non-repudiation, authentication, authorisation, encryption, traceability, access control",
+          "Security is a QoS metric because web services are exposed over the network and must verify who calls them",
+          "The challenge is the ability of the protocols to support these security requirements",
+          "This extends the three Week 1 security elements (authentication, access control, auditing)",
+        ],
+        hint: "Think about what needs to be verified when a remote system calls your service.",
+      },
+      {
+        id: 10,
+        question:
+          "What is grid computing? Give two ways it differs from standard distributed computing.",
+        marks: 3,
+        markingGuide: [
+          "Grid computing is a specialised form of distributed computing connecting heterogeneous systems for large-scale tasks",
+          "Difference 1: resource ownership — distributed often one entity; grid can span multiple organisations",
+          "Difference 2: grid optimises global resources and is highly network-dependent; distributed optimises local resources",
+        ],
+        hint: "Grid is about pooling resources across organisational boundaries.",
+      },
+      {
+        id: 11,
+        question:
+          "A team is building a new API for a global social media platform. They must choose between SOAP and REST. Recommend one and justify your choice with reference to at least three factors.",
+        marks: 5,
+        markingGuide: [
+          "Recommendation: REST",
+          "Factor 1: Lightweight — REST uses JSON which is smaller than SOAP's XML, reducing bandwidth",
+          "Factor 2: Scalability — REST handles millions of concurrent users more efficiently",
+          "Factor 3: Integration — REST integrates easily with web and mobile apps and supports multiple platforms",
+          "Factor 4: Speed — REST is faster and simpler; social media prioritises responsiveness",
+        ],
+        hint: "Consider what social media needs most: speed, scale, and easy integration.",
+      },
+    ],
+  },
+
+  6: {
+    id: 6,
+    title: "Mobile & Ubiquitous Computing",
+    subtitle: "Volatile Systems, Discovery Services, Interoperability & Smart Cities",
+    emoji: "📡",
+    guide: week6Guide,
+
+    mcqs: [
+      {
+        id: 1,
+        question: "Who coined the term 'Ubiquitous Computing' and when?",
+        options: [
+          "Tim Berners-Lee in 1991",
+          "Mark Weiser in 1988 at PARC",
+          "Alan Turing in 1950",
+          "Vint Cerf in 1995",
+        ],
+        correct: 1,
+        explanation:
+          "Mark Weiser coined 'Ubiquitous Computing' in 1988 at Palo Alto Research Centre (PARC).",
+      },
+      {
+        id: 2,
+        question:
+          "Which is NOT a key characteristic of ubiquitous computing?",
+        options: [
+          "Mobility",
+          "Scalability",
+          "High power consumption",
+          "Context-awareness",
+        ],
+        correct: 2,
+        explanation:
+          "High power consumption is a challenge, not a characteristic. Ubiquitous devices are designed to be low-power. The four key characteristics are mobility, scalability, context-awareness, and seamless integration.",
+      },
+      {
+        id: 3,
+        question:
+          "In the active badge example, the room responds by:",
+        options: [
+          "Asking the user to log in manually",
+          "Detecting the user's ID via infrared and displaying a personalised response",
+          "Scanning the user's fingerprint",
+          "Requiring the user to press a button",
+        ],
+        correct: 1,
+        explanation:
+          "The infrared sensor detects the badge ID automatically and the display responds personally — no explicit user interaction needed, demonstrating ubiquitous computing.",
+      },
+      {
+        id: 4,
+        question:
+          "Which is the scarcest resource for ubiquitous devices?",
+        options: [
+          "Storage",
+          "Processing power",
+          "Energy (battery)",
+          "Network bandwidth",
+        ],
+        correct: 2,
+        explanation:
+          "Energy is the most critical constraint — battery dependency, charging inconvenience, and wireless connectivity is energy intensive. All other constraints also increase energy consumption.",
+      },
+      {
+        id: 5,
+        question:
+          "'Volatile systems' in ubiquitous computing means:",
+        options: [
+          "Systems that are always stable and predictable",
+          "Highly dynamic and unpredictable systems where devices appear and disappear",
+          "Systems that only work indoors",
+          "Systems that require constant user input",
+        ],
+        correct: 1,
+        explanation:
+          "Volatile = highly dynamic, using spontaneous (ad hoc) networking, with devices constantly joining, leaving, and failing.",
+      },
+      {
+        id: 6,
+        question: "Actuators are:",
+        options: [
+          "Devices that measure temperature",
+          "Software-controllable devices that act on the environment",
+          "Network routers",
+          "User interface screens",
+        ],
+        correct: 1,
+        explanation:
+          "Actuators are software-controllable devices that act on the environment: air conditioning, motors, smart home devices.",
+      },
+      {
+        id: 7,
+        question:
+          "Devices with sensing capabilities are often distrusted because of:",
+        options: [
+          "Slow processing speed",
+          "Privacy concerns — tracking, discovery routines, shopping monitoring",
+          "High cost",
+          "Poor battery life",
+        ],
+        correct: 1,
+        explanation:
+          "Privacy concerns include: tracking (location/movement), discovery routines (auto-detecting people nearby), and commercial behaviour monitoring.",
+      },
+      {
+        id: 8,
+        question: "A pre-configured association example is:",
+        options: [
+          "A web browser connecting to various websites",
+          "An email client configured to connect to its server",
+          "P2P file sharing",
+          "A mobile phone connecting to a new smart space",
+        ],
+        correct: 1,
+        explanation:
+          "An email client and its specific server is a pre-configured, service-driven association — the relationship is set up in advance.",
+      },
+      {
+        id: 9,
+        question: "The Push Model for service discovery:",
+        options: [
+          "Is more efficient than Pull",
+          "Has services advertise themselves via multicast regularly",
+          "Requires clients to send repeated requests",
+          "Uses no bandwidth",
+        ],
+        correct: 1,
+        explanation:
+          "Push = services advertise via multicast (regularly); clients query cached advertisements. Wasteful of bandwidth.",
+      },
+      {
+        id: 10,
+        question:
+          "The lease-based approach to volatile service management means:",
+        options: [
+          "Services are permanently registered",
+          "Clients lease a service for a time period; must renew or it is automatically released",
+          "Services can never be removed",
+          "Only administrators can register services",
+        ],
+        correct: 1,
+        explanation:
+          "Leasing is time-limited: must be renewed; automatically released if not renewed. This handles volatility without manual cleanup.",
+      },
+      {
+        id: 11,
+        question:
+          "In the discovery service interface, which method returns a set of matching services?",
+        options: ["register", "refresh", "deregister", "query"],
+        correct: 3,
+        explanation:
+          "query(attributeSpecification) returns a set of registered services matching the given specification.",
+      },
+      {
+        id: 12,
+        question:
+          "In serverless (decentralised) discovery:",
+        options: [
+          "A central server manages all service records",
+          "Each device maintains its own directory in its cache",
+          "No services can be discovered",
+          "Only one device can register services",
+        ],
+        correct: 1,
+        explanation:
+          "Serverless = no central directory; each device maintains its own local cache of known services.",
+      },
+      {
+        id: 13,
+        question:
+          "The 'lost opportunity problem' in interoperability is when:",
+        options: [
+          "A device loses its battery",
+          "A device cannot use a service because their interfaces are incompatible",
+          "A network cable is disconnected",
+          "A server runs out of storage",
+        ],
+        correct: 1,
+        explanation:
+          "Lost opportunity = a device and service are in the same smart space but can't communicate due to incompatible interfaces.",
+      },
+      {
+        id: 14,
+        question: "For N interfaces, the number of adaptors needed is:",
+        options: ["N", "N + 1", "N²", "2N"],
+        correct: 2,
+        explanation:
+          "For every N interfaces, N² adaptors are needed — determined at runtime. For 10 interfaces, 100 adaptors are required.",
+      },
+      {
+        id: 15,
+        question: "Which is a solution to the N² adaptor problem?",
+        options: [
+          "Adding more adaptors",
+          "Constraining to universal interfaces like HTTP GET/POST or Unix pipes",
+          "Removing all interfaces",
+          "Using only wired connections",
+        ],
+        correct: 1,
+        explanation:
+          "Constrain to a few universal interfaces (HTTP GET/POST, Unix pipes) or use self-describing data (XML/JSON) so devices understand each other without pre-configured adaptors.",
+      },
+      {
+        id: 16,
+        question: "In tuple spaces, a consuming device uses:",
+        options: [
+          "Exact addresses to find data",
+          "Pattern matching with wildcards to find matching data",
+          "A central database query",
+          "Direct memory access",
+        ],
+        correct: 1,
+        explanation:
+          "Tuple spaces use pattern matching: <*, 'image/jpeg', *> matches any JPEG image tuple regardless of source.",
+      },
+      {
+        id: 17,
+        question: "In event systems, who produces events and who consumes them?",
+        options: [
+          "Servers produce; clients consume",
+          "Publishers publish; subscribers consume",
+          "Consumers produce; publishers consume",
+          "Routers produce; switches consume",
+        ],
+        correct: 1,
+        explanation:
+          "Event systems follow a publish-subscribe model: publishers publish events, subscribers consume them.",
+      },
+      {
+        id: 18,
+        question: "'Sensor fusion' means:",
+        options: [
+          "Replacing multiple sensors with one",
+          "Combining and interpreting data from multiple sensors for complex sensing tasks",
+          "Destroying sensors after use",
+          "Using only one type of sensor",
+        ],
+        correct: 1,
+        explanation:
+          "Sensor fusion combines data from multiple sensors to perform complex tasks such as detecting human presence.",
+      },
+      {
+        id: 19,
+        question: "Which location technology has the best accuracy?",
+        options: [
+          "GPS (1–10m)",
+          "Radio beaconing (10m–1km)",
+          "Active Bat (10cm)",
+          "Active Badge (room size)",
+        ],
+        correct: 2,
+        explanation:
+          "Active Bat achieves 10cm accuracy using radio and ultrasound multilateration — the most accurate of all listed technologies.",
+      },
+      {
+        id: 20,
+        question:
+          "Which location technology has the WORST privacy because no user-mounted device is required?",
+        options: ["GPS", "Active Badge", "EasyLiving (vision-based)", "RFID"],
+        correct: 2,
+        explanation:
+          "EasyLiving uses cameras — no device is needed on the user, so tracking happens without consent or awareness.",
+      },
+      {
+        id: 21,
+        question: "GPS is limited to:",
+        options: [
+          "Indoor use only",
+          "Outdoor use only (requires satellite visibility)",
+          "Underground use only",
+          "Use within 1km of a base station",
+        ],
+        correct: 1,
+        explanation:
+          "GPS requires satellite visibility — it only works outdoors.",
+      },
+      {
+        id: 22,
+        question: "The best communication model for smart city networks is:",
+        options: [
+          "Pure P2P",
+          "Pure client-server",
+          "Hybrid (combination of P2P and client-server)",
+          "Manual messaging",
+        ],
+        correct: 2,
+        explanation:
+          "A hybrid model combines P2P scalability with client-server management — best suited for smart city networks.",
+      },
+      {
+        id: 23,
+        question:
+          "Which communication model best supports real-time traffic monitoring?",
+        options: [
+          "Event-driven asynchronous communication",
+          "Batch processing",
+          "Synchronous messaging only",
+          "Traditional phone reporting",
+        ],
+        correct: 0,
+        explanation:
+          "Event-driven asynchronous communication is ideal for real-time monitoring — events trigger immediate responses without blocking.",
+      },
+      {
+        id: 24,
+        question: "Service-Oriented Architecture (SOA) is:",
+        options: [
+          "A hardware specification",
+          "A system where web services are discovered dynamically and coordinate to provide enhanced services",
+          "A programming language",
+          "A type of database",
+        ],
+        correct: 1,
+        explanation:
+          "SOA = web services discovered dynamically, coordinating with each other to provide enhanced composite services.",
+      },
+      {
+        id: 25,
+        question: "'In-network processing' in sensor networks means:",
+        options: [
+          "All data is sent to a central server for processing",
+          "Processing happens on the sensor nodes themselves and aggregates from nearby nodes",
+          "Processing is done by the user's smartphone",
+          "No processing occurs in the network",
+        ],
+        correct: 1,
+        explanation:
+          "In-network processing = processing and aggregating data on sensor nodes themselves, reducing the data transmitted across the network.",
+      },
+      {
+        id: 26,
+        question:
+          "If smart spaces each have their own proprietary programming interface, this:",
+        options: [
+          "Improves interoperability",
+          "Inhibits mobility between smart spaces",
+          "Reduces complexity",
+          "Eliminates the need for adaptors",
+        ],
+        correct: 1,
+        explanation:
+          "Proprietary interfaces inhibit mobility — devices moving between smart spaces cannot communicate without complex adaptation at runtime.",
+      },
+    ],
+
+    flashcards: [
+      {
+        front: "Who coined 'Ubiquitous Computing' and when?",
+        back: "Mark Weiser in 1988 at Palo Alto Research Centre (PARC).",
+      },
+      {
+        front: "What is ubiquitous computing?",
+        back: "Integrating computing into everyday objects/environments — seamlessly available anytime, anywhere, without explicit user interaction. Also called pervasive computing.",
+      },
+      {
+        front: "What are the four key characteristics of ubiquitous computing?",
+        back: "Mobility, scalability, context-awareness, seamless integration. (NOT high power consumption — that is a challenge.)",
+      },
+      {
+        front: "What does the active badge example demonstrate?",
+        back: "User enters room → infrared sensor detects badge ID → display responds personally. No explicit interaction — automatic identification and context-aware response.",
+      },
+      {
+        front: "What are five resource constraints for ubiquitous devices?",
+        back: "Computation, memory, storage, energy (battery), wireless connectivity (energy intensive). Energy is the scarcest resource.",
+      },
+      {
+        front: "What is the fundamental design challenge for ubiquitous devices?",
+        back: "Design algorithms that execute in reasonable time using minimal resources.",
+      },
+      {
+        front: "What are volatile systems?",
+        back: "Highly dynamic, unpredictable systems using spontaneous (ad hoc) networking. Devices join, leave, fail, and reconnect constantly — unlike traditional servers which are always on.",
+      },
+      {
+        front: "Sensors vs Actuators — what is the difference?",
+        back: "Sensors measure physical parameters from the environment (orientation, light, sound). Actuators are software-controllable devices that act on the environment (air conditioning, motors).",
+      },
+      {
+        front: "Why are sensing devices often distrusted?",
+        back: "Privacy concerns: tracking (location/movement), discovery routines (auto-detecting people), shopping/commercial monitoring of behaviour.",
+      },
+      {
+        front: "Pre-configured vs spontaneous association?",
+        back: "Pre-configured: set up in advance (email client + server). Spontaneous: formed dynamically at runtime — human-driven (browsing), data-driven (P2P), physically-driven (mobile/ubiquitous).",
+      },
+      {
+        front: "What is the Push Model for discovery?",
+        back: "Services advertise themselves via multicast regularly; clients query cached advertisements. Wasteful of bandwidth.",
+      },
+      {
+        front: "What is the Pull Model for discovery?",
+        back: "Clients multicast requests; services providing those services respond. More efficient but may need repeated requests.",
+      },
+      {
+        front: "What is the lease mechanism?",
+        back: "Client leases a service for a fixed time period; must renew for continued use; automatically released if not renewed. Handles volatility without manual cleanup.",
+      },
+      {
+        front: "What are the four discovery service interface methods?",
+        back: "register(address, attributes) → lease, refresh(lease), deregister(lease), query(attributeSpec) → serviceSet.",
+      },
+      {
+        front: "What are the four discovery service challenges?",
+        back: "Bandwidth use, management of volatile services (solved by leasing), scale, smart space boundary definition.",
+      },
+      {
+        front: "Server-based vs serverless discovery?",
+        back: "Server-based: centralised directory (single point of failure). Serverless: no central directory — each device maintains its own cache.",
+      },
+      {
+        front: "What is the 'lost opportunity problem'?",
+        back: "A device cannot use a nearby service because their interfaces are incompatible.",
+      },
+      {
+        front: "What is the N² adaptor problem?",
+        back: "For N different interfaces, N² adaptors are needed at runtime. For 10 interfaces = 100 adaptors. Does not scale.",
+      },
+      {
+        front: "What are the solutions to the N² adaptor problem?",
+        back: "Constrain to universal interfaces (HTTP GET/POST, Unix pipes) OR use self-describing data formats (XML/JSON).",
+      },
+      {
+        front: "What are the three data-oriented programming approaches?",
+        back: "Unvarying service interface (Unix pipes), event systems (publish-subscribe), tuple spaces (pattern matching with wildcards).",
+      },
+      {
+        front: "How do tuple spaces work?",
+        back: "Producers put structured data tuples; consumers use pattern matching with wildcards to retrieve matching tuples. Decouples producers from consumers.",
+      },
+      {
+        front: "What are the four context-awareness challenges?",
+        back: "Sensor integration, abstraction from raw data, sensor fusion, dynamic context.",
+      },
+      {
+        front: "What is sensor fusion?",
+        back: "Combining and interpreting data from multiple sensors to perform complex sensing tasks (e.g. detecting human presence).",
+      },
+      {
+        front: "What is directed diffusion in sensor networks?",
+        back: "Interests (tasks) are injected at sink nodes; the runtime system diffuses these interests throughout the sensor network.",
+      },
+      {
+        front: "GPS: mechanism, accuracy, limitation?",
+        back: "Satellite multilateration; 1–10m accuracy; outdoors only (requires satellite visibility).",
+      },
+      {
+        front: "Active Bat: mechanism, accuracy?",
+        back: "Radio + ultrasound multilateration; 10cm accuracy — the most precise. Needs ceiling sensors installed.",
+      },
+      {
+        front: "EasyLiving: why is it the worst for privacy?",
+        back: "Uses cameras — no device is needed on the user, so tracking happens without the user's knowledge or consent.",
+      },
+      {
+        front: "Best communication model for smart cities?",
+        back: "Hybrid (P2P + client-server) — combines P2P scalability with client-server management.",
+      },
+      {
+        front: "What is SOA?",
+        back: "Service-Oriented Architecture — web services discovered dynamically and coordinating with each other to provide enhanced services.",
+      },
+      {
+        front: "What is in-network processing?",
+        back: "Processing and aggregating data on sensor nodes themselves rather than sending all raw data to a central server — reduces network bandwidth consumption.",
+      },
+    ],
+
+    shortAnswer: [
+      {
+        id: 1,
+        question:
+          "Define ubiquitous computing and state who coined the term. What is its defining characteristic?",
+        marks: 3,
+        markingGuide: [
+          "Integrating computing capabilities into everyday objects and environments — seamlessly available anytime, anywhere, without requiring explicit user interaction",
+          "Coined by Mark Weiser in 1988 at PARC",
+          "Defining characteristic: invisibility — technology disappears into the background of everyday life",
+        ],
+        hint: "Invisible computing everywhere — who, when, and what makes it unique.",
+      },
+      {
+        id: 2,
+        question:
+          "List the five resource constraints for ubiquitous devices. Which is most critical and why?",
+        marks: 3,
+        markingGuide: [
+          "Five constraints: computation, memory, storage, energy (battery), network bandwidth",
+          "Energy is the most critical — battery dependency, charging inconvenience, wireless communication is energy intensive",
+          "All other constraints also increase energy consumption — energy is the ultimate bottleneck",
+        ],
+        hint: "Everything uses energy — energy is the bottleneck for all other constraints.",
+      },
+      {
+        id: 3,
+        question:
+          "What does 'volatile' mean in the context of ubiquitous systems? Give three reasons why volatility occurs.",
+        marks: 3,
+        markingGuide: [
+          "Volatile = highly dynamic and unpredictable; uses spontaneous (ad hoc) networking",
+          "Reason 1: devices are power dependent — can fail or disconnect at any time",
+          "Reason 2: communications suffer from changing network connectivity and bandwidth",
+          "Reason 3: associations of software components are created and destroyed dynamically",
+        ],
+        hint: "Nothing is permanent — devices come and go unpredictably.",
+      },
+      {
+        id: 4,
+        question:
+          "Compare the Push and Pull models for service discovery. What is the lease mechanism and why is it important?",
+        marks: 4,
+        markingGuide: [
+          "Push: services advertise via multicast regularly; clients query cached ads; wasteful of bandwidth",
+          "Pull: clients multicast requests; providers respond; more efficient but needs repeated requests",
+          "Lease: client gets a time-limited lease on a service; must renew for continued use; auto-released if not renewed",
+          "Importance: handles volatile services automatically — no manual cleanup needed when devices disappear",
+        ],
+        hint: "Services shout (push) vs clients ask (pull). What happens when a service disappears?",
+      },
+      {
+        id: 5,
+        question:
+          "List and describe the four methods in the discovery service interface.",
+        marks: 4,
+        markingGuide: [
+          "register(address, attributes) → lease: register a service with attributes; a lease is returned",
+          "refresh(lease): renew the lease to continue using the service",
+          "deregister(lease): remove the service registered under the given lease",
+          "query(attributeSpecification) → serviceSet: return registered services matching the specification",
+        ],
+        hint: "How do you add, maintain, remove, and find services?",
+      },
+      {
+        id: 6,
+        question:
+          "Explain the 'lost opportunity problem' and the N² adaptor problem in ubiquitous computing interoperability. What is the key solution?",
+        marks: 4,
+        markingGuide: [
+          "Lost opportunity: a device cannot use a nearby service because their interfaces are incompatible",
+          "N² problem: for N different interfaces, N² adaptors are required at runtime — does not scale (10 interfaces = 100 adaptors)",
+          "Solution 1: constrain to a few universal interfaces (HTTP GET/POST, Unix pipes)",
+          "Solution 2: use self-describing data formats (XML/JSON) so devices understand each other without pre-configured adaptors",
+        ],
+        hint: "Think about how many relationships exist between N things — and how to avoid them.",
+      },
+      {
+        id: 7,
+        question:
+          "Describe the three data-oriented programming approaches for volatile systems.",
+        marks: 3,
+        markingGuide: [
+          "Unvarying service interface: all services use the same universal interface (e.g. Unix read/write) — limited expressiveness",
+          "Event systems: publishers publish events; subscribers consume them — challenge is agreeing on event service scope",
+          "Tuple spaces: producers put structured tuples; consumers use pattern matching with wildcards — decouples producers from consumers",
+        ],
+        hint: "Universal interface, publish-subscribe, and pattern-matched data bags.",
+      },
+      {
+        id: 8,
+        question:
+          "Compare GPS, Active Bat, and EasyLiving as location-sensing technologies. What are the key trade-offs?",
+        marks: 4,
+        markingGuide: [
+          "GPS: satellite multilateration; 1–10m; outdoors only (satellite visibility required); good privacy (user-controlled)",
+          "Active Bat: radio + ultrasound; 10cm (most accurate); needs ceiling sensors; bat identity disclosed",
+          "EasyLiving: vision/cameras; variable accuracy; worst privacy — no user device needed, so tracking without consent",
+          "Trade-offs: accuracy vs infrastructure cost; indoor/outdoor capability; privacy exposure",
+        ],
+        hint: "Consider accuracy, where it works, what infrastructure is needed, and privacy.",
+      },
+      {
+        id: 9,
+        question:
+          "What is sensor fusion? Why is 'abstraction from sensor data' a challenge in context-aware systems?",
+        marks: 3,
+        markingGuide: [
+          "Sensor fusion: combining and interpreting data from multiple sensors to perform complex sensing tasks (e.g. detecting human presence from motion, sound, and heat sensors)",
+          "Abstraction challenge: applications receive raw sensor data (e.g. GPS coordinates) and must convert it to meaningful context (e.g. 'user is in the kitchen')",
+          "This requires domain knowledge and processing — the raw data alone is not useful",
+        ],
+        hint: "Raw numbers vs meaningful information — the gap between them.",
+      },
+      {
+        id: 10,
+        question:
+          "Describe three smart city applications of ubiquitous computing. What is the main implementation challenge and the major privacy concern?",
+        marks: 4,
+        markingGuide: [
+          "Application 1: smart traffic — real-time updates and dynamic signal adjustment",
+          "Application 2: smart parking — sensors detect spaces, notify drivers via app",
+          "Application 3: AI-based emergency response or gamification (rewards for civic actions)",
+          "Main challenge: high implementation costs",
+          "Privacy concern: excessive data collection and surveillance risks from pervasive sensors",
+        ],
+        hint: "Three applications from the seminar, then costs and privacy.",
+      },
+      {
+        id: 11,
+        question:
+          "A smart building system must allow devices from multiple vendors to interoperate. Devices join and leave at random (some are battery-powered and may drop off without warning). Design the key mechanisms needed, referencing: discovery, association, interoperability, and volatility management.",
+        marks: 5,
+        markingGuide: [
+          "Discovery: use a hybrid push/pull discovery service with register/query/deregister/refresh interface",
+          "Volatility: implement leasing — devices lease services for a time period; auto-released if not renewed",
+          "Association: support spontaneous (physically-driven) association since devices join without pre-configuration",
+          "Interoperability: constrain to universal interfaces (HTTP GET/POST) and self-describing data (JSON/XML) to avoid N² adaptor problem",
+          "Overall: these mechanisms together create a resilient, self-managing smart space that handles device churn without manual administration",
+        ],
+        hint: "Think through each challenge: how does a new device find services, how does it connect, what happens when it dies?",
+      },
+    ],
+  },
+
+  7: {
+    id: 7,
+    title: "Fault Tolerance",
+    subtitle: "Failures, Replication, Consensus, Detection & Edge/Fog Computing",
+    emoji: "🛡️",
+    guide: week7Guide,
+
+    mcqs: [
+      {
+        id: 1,
+        question: "Fault tolerance in distributed systems is best defined as:",
+        options: [
+          "Eliminating all possible failures in a system",
+          "The system's ability to continue operating correctly despite failures",
+          "Ensuring every node is always available",
+          "Preventing network partitions from occurring",
+        ],
+        correct: 1,
+        explanation:
+          "Fault tolerance is the system's ability to continue operating correctly despite failures — not about eliminating failures, but about handling them so the system keeps working.",
+      },
+      {
+        id: 2,
+        question:
+          "A database server crashes mid-transaction due to a power failure. This is an example of:",
+        options: [
+          "Omission failure",
+          "Timing failure",
+          "Crash failure",
+          "Byzantine failure",
+        ],
+        correct: 2,
+        explanation:
+          "A crash failure occurs when a node completely stops responding. A database server halting due to power failure is the classic example.",
+      },
+      {
+        id: 3,
+        question:
+          "Network congestion causes a request to an API to be lost in transit. This is an example of:",
+        options: [
+          "Crash failure",
+          "Omission failure",
+          "Timing failure",
+          "Byzantine failure",
+        ],
+        correct: 1,
+        explanation:
+          "An omission failure occurs when messages are lost or dropped in transmission — the sender sends but the receiver never receives.",
+      },
+      {
+        id: 4,
+        question:
+          "A banking system fails to process transactions within the required time window. This is an example of:",
+        options: [
+          "Crash failure",
+          "Omission failure",
+          "Timing failure",
+          "Network partition",
+        ],
+        correct: 2,
+        explanation:
+          "A timing failure occurs when a system responds too late or too early — outside the expected time bounds.",
+      },
+      {
+        id: 5,
+        question:
+          "A hacked node in a blockchain network sends different false transaction data to different nodes. This is an example of:",
+        options: [
+          "Crash failure",
+          "Omission failure",
+          "Timing failure",
+          "Byzantine failure",
+        ],
+        correct: 3,
+        explanation:
+          "Byzantine failure is the most severe type — a node behaves incorrectly or maliciously, sending inconsistent or false data to different nodes.",
+      },
+      {
+        id: 6,
+        question:
+          "A cloud region becomes isolated from the rest of a global system due to a network fault. This is an example of:",
+        options: [
+          "Crash failure",
+          "Byzantine failure",
+          "Timing failure",
+          "Network partition",
+        ],
+        correct: 3,
+        explanation:
+          "Network partitioning occurs when some nodes become isolated from others due to network issues — the network splits into groups that cannot communicate.",
+      },
+      {
+        id: 7,
+        question:
+          "In the Primary-Backup replication model:",
+        options: [
+          "All nodes process every request in parallel",
+          "One primary node handles requests; backups take over on failure",
+          "Requests are distributed round-robin across all nodes",
+          "A quorum of nodes must agree before each request is processed",
+        ],
+        correct: 1,
+        explanation:
+          "In Primary-Backup (passive replication), one primary node handles all requests. Backups are kept in sync and take over if the primary fails.",
+      },
+      {
+        id: 8,
+        question:
+          "Quorum-based replication requires:",
+        options: [
+          "All nodes to agree before an update is committed",
+          "A majority of nodes to agree before an update is committed",
+          "Only the primary node to approve an update",
+          "A single backup to confirm an update",
+        ],
+        correct: 1,
+        explanation:
+          "Quorum-based replication requires majority agreement (a quorum) before an update is committed — ensuring consistency even if some nodes fail.",
+      },
+      {
+        id: 9,
+        question:
+          "In active replication, all nodes:",
+        options: [
+          "Act as backups until the primary fails",
+          "Run in parallel and process every request",
+          "Only process read requests",
+          "Wait for a quorum before responding",
+        ],
+        correct: 1,
+        explanation:
+          "In active replication, all nodes run in parallel and process every request — any node can instantly take over with no failover delay.",
+      },
+      {
+        id: 10,
+        question: "Checkpointing in fault-tolerant systems means:",
+        options: [
+          "Monitoring node heartbeats at regular intervals",
+          "Saving the system state periodically so it can be restored after failure",
+          "Distributing data across multiple nodes",
+          "Logging all network traffic",
+        ],
+        correct: 1,
+        explanation:
+          "Checkpointing saves a consistent snapshot of the system state periodically so it can be restored after a failure — the foundation of rollback recovery.",
+      },
+      {
+        id: 11,
+        question: "Rollback recovery means:",
+        options: [
+          "Deleting data after a failure to start fresh",
+          "Restoring system state from a previous checkpoint after a failure",
+          "Sending all nodes back to their initial state",
+          "Redirecting requests to a backup system",
+        ],
+        correct: 1,
+        explanation:
+          "Rollback recovery restores the system to the last known-good checkpoint after a failure, then replays subsequent operations.",
+      },
+      {
+        id: 12,
+        question: "Message logging in fault tolerance is used to:",
+        options: [
+          "Monitor network traffic for security threats",
+          "Store records of messages so they can be replayed after a crash",
+          "Compress messages for faster transmission",
+          "Authenticate nodes before they send messages",
+        ],
+        correct: 1,
+        explanation:
+          "Message logging stores records of messages sent/received so they can be replayed after a crash — allowing recovery of work done since the last checkpoint.",
+      },
+      {
+        id: 13,
+        question:
+          "The consensus problem in distributed systems asks:",
+        options: [
+          "How to minimise network latency between nodes",
+          "How distributed nodes can agree on a single value despite failures",
+          "How to maximise throughput across replicated nodes",
+          "How to detect Byzantine failures in real time",
+        ],
+        correct: 1,
+        explanation:
+          "The consensus problem: how do distributed nodes agree on a single value, even when some nodes fail? This is fundamental to maintaining consistency across replicas.",
+      },
+      {
+        id: 14,
+        question: "The Paxos algorithm was proposed by:",
+        options: [
+          "Diego Ongaro & John Ousterhout, 2013",
+          "Barbara Liskov & Miguel Castro, 1999",
+          "Leslie Lamport, 1998",
+          "Mark Weiser, 1988",
+        ],
+        correct: 2,
+        explanation:
+          "Paxos was proposed by Leslie Lamport in 1998. It ensures agreement in unreliable networks.",
+      },
+      {
+        id: 15,
+        question: "Which consensus algorithm is used in Kubernetes for leader election?",
+        options: ["Paxos", "Raft", "BFT", "Gossip"],
+        correct: 1,
+        explanation:
+          "Raft is used in Kubernetes for leader election. It was designed to be more understandable than Paxos while providing equivalent guarantees.",
+      },
+      {
+        id: 16,
+        question:
+          "Which of the following is TRUE about both Paxos and Raft?",
+        options: [
+          "Both handle Byzantine failures",
+          "Both are used in blockchain systems",
+          "Neither handles Byzantine failures",
+          "Both require all nodes to agree before committing",
+        ],
+        correct: 2,
+        explanation:
+          "Both Paxos and Raft are crash-fault-tolerant but do NOT handle Byzantine failures — they assume nodes can crash but not act maliciously.",
+      },
+      {
+        id: 17,
+        question:
+          "Byzantine Fault Tolerance (BFT) is needed when:",
+        options: [
+          "Nodes may crash but not misbehave",
+          "Network latency is very high",
+          "Nodes may behave maliciously or send inconsistent data",
+          "There are more than 10 nodes in the system",
+        ],
+        correct: 2,
+        explanation:
+          "BFT is needed when nodes may behave arbitrarily incorrectly or maliciously — for example, in blockchain networks where some nodes may be controlled by attackers.",
+      },
+      {
+        id: 18,
+        question:
+          "Bitcoin's blockchain uses Byzantine Fault Tolerance primarily to:",
+        options: [
+          "Improve transaction speed",
+          "Prevent double-spending despite malicious nodes",
+          "Reduce storage requirements",
+          "Eliminate the need for consensus",
+        ],
+        correct: 1,
+        explanation:
+          "Bitcoin uses BFT to prevent double-spending — even if some nodes in the network are controlled by attackers, the honest majority can still agree on the correct transaction history.",
+      },
+      {
+        id: 19,
+        question: "Heartbeat mechanisms detect failures by:",
+        options: [
+          "Sending all data to a backup when a failure is detected",
+          "Nodes sending periodic 'alive' signals; absence indicates failure",
+          "Continuously polling all nodes for their current state",
+          "Broadcasting failure messages across the network",
+        ],
+        correct: 1,
+        explanation:
+          "Heartbeats are periodic 'alive' signals. If a heartbeat is not received within a timeout, the node is suspected to have failed.",
+      },
+      {
+        id: 20,
+        question:
+          "A limitation of timeout-based failure detection is:",
+        options: [
+          "It cannot detect crash failures",
+          "It requires all nodes to communicate with all others",
+          "A slow response due to network congestion may be misinterpreted as a crash",
+          "It only works in synchronous systems",
+        ],
+        correct: 2,
+        explanation:
+          "Timeout-based detection is imprecise — a node that is slow due to congestion may be incorrectly marked as failed, causing unnecessary failover.",
+      },
+      {
+        id: 21,
+        question: "Gossip protocols for failure detection work by:",
+        options: [
+          "Sending failure alerts to a central monitor",
+          "Each node periodically sharing its view of which nodes are alive with random peers",
+          "Broadcasting failure information to all nodes simultaneously",
+          "Polling each node individually for its status",
+        ],
+        correct: 1,
+        explanation:
+          "Gossip protocols spread failure information in a decentralised way — each node shares its knowledge with a random selection of peers, and information propagates exponentially.",
+      },
+      {
+        id: 22,
+        question: "In edge computing, processing occurs:",
+        options: [
+          "In a centralised cloud data centre",
+          "In local gateways or routers",
+          "Directly on edge devices such as IoT sensors and cameras",
+          "On dedicated fog nodes between edge and cloud",
+        ],
+        correct: 2,
+        explanation:
+          "Edge computing processes data directly on edge devices (IoT sensors, cameras, phones, microcontrollers) — closest to the data source for ultra-low latency.",
+      },
+      {
+        id: 23,
+        question: "In fog computing, processing occurs:",
+        options: [
+          "Directly on IoT sensors",
+          "In centralised cloud data centres",
+          "In local gateways or routers close to the network edge",
+          "On the end user's device",
+        ],
+        correct: 2,
+        explanation:
+          "Fog computing places computing resources in local gateways or routers — between edge devices and the cloud — for regional coordination.",
+      },
+      {
+        id: 24,
+        question:
+          "In the edge-fog-cloud hierarchy, which tier handles long-term strategy and storage?",
+        options: ["Edge", "Fog", "Cloud", "Gateway"],
+        correct: 2,
+        explanation:
+          "The cloud handles long-term strategy and storage. Edge = immediate local decisions, Fog = regional coordination, Cloud = long-term strategy.",
+      },
+      {
+        id: 25,
+        question:
+          "Which tier of the edge-fog-cloud hierarchy has the lowest latency?",
+        options: ["Cloud", "Fog", "Edge", "All are equal"],
+        correct: 2,
+        explanation:
+          "Edge computing has ultra-low latency because processing happens directly on the device — no data needs to travel across a network.",
+      },
+      {
+        id: 26,
+        question:
+          "In the smart traffic example from the lecture, which tier detects a pedestrian and triggers an immediate warning?",
+        options: ["Cloud", "Fog", "Edge", "Gateway"],
+        correct: 2,
+        explanation:
+          "Edge — a traffic sensor (edge device) detects a pedestrian and immediately triggers a flashing warning. This requires ultra-low latency that only edge processing can provide.",
+      },
+    ],
+
+    flashcards: [
+      {
+        front: "What is fault tolerance?",
+        back: "The system's ability to continue operating correctly despite failures. Not about eliminating failures — about handling them efficiently.",
+      },
+      {
+        front: "What is a crash failure?",
+        back: "A node completely stops responding and produces no further output. Example: a database server crashing mid-transaction due to power failure.",
+      },
+      {
+        front: "What is an omission failure?",
+        back: "Messages are lost or dropped in transmission. Example: network congestion causing a lost request to an API.",
+      },
+      {
+        front: "What is a timing failure?",
+        back: "A system responds too late or too early — outside expected time bounds. Example: a banking system failing to process transactions in real time.",
+      },
+      {
+        front: "What is a Byzantine failure?",
+        back: "The most severe failure — a node behaves incorrectly or maliciously, sending false or inconsistent data. Example: a hacked blockchain node broadcasting fake transactions.",
+      },
+      {
+        front: "What is a network partition?",
+        back: "Some nodes become isolated from others due to network issues. Example: a cloud region disconnecting from a global system.",
+      },
+      {
+        front: "What is the Primary-Backup replication model?",
+        back: "One primary node handles all requests; backups are kept in sync. If the primary fails, a backup takes over. Also called passive replication.",
+      },
+      {
+        front: "What is quorum-based replication?",
+        back: "A majority of nodes (a quorum) must agree before an update is committed. Ensures consistency even if some nodes fail. Example: in a 5-node system, 3 must agree.",
+      },
+      {
+        front: "Active vs passive replication?",
+        back: "Active: all nodes run in parallel, process every request — no failover delay. Passive: one primary, others are backups — brief unavailability during failover.",
+      },
+      {
+        front: "What is checkpointing?",
+        back: "Saving the system's state periodically so it can be restored after a failure. A checkpoint is a consistent snapshot of the system at a point in time.",
+      },
+      {
+        front: "What is rollback recovery?",
+        back: "Restoring system state from the last checkpoint after a failure, then replaying operations from that point.",
+      },
+      {
+        front: "What is message logging?",
+        back: "Storing records of messages sent/received so they can be replayed after a crash — allows recovery of work done since the last checkpoint.",
+      },
+      {
+        front: "What are self-healing systems?",
+        back: "Systems that use ML to monitor key variables, predict failures before they occur, and resolve issues proactively rather than reactively.",
+      },
+      {
+        front: "What is the consensus problem?",
+        back: "How do distributed nodes agree on a single value, even when some nodes fail? Required for maintaining consistency across replicas.",
+      },
+      {
+        front: "What is Paxos?",
+        back: "Consensus algorithm by Leslie Lamport (1998). Ensures agreement in unreliable networks. Handles crash failures but NOT Byzantine failures. Correct but complex.",
+      },
+      {
+        front: "What is Raft?",
+        back: "Consensus algorithm by Ongaro & Ousterhout (2013). Designed to be more understandable than Paxos. Uses leader election + log replication. Used in Kubernetes. NOT Byzantine fault tolerant.",
+      },
+      {
+        front: "What do Paxos and Raft have in common?",
+        back: "Both handle crash failures (nodes stopping) but neither handles Byzantine failures (nodes acting maliciously). Both require a majority of nodes to function.",
+      },
+      {
+        front: "What is Byzantine Fault Tolerance (BFT)?",
+        back: "Consensus algorithm (Liskov & Castro, 1999) that handles nodes behaving maliciously or arbitrarily. Requires 3f+1 nodes to tolerate f Byzantine failures. Used in blockchains.",
+      },
+      {
+        front: "Why does Bitcoin use BFT?",
+        back: "To prevent double-spending — even if some nodes are controlled by attackers, the honest majority can still agree on the correct transaction history.",
+      },
+      {
+        front: "How many nodes does BFT require to tolerate f Byzantine failures?",
+        back: "3f + 1 nodes minimum. To tolerate 1 Byzantine failure: 4 nodes needed. More expensive than crash-fault-tolerant algorithms (which need only 2f+1).",
+      },
+      {
+        front: "What are heartbeat mechanisms?",
+        back: "Nodes send periodic 'alive' signals to other nodes or monitors. If a heartbeat is not received within a timeout, the node is suspected failed.",
+      },
+      {
+        front: "What is the limitation of timeout-based failure detection?",
+        back: "A slow response due to network congestion may be misinterpreted as a crash — leading to false positives and unnecessary failover.",
+      },
+      {
+        front: "How do gossip protocols detect failures?",
+        back: "Each node periodically shares its view of which nodes are alive/dead with random peers. Information spreads exponentially — decentralised and scalable.",
+      },
+      {
+        front: "What is edge computing?",
+        back: "Processing directly on edge devices (IoT sensors, cameras, phones). Ultra-low latency, immediate reactions, no round-trip to network. Use cases: autonomous vehicles, robotics.",
+      },
+      {
+        front: "What is fog computing?",
+        back: "Computing in local gateways/routers between edge and cloud. Collects data from multiple sensors, performs localised analytics, reduces cloud load. Use cases: smart cities, industrial networks.",
+      },
+      {
+        front: "Edge vs fog: key difference?",
+        back: "Edge: directly on the device — ultra-low latency, limited scale. Fog: in a local network layer — very low latency, higher scale, handles coordination across multiple edge devices.",
+      },
+      {
+        front: "What are the three tiers in the edge-fog-cloud hierarchy?",
+        back: "Edge → immediate local decisions. Fog → regional coordination. Cloud → long-term strategy and storage.",
+      },
+      {
+        front: "Smart traffic workflow across tiers?",
+        back: "Edge: camera detects heavy traffic → Fog: node adjusts all junction timings in the district → Cloud: summaries stored for long-term planning.",
+      },
+      {
+        front: "Amazon EC2 Auto-Scaling as fault tolerance?",
+        back: "Uses timeout-based failure detection — detects failing servers and automatically launches replacements. An example of self-stabilization.",
+      },
+      {
+        front: "What is self-stabilization?",
+        back: "A distributed system's ability to recover from any transient fault or incorrect state and return to a correct state without external intervention.",
+      },
+    ],
+
+    shortAnswer: [
+      {
+        id: 1,
+        question:
+          "Define fault tolerance and explain why it is necessary in distributed systems.",
+        marks: 3,
+        markingGuide: [
+          "Fault tolerance: the system's ability to continue operating correctly despite failures",
+          "Necessary because distributed systems consist of multiple nodes and networks where failures (hardware, software, network) are inevitable",
+          "Goal is not to prevent every failure but to ensure the system keeps working when failures occur",
+        ],
+        hint: "Think about what makes distributed systems inherently more prone to failure than single machines.",
+      },
+      {
+        id: 2,
+        question:
+          "Describe the five types of failures in distributed systems and give a real-world example of each.",
+        marks: 5,
+        markingGuide: [
+          "Crash: node completely stops — database server crashing mid-transaction",
+          "Omission: messages lost/dropped — network congestion causing lost API request",
+          "Timing: responds too late/early — banking system missing real-time transaction window",
+          "Byzantine: node behaves maliciously/incorrectly — hacked blockchain node broadcasting fake transactions",
+          "Network partition: nodes become isolated — cloud region disconnecting from global system",
+        ],
+        hint: "For each: what kind of 'wrong' behaviour is it? Is the node silent, slow, wrong, or unreachable?",
+      },
+      {
+        id: 3,
+        question:
+          "Compare active and passive replication. When would you choose each?",
+        marks: 4,
+        markingGuide: [
+          "Active: all nodes run in parallel and process every request — no failover delay, higher resource usage",
+          "Passive: one primary node, others are backups — brief unavailability during failover, more resource efficient",
+          "Choose active when zero downtime is critical (e.g. safety systems)",
+          "Choose passive when resource efficiency matters more than instantaneous failover (e.g. Google Drive, Dropbox)",
+        ],
+        hint: "Consider what happens at the moment of failure in each approach.",
+      },
+      {
+        id: 4,
+        question:
+          "Explain checkpointing, rollback recovery, and message logging. How do they work together?",
+        marks: 4,
+        markingGuide: [
+          "Checkpointing: saves system state periodically — a consistent snapshot",
+          "Rollback recovery: restores system to last checkpoint after failure",
+          "Message logging: records all messages so work done since last checkpoint can be replayed",
+          "Together: checkpoint provides the starting point; message log fills in everything from checkpoint to the point of failure",
+        ],
+        hint: "What does checkpointing give you on its own? What does message logging add?",
+      },
+      {
+        id: 5,
+        question:
+          "Compare Paxos and Raft. What failure types do they handle, and what is their key difference?",
+        marks: 4,
+        markingGuide: [
+          "Both handle crash failures but NOT Byzantine failures",
+          "Paxos: Leslie Lamport (1998) — correct but notoriously complex; leader-based proposer",
+          "Raft: Ongaro & Ousterhout (2013) — same guarantees as Paxos but designed for understandability; explicit leader election + log replication",
+          "Raft is used in Kubernetes for leader election; Paxos used in various distributed databases",
+        ],
+        hint: "What problem was Raft designed to solve that Paxos had?",
+      },
+      {
+        id: 6,
+        question:
+          "Why is Byzantine Fault Tolerance necessary for blockchain systems? How does it differ from Paxos/Raft?",
+        marks: 4,
+        markingGuide: [
+          "Blockchain involves untrusted nodes that may be controlled by attackers — crash-fault-tolerant algorithms assume nodes fail silently, not maliciously",
+          "BFT handles nodes sending false or inconsistent data to different peers",
+          "Bitcoin uses BFT to prevent double-spending even if some nodes are dishonest",
+          "BFT requires 3f+1 nodes (vs 2f+1 for crash tolerance) — more expensive but necessary for open, adversarial networks",
+        ],
+        hint: "What does a dishonest node do that a crashed node does not?",
+      },
+      {
+        id: 7,
+        question:
+          "Describe three failure detection mechanisms used in distributed systems. What is a key limitation of timeout-based detection?",
+        marks: 4,
+        markingGuide: [
+          "Heartbeats: periodic 'alive' signals — absence within timeout indicates failure",
+          "Timeout-based detection: mark node as failed if no response within time limit",
+          "Gossip protocols: nodes share failure info with random peers — propagates exponentially",
+          "Limitation of timeout: network congestion can cause a slow response to be misinterpreted as a crash (false positive)",
+        ],
+        hint: "Think about a scenario where a node is alive but slow — how does each mechanism react?",
+      },
+      {
+        id: 8,
+        question:
+          "Explain the difference between edge and fog computing. Give one example of a task suited to each.",
+        marks: 4,
+        markingGuide: [
+          "Edge: processing directly on devices (sensors, cameras) — ultra-low latency, device-level",
+          "Fog: processing in local gateways/routers between edge and cloud — regional coordination, very low latency",
+          "Edge example: traffic sensor immediately triggering a pedestrian warning",
+          "Fog example: fog node monitoring all intersections in a district and adjusting traffic light timings",
+        ],
+        hint: "The key distinction is where the processing happens and what scale of problem it solves.",
+      },
+      {
+        id: 9,
+        question:
+          "Describe the edge-fog-cloud hierarchy using the smart traffic system example from the lecture.",
+        marks: 3,
+        markingGuide: [
+          "Edge: roadside camera detects heavy traffic — processes locally and sends 'traffic density high' signal",
+          "Fog: nearby fog node receives data from all junctions in the district, analyses congestion patterns, adjusts light cycles",
+          "Cloud: fog node sends summaries to cloud for long-term planning and storage",
+        ],
+        hint: "Trace the data from the moment a camera detects traffic all the way to long-term planning.",
+      },
+      {
+        id: 10,
+        question:
+          "A distributed e-commerce system must handle node failures without data loss and ensure all replicas agree on the order of transactions. Identify two fault tolerance techniques it should use and justify each.",
+        marks: 4,
+        markingGuide: [
+          "Technique 1: Checkpointing + rollback recovery — saves transaction state periodically; if a node fails mid-transaction, it can restore from the last checkpoint",
+          "Technique 2: Consensus algorithm (Paxos/Raft) — ensures all replicas agree on the order of committed transactions before confirming to the user",
+          "Both justified with reference to the specific requirements (no data loss + replica agreement)",
+          "Could also mention quorum-based replication for write consistency",
+        ],
+        hint: "Two separate problems: recovering from failure vs agreeing on state.",
+      },
+      {
+        id: 11,
+        question:
+          "A distributed IoT system for a smart factory has sensors producing real-time safety alerts, a local gateway, and a cloud backend. A sensor detects a dangerous temperature spike. Explain how edge, fog, and cloud computing should each respond, and why this division of responsibility is appropriate.",
+        marks: 5,
+        markingGuide: [
+          "Edge: sensor detects temperature spike and immediately triggers safety shutdown/alert — ultra-low latency, cannot wait for network round-trip",
+          "Fog: local gateway aggregates temperature readings from all sensors in the area, identifies whether the spike is localised or widespread, adjusts connected systems accordingly",
+          "Cloud: receives summary data for analysis, long-term trend monitoring, and compliance reporting",
+          "Division appropriate because safety-critical actions need millisecond response (edge only), regional coordination benefits from more compute (fog), and long-term analysis needs global scale (cloud)",
+          "Sending everything to cloud would introduce unacceptable latency for a safety-critical alert",
+        ],
+        hint: "For each tier: what decision must it make, how fast does it need to make it, and what data does it need?",
+      },
+    ],
+  },
 };
 
 export const moduleInfo = {
   name: "Distributed Systems",
   code: "Y3",
-  totalWeeks: 12,
+  totalWeeks: 7,
 };
