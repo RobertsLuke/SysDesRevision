@@ -181,6 +181,7 @@ ${answer.trim()}`;
                 setAnswer(existing?.answer || "");
                 setResult(existing?.result || null);
                 setShowHint(false);
+                setShowAnswer(false);
                 setError(null);
               }}
               className={`h-9 px-3 rounded-lg text-sm font-bold transition-all ${
