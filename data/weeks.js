@@ -1008,53 +1008,20 @@ export const weeks = {
     ],
 
     shortAnswers: [
-      // ===== LECTURE 1 =====
       {
         id: 1,
         question:
-          "What are the two primary issues when computer-based devices interact in a distributed system?",
-        marks: 2,
+          "State the Tanenbaum and Coulouris definitions of a distributed system. What is the key difference between them?",
+        marks: 4,
         markingGuide: [
-          "How the devices communicate (networking)",
-          "How they interact (distributed software)",
+          "Tanenbaum: a collection of independent computers that appear to users as a single computer",
+          "Coulouris: hardware or software components at networked computers that communicate and coordinate only by message passing",
+          "Key difference: Coulouris emphasises message passing as the sole coordination mechanism; Tanenbaum emphasises the user's perspective of a single system",
         ],
-        hint: "Think about the difference between the physical connection and the software coordination.",
+        hint: "One focuses on user perception, the other on the mechanism of coordination.",
       },
       {
         id: 2,
-        question:
-          "State the Tanenbaum definition of a distributed system.",
-        marks: 2,
-        markingGuide: [
-          "A collection of independent computers",
-          "That appear to the users of the system as a single computer",
-        ],
-        hint: "This definition focuses on the user's perspective.",
-      },
-      {
-        id: 3,
-        question:
-          "Explain how 'Work Harder', 'Work Smarter', and 'Get Help' map to computing concepts.",
-        marks: 3,
-        markingGuide: [
-          "Work Harder = improving hardware performance",
-          "Work Smarter = using better algorithms",
-          "Get Help = distributed/parallel processing",
-        ],
-        hint: "Think about three different strategies for making something faster.",
-      },
-      {
-        id: 4,
-        question:
-          "Give three examples of distributed systems mentioned in the lecture.",
-        marks: 3,
-        markingGuide: [
-          "Any three from: NFS, ATM machines, web page retrieval, network printers, ssh/telnet, Java RMI, CORBA, NIS, DSM, network audio/video, Condor",
-        ],
-        hint: "Think about systems where multiple computers work together to provide a service.",
-      },
-      {
-        id: 5,
         question:
           "What are the four key issues that must be addressed in distributed systems?",
         marks: 4,
@@ -1067,30 +1034,22 @@ export const weeks = {
         hint: "Think about what could go wrong when connecting computers over a network.",
       },
       {
-        id: 6,
+        id: 3,
         question:
-          "What does the Naming design issue require for resource names in a distributed system?",
-        marks: 3,
+          "Describe the six key design issues in distributed systems: Naming, Access, Communication, Software Structure, Resource Management, and Consistency Maintenance.",
+        marks: 6,
         markingGuide: [
-          "Names must have global meaning",
-          "Be independent of resource location",
-          "Be supported by an efficient name translation system that scales well",
+          "Naming: resource names must have global meaning, be location-independent, and be efficiently translatable",
+          "Access: same functions usable everywhere with reasonable performance and data coherence",
+          "Communication: performance and reliability of communication directly determines overall system performance",
+          "Software Structure (Openness): well-defined interfaces (APIs) allowing interworking with existing and new services",
+          "Resource Management: deploying resources optimally for changing workloads (load balancing)",
+          "Consistency Maintenance: ensuring coherent data, replication, caching, failure handling, and time across the system",
         ],
-        hint: "Think about what happens when a resource moves to a different server.",
+        hint: "Think about what you need to get right when building a system across multiple machines.",
       },
       {
-        id: 7,
-        question:
-          "Why is distributed systems communication described as 'not so layered' compared to the OSI/TCP-IP model?",
-        marks: 2,
-        markingGuide: [
-          "Because distributed systems mix and match protocols, APIs, and services as required",
-          "Rather than strictly following a layered hierarchy",
-        ],
-        hint: "Think about the difference between strict network layers and practical DS communication.",
-      },
-      {
-        id: 8,
+        id: 4,
         question:
           "List the three elements of security design in distributed systems and briefly describe each.",
         marks: 3,
@@ -1102,402 +1061,117 @@ export const weeks = {
         hint: "Think: Who are you? What can you do? What did you do?",
       },
       {
-        id: 9,
+        id: 5,
         question:
           "Name two advantages and two disadvantages of distributed systems.",
         marks: 4,
         markingGuide: [
-          "Advantages: better price-to-performance, lower turnaround, reliability, incremental growth",
+          "Advantages: better price-to-performance ratio, lower application turnaround, reliability through redundancy, incremental growth",
           "Disadvantages: software complexity, communication bottlenecks, weaker security, reliability concerns",
         ],
         hint: "Think about both the benefits of spreading work across machines and the complications it introduces.",
       },
       {
-        id: 10,
-        question:
-          "What is meant by 'consistency maintenance' in distributed systems? Give three specific concerns.",
-        marks: 4,
-        markingGuide: [
-          "Ensuring coherence across the system",
-          "Concerns include: concurrent data access, data replication for fault tolerance, cache management, failure handling, consistent time, and user interface consistency",
-        ],
-        hint: "Think about all the different things that could get 'out of sync'.",
-      },
-      {
-        id: 11,
-        question:
-          "What does 'resource management' refer to in the context of distributed systems design?",
-        marks: 2,
-        markingGuide: [
-          "Deploying processing and communications resources to optimum effect for handling a changing workload",
-          "Commonly known as load balancing",
-        ],
-        hint: "Think about distributing work evenly across available machines.",
-      },
-      {
-        id: 12,
-        question:
-          "Describe the three layers of the DS road map.",
-        marks: 3,
-        markingGuide: [
-          "Fundamentals: processes, threads, RPC, naming, caching, protocols",
-          "Middleware: scheduling, transactions, replication, fault-tolerance",
-          "Application: DSM, distributed objects, security",
-        ],
-        hint: "Think about low-level building blocks, middle-layer services, and high-level applications.",
-      },
-      {
-        id: 13,
-        question:
-          "What does 'openness' mean in the context of distributed system software structure?",
-        marks: 2,
-        markingGuide: [
-          "Software components are designed with well-defined interfaces (APIs)",
-          "So they can interwork with both existing and new services without duplicating functionality",
-        ],
-        hint: "Think about how different software components can work together through standard interfaces.",
-      },
-      {
-        id: 14,
-        question:
-          "Why does 'getting help' in distributed computing come with risks?",
-        marks: 3,
-        markingGuide: [
-          "Adding more components introduces coordination overhead",
-          "Potential communication failures",
-          "Security vulnerabilities and increased software complexity",
-        ],
-        hint: "Think about what happens when you add more people to a project.",
-      },
-      {
-        id: 15,
-        question:
-          "What role does message passing play in the Coulouris definition of a distributed system?",
-        marks: 2,
-        markingGuide: [
-          "It is the sole mechanism by which hardware or software components at networked computers communicate and coordinate their actions",
-        ],
-        hint: "Focus on the word 'only' in Coulouris's definition.",
-      },
-      {
-        id: 16,
-        question:
-          "What does the 'Access' design issue require in a distributed system?",
-        marks: 2,
-        markingGuide: [
-          "The same functions must be usable everywhere with reasonable performance",
-          "The system must provide some idea of data coherence so that users see consistent data regardless of where they access it",
-        ],
-        hint: "Think about using the same service from different locations.",
-      },
-      {
-        id: 17,
-        question:
-          "Why is the Communication design issue considered critical in distributed systems?",
-        marks: 2,
-        markingGuide: [
-          "Because the performance and reliability of the communication techniques used directly determine the overall performance of the distributed system",
-        ],
-        hint: "Everything in a DS depends on how well machines can talk to each other.",
-      },
-      {
-        id: 18,
-        question:
-          "List the five layers of the building blocks communications model mentioned in the lecture.",
-        marks: 5,
-        markingGuide: [
-          "Data link layer (bits on a wire)",
-          "Packet switching",
-          "Addressing and routing",
-          "Reliable data streams",
-          "Higher-level protocols such as RPC, SNMP, and HTTP",
-        ],
-        hint: "Start from the lowest physical level and work up to application-level protocols.",
-      },
-      {
-        id: 19,
-        question:
-          "Give two real-world examples used in the lecture to illustrate the concept of 'Working Smarter'.",
-        marks: 2,
-        markingGuide: [
-          "Henry Ford's automobile assembly line",
-          "McDonald's restaurants — both reduce the work needed through more efficient processes",
-          "Racing lines in F1/athletics were also mentioned",
-        ],
-        hint: "Think about famous examples of efficiency improvements.",
-      },
-
-      // ===== SEMINAR 1 =====
-      {
-        id: 20,
-        question:
-          "List the key goals of a distributed system as presented in the seminar.",
-        marks: 4,
-        markingGuide: [
-          "The key goals are: scalability, fault tolerance, efficiency, performance, data integrity, concurrency, transparency, replication, availability, security, and maintainability",
-        ],
-        hint: "There are eleven goals — think about what you'd want from a system that uses multiple computers.",
-      },
-      {
-        id: 21,
+        id: 6,
         question:
           "Explain the three dimensions of scalability in a distributed system.",
         marks: 3,
         markingGuide: [
-          "Size scalability means handling more users and resources",
-          "Geographic scalability means operating across large physical distances",
-          "Administrative scalability means functioning across multiple organisational boundaries",
+          "Size scalability — handling more users and resources",
+          "Geographic scalability — operating across large physical distances",
+          "Administrative scalability — functioning across multiple organisational boundaries",
         ],
         hint: "Think about three different ways a system might need to grow.",
       },
       {
-        id: 22,
+        id: 7,
         question:
-          "What is meant by 'transparency' as a goal of a distributed system, and what three aspects does it cover?",
-        marks: 4,
+          "List the six types of transparency in distributed systems and briefly explain each.",
+        marks: 6,
         markingGuide: [
-          "Transparency means hiding the distributed nature of the system so it appears as a single coherent system",
-          "Location transparency — hiding where resources are",
-          "Replication transparency — hiding that data is copied",
-          "Failure transparency — hiding component failures from users",
+          "Access transparency — hides differences in how data is accessed",
+          "Location transparency — hides where resources physically reside",
+          "Concurrency transparency — hides that resources are shared by multiple users",
+          "Replication transparency — hides that data has been copied across nodes",
+          "Failure transparency — hides that a component has failed",
+          "Scaling transparency — hides that the system has been resized",
         ],
-        hint: "The user shouldn't know or care that the system is distributed.",
+        hint: "Six things the system should hide from users.",
       },
       {
-        id: 23,
-        question:
-          "Describe the four sub-aspects of the Security goal in a distributed system.",
-        marks: 4,
-        markingGuide: [
-          "Authentication verifies user identity",
-          "Authorisation determines what permissions a user has",
-          "Encryption protects data in transit and at rest",
-          "Auditing logs all access to resources for accountability and evidence",
-        ],
-        hint: "Think: Who are you? What can you do? Is it protected? Is it logged?",
-      },
-      {
-        id: 24,
+        id: 8,
         question:
           "What does 'heterogeneity' mean as a challenge in distributed systems? Give three specific examples.",
         marks: 4,
         markingGuide: [
-          "Heterogeneity refers to the variety and differences that exist across a distributed system",
-          "Examples include different network protocols, different operating systems (e.g. Windows, Linux, macOS), different programming languages, different computer hardware, and implementations by different developers",
+          "Heterogeneity refers to the variety and differences across a distributed system",
+          "Examples: different network protocols, different operating systems (Windows, Linux, macOS), different programming languages, different hardware, implementations by different developers",
         ],
-        hint: "Think about all the ways computers in a distributed system might be different from each other.",
+        hint: "Think about all the ways computers in a distributed system might differ from each other.",
       },
       {
-        id: 25,
+        id: 9,
         question:
-          "List the six types of transparency identified as challenges in distributed systems and briefly explain each.",
-        marks: 6,
-        markingGuide: [
-          "Access transparency hides differences in how data is accessed",
-          "Location transparency hides where resources physically reside",
-          "Concurrency transparency hides that resources are being shared by multiple users",
-          "Replication transparency hides that data has been copied across nodes",
-          "Failure transparency hides that a component has failed",
-          "Scaling transparency hides that the system has been resized",
-        ],
-        hint: "Six things the system should hide from users — think about access, location, sharing, copies, failures, and growth.",
-      },
-      {
-        id: 26,
-        question:
-          "What specific security challenges are mentioned for distributed systems beyond the general security goal?",
-        marks: 2,
-        markingGuide: [
-          "Bottlenecks that arise in decentralised security systems",
-          "The uncontrolled growth of metadata",
-        ],
-        hint: "These are practical challenges, not the high-level security goals.",
-      },
-      {
-        id: 27,
-        question:
-          "What three concerns does the 'Scheduling' challenge in distributed systems involve?",
-        marks: 3,
-        markingGuide: [
-          "Load balancing — distributing work evenly across nodes",
-          "Synchronisation — coordinating processes",
-          "Clock drift — the gradual divergence of clocks on different machines, which makes event ordering difficult",
-        ],
-        hint: "Think about coordinating work, keeping things in sync, and the problem of time.",
-      },
-      {
-        id: 28,
-        question:
-          "Explain the difference between 'fault tolerance' as a goal and 'fault tolerance' as a challenge.",
-        marks: 3,
-        markingGuide: [
-          "As a goal, fault tolerance is the desired property that a system continues operating correctly despite component failures",
-          "As a challenge, it refers to the practical difficulty of implementing failure handling — detecting node crashes, rerouting work, and maintaining service continuity",
-        ],
-        hint: "One is what you want to achieve, the other is how hard it is to actually do it.",
-      },
-      {
-        id: 29,
-        question:
-          "How does 'replication' serve as both a goal and a source of challenges?",
+          "Explain how 'replication' serves as both a goal and a source of challenges in distributed systems.",
         marks: 4,
         markingGuide: [
-          "As a goal, replication improves availability, fault tolerance, and performance by maintaining multiple copies of data",
-          "As a challenge, keeping all copies synchronised and consistent — especially after updates — is technically difficult and can introduce conflicts",
+          "As a goal: improves availability, fault tolerance, and performance by maintaining multiple copies of data",
+          "As a challenge: keeping all copies synchronised and consistent after updates is difficult",
+          "If nodes are unreachable or updates arrive in different orders, copies can diverge",
+          "Replication also widens the attack surface for security threats",
         ],
         hint: "Having copies is good for reliability, but keeping them all the same is hard.",
       },
       {
-        id: 30,
+        id: 10,
         question:
-          "In a P2P network using traditional desktop machines, what are the implications for the availability of shared data?",
-        marks: 3,
+          "In a P2P network using traditional desktop machines, what are the key availability and security concerns? How does replication help and what limitations does it introduce?",
+        marks: 5,
         markingGuide: [
-          "Desktop machines may be powered off, disconnected, or restarted at any time",
-          "Unlike dedicated servers, these hosts have no guaranteed uptime",
-          "So the availability of shared data objects is inherently unreliable",
+          "Availability: desktop machines may be powered off or disconnected at any time — no guaranteed uptime",
+          "Security: owners are unknown/untrusted, have full control over shared data, and network connections are exposed to DoS attacks",
+          "Replication helps by distributing copies across peers so data remains accessible if some hosts are offline",
+          "Limitations: increases attack surface (more machines hold data), introduces consistency challenges (keeping replicas synchronised)",
+          "Severity depends on the application — music downloads tolerate delays; file storage requires immediate access and integrity",
         ],
-        hint: "Think about what happens when you leave work and turn off your PC.",
+        hint: "Availability, trust, replication benefits, and the trade-offs.",
       },
       {
-        id: 31,
-        question:
-          "In a P2P network using traditional desktop machines, what are the implications for the security of shared data?",
-        marks: 3,
-        markingGuide: [
-          "Desktop machines typically lack enterprise-grade security measures such as firewalls, intrusion detection, and physical security",
-          "This makes shared data vulnerable to unauthorised access, malware, and tampering",
-        ],
-        hint: "Compare a home PC to a professionally managed server in a data centre.",
-      },
-      {
-        id: 32,
-        question:
-          "How can data replication address the availability and security weaknesses in a P2P network, and what limitations does it introduce?",
-        marks: 4,
-        markingGuide: [
-          "Replication stores copies across multiple peers so data remains accessible even when some hosts go offline",
-          "It can improve resilience to data loss from individual machine failures",
-          "However, replication introduces consistency challenges — keeping all copies synchronised",
-          "It can worsen security concerns by increasing the number of machines that hold sensitive data",
-        ],
-        hint: "More copies help with availability but create new problems.",
-      },
-      {
-        id: 33,
-        question:
-          "Explain the relationship between 'availability' and 'fault tolerance' as goals of a distributed system.",
-        marks: 3,
-        markingGuide: [
-          "They are closely linked — availability ensures the system is accessible when needed",
-          "Fault tolerance ensures it keeps working when components fail",
-          "Fault tolerance directly supports availability: if the system tolerates a node failure without downtime, it remains available to users",
-        ],
-        hint: "If the system handles failures well, it stays available.",
-      },
-      {
-        id: 34,
-        question:
-          "What is meant by 'consistency and replication' as a challenge, and why is it difficult to achieve?",
-        marks: 3,
-        markingGuide: [
-          "It refers to ensuring that all replicated copies of data across different nodes remain identical and up to date",
-          "This is difficult because updates must be propagated to all replicas, and if nodes are temporarily unreachable or updates arrive in different orders, copies can diverge",
-        ],
-        hint: "Think about what happens when multiple copies of data are updated at the same time.",
-      },
-      {
-        id: 35,
-        question:
-          "Why is 'resource management' listed as a challenge in distributed systems?",
-        marks: 3,
-        markingGuide: [
-          "Processing, storage, and network resources are spread across multiple nodes with different capacities and workloads",
-          "Allocating and coordinating these resources efficiently — without bottlenecks or waste — requires complex decision-making",
-          "This complexity does not exist in a single-machine system",
-        ],
-        hint: "Managing resources across many machines is harder than managing one machine.",
-      },
-
-      // ===== QUESTION OF THE WEEK =====
-      {
-        id: 36,
-        question:
-          "Explain why shared data availability is a problem in P2P networks that use traditional desktop computers.",
-        marks: 3,
-        markingGuide: [
-          "Users frequently turn off their computers when not using them and during extended absences or transit",
-          "Since there is no dedicated always-on server, any data stored exclusively on that machine becomes completely unavailable to the network whenever it is offline",
-        ],
-        hint: "What happens to the data when the only computer storing it is turned off?",
-      },
-      {
-        id: 37,
-        question:
-          "Describe two security risks associated with shared data in a P2P network of desktop machines.",
-        marks: 4,
-        markingGuide: [
-          "The trustworthiness of participants is unknown — owners may tamper with or delete shared data since they have full control over their machines",
-          "Network connections between peers are exposed to attacks including DoS attacks, which can disrupt both availability and data transfer",
-        ],
-        hint: "Think about who controls the data and what can happen to the network connection.",
-      },
-      {
-        id: 38,
-        question:
-          "Why does the severity of P2P availability and security weaknesses depend on the application?",
-        marks: 3,
-        markingGuide: [
-          "For applications like music downloads, users can tolerate waiting for a host to come back online, so availability is less critical",
-          "For conventional applications like file storage, where data integrity and immediate access are essential, these weaknesses become much more significant",
-        ],
-        hint: "Compare waiting for a song versus waiting for an important document.",
-      },
-      {
-        id: 39,
-        question:
-          "Explain how replication reduces the probability of data being unavailable in a P2P network.",
-        marks: 3,
-        markingGuide: [
-          "By distributing copies of data across multiple peers, the system ensures that data remains accessible even if some hosts are offline",
-          "If replicas are sufficiently widespread and numerous, the probability that all copies are simultaneously unavailable drops to a negligible level",
-        ],
-        hint: "What are the chances that ALL copies are offline at the same time?",
-      },
-      {
-        id: 40,
-        question:
-          "Describe the consensus algorithm approach used to ensure data integrity across multiple hosts.",
-        marks: 3,
-        markingGuide: [
-          "Peers exchange hashes of a data object's value and compare them",
-          "If the hashes match, the data is considered consistent and untampered",
-          "This allows the network to detect both accidental corruption and deliberate tampering by establishing a consensus on the correct version",
-        ],
-        hint: "Think about how multiple people can verify they all have the same version of something.",
-      },
-      {
-        id: 41,
+        id: 11,
         question:
           "How does a Secure Hash identifier scheme work to verify data integrity in a P2P system?",
         marks: 3,
         markingGuide: [
           "The object's ID is derived from a hash of its content",
-          "When a client receives the object, it recomputes the hash and checks that it corresponds with the ID",
-          "If they match, the data has not been altered; if they differ, the data has been tampered with or corrupted during transfer",
+          "When a client receives the object, it recomputes the hash and checks it matches the ID",
+          "If they match, the data is unaltered; if they differ, the data has been tampered with or corrupted",
         ],
-        hint: "The data's fingerprint IS its name — so you can always check if the name matches the data.",
+        hint: "The data's fingerprint IS its name — so you can always verify it.",
       },
       {
-        id: 42,
+        id: 12,
         question:
-          "What are the limitations of using replication to solve P2P security and availability problems?",
+          "Describe the three layers of the DS road map and give examples of what belongs at each layer.",
         marks: 3,
         markingGuide: [
-          "While replication improves availability, it increases the number of machines holding copies of data, which widens the attack surface for security threats",
-          "It also introduces consistency challenges — keeping all replicas synchronised after updates requires coordination, and conflicting versions may arise if peers modify data independently",
+          "Fundamentals: processes, threads, RPC, naming, caching, network protocols",
+          "Middleware (Distributed OS): scheduling, transactions, replication, fault-tolerance, persistence",
+          "Application: Distributed Shared Memory, distributed objects, security, protected environments",
         ],
-        hint: "More copies help availability but make security and consistency harder.",
+        hint: "Low-level building blocks, middle-layer services, and high-level applications.",
+      },
+      {
+        id: 13,
+        question:
+          "What three concerns does the 'Scheduling' challenge involve, and why is clock drift a particular problem for distributed systems?",
+        marks: 4,
+        markingGuide: [
+          "Load balancing — distributing work evenly across nodes",
+          "Synchronisation — coordinating processes across machines",
+          "Clock drift — the gradual divergence of clocks on different machines",
+          "Clock drift is a problem because it makes event ordering difficult — if two machines disagree on the time, determining which event happened first becomes unreliable",
+        ],
+        hint: "Work distribution, coordination, and the problem of time.",
       },
     ],
   },
@@ -2320,6 +1994,30 @@ export const weeks = {
         ],
         hint: "Think about why WhatsApp and Google Drive both use multiple models.",
       },
+      {
+        id: 19,
+        question:
+          "Describe the Data Streaming communication model. How does it differ from traditional Message Passing, and give two real-world examples.",
+        marks: 3,
+        markingGuide: [
+          "Data Streaming uses continuous data flow with a push model — data is sent as it becomes available, not on request",
+          "Differs from Message Passing because it is designed for continuous, real-time data rather than discrete request-response messages",
+          "Examples: Apache Kafka, Apache Flink, Spark Streaming — used for real-time analytics and monitoring",
+        ],
+        hint: "Think about data that never stops flowing vs data sent in individual messages.",
+      },
+      {
+        id: 20,
+        question:
+          "What is message serialization and deserialization, and why is it required in the Message Passing model?",
+        marks: 3,
+        markingGuide: [
+          "Serialization converts in-memory data structures into a transmittable format (e.g. JSON, Protocol Buffers, XML)",
+          "Deserialization converts the received data back into in-memory objects at the receiving end",
+          "Required because processes on different machines cannot share memory — data must be encoded into bytes for network transmission and decoded on arrival",
+        ],
+        hint: "How do you send a complex object over a network cable?",
+      },
     ],
   },
 
@@ -2947,6 +2645,31 @@ export const weeks = {
           "d at p2: L = 4; f at p3 receiving m2 with t=4: max(L_p3, 4) + 1",
         ],
         hint: "Apply LC1 and LC2 step by step. Remember to take the max before incrementing on receive.",
+      },
+      {
+        id: 12,
+        question:
+          "Compare a synchronous and an asynchronous distributed system. Why does the type of system matter for clock synchronization and failure detection?",
+        marks: 4,
+        markingGuide: [
+          "Synchronous: known upper bounds on execution time per step, message transmission delay, and clock drift rate",
+          "Asynchronous: no bounds on process execution speeds, message delays, or clock drift rates",
+          "Matters for clock sync: synchronous systems allow bounded accuracy (e.g. Cristian's can calculate error bounds); asynchronous systems cannot guarantee synchronization accuracy",
+          "Matters for failure detection: in synchronous systems, a timeout reliably indicates failure; in asynchronous systems, a slow response is indistinguishable from a crash",
+        ],
+        hint: "What can you guarantee when you know the bounds vs when you don't?",
+      },
+      {
+        id: 13,
+        question:
+          "What accuracy does NTP achieve, and why does it use a stratum hierarchy rather than a single time server?",
+        marks: 3,
+        markingGuide: [
+          "NTP achieves ~10ms accuracy over Internet paths and ~1ms on LANs",
+          "A single server would be a bottleneck and single point of failure for millions of clients",
+          "The stratum hierarchy distributes load: stratum 1 servers connect to atomic clocks, stratum 2 syncs to stratum 1, etc. — this is scalable, fault-tolerant, and reconfigurable",
+        ],
+        hint: "Think about what happens if every computer on Earth tried to sync from one server.",
       },
     ],
   },
@@ -3582,6 +3305,31 @@ export const weeks = {
         ],
         hint: "Think about what sequential consistency forces to happen after every write, and how page-based granularity amplifies the problem.",
       },
+      {
+        id: 12,
+        question:
+          "Describe library-based DSM and shared variable DSM. How does each approach implement sharing across nodes?",
+        marks: 4,
+        markingGuide: [
+          "Library-based: a compiler inserts library calls when processes access DSM data; the libraries handle local access and inter-node communication at runtime (e.g. OpenMP, MPI, Linda/Orca)",
+          "Shared variable: programmer annotates variables as shared; these are replicated/distributed across nodes; three types exist — ordinary (private), shared (annotated), synchronisation (coordinates access)",
+          "Library-based relies on compiler + runtime libraries for transparency; shared variable relies on programmer annotations",
+          "Both avoid the page-level granularity problems of page-based DSM",
+        ],
+        hint: "Who is responsible for managing shared access — the compiler/runtime or the programmer?",
+      },
+      {
+        id: 13,
+        question:
+          "What was IVY and why was it significant? How did it emulate shared memory on machines without it?",
+        marks: 3,
+        markingGuide: [
+          "IVY (Kai Li, 1986) was the first page-based software DSM system",
+          "Built on NORMA (No Remote Memory Access) systems that had no shared physical memory",
+          "Used the OS's Memory Management Unit (MMU) to handle page migration — on a page fault for a non-local page, the OS fetched the page from the owning node transparently",
+        ],
+        hint: "How do you fake shared memory on machines that don't have it?",
+      },
     ],
   },
 
@@ -4184,6 +3932,33 @@ export const weeks = {
           "Factor 4: Speed — REST is faster and simpler; social media prioritises responsiveness",
         ],
         hint: "Consider what social media needs most: speed, scale, and easy integration.",
+      },
+      {
+        id: 12,
+        question:
+          "Beyond security, what other QoS metrics are used to evaluate web services? Describe at least four.",
+        marks: 4,
+        markingGuide: [
+          "Availability — the probability that the service is accessible and ready to respond",
+          "Accessibility — whether the service can be accessed under load (may have capacity limits)",
+          "Scalability — the ability to handle increasing numbers of operations or requests",
+          "Interoperability — the ability to function across different languages and platforms",
+          "Other valid: Time to Repair, Integrity, Reliability, Latency",
+        ],
+        hint: "Think about what makes a web service good beyond just being secure.",
+      },
+      {
+        id: 13,
+        question:
+          "Compare distributed computing and grid computing. Give two example applications of each.",
+        marks: 4,
+        markingGuide: [
+          "Distributed: resources often owned by one entity; optimises local resources; general-purpose",
+          "Grid: resources can span multiple organisations; optimises global resources; highly network-dependent; specialised for large-scale computation",
+          "Distributed examples: online gaming, cloud computing, web services, big data (Hadoop)",
+          "Grid examples: biomedical research, weather forecasting, financial modelling, scientific simulation",
+        ],
+        hint: "Grid = pooling resources across organisations for massive computation.",
       },
     ],
   },
@@ -4798,6 +4573,42 @@ export const weeks = {
         ],
         hint: "Think through each challenge: how does a new device find services, how does it connect, what happens when it dies?",
       },
+      {
+        id: 12,
+        question:
+          "Distinguish between sensors and actuators in ubiquitous computing. Give two examples of each.",
+        marks: 3,
+        markingGuide: [
+          "Sensors measure physical parameters from the environment — they are input devices (e.g. orientation sensors, light sensors, sound sensors, temperature sensors)",
+          "Actuators are software-controllable devices that act on the environment — they are output devices (e.g. air conditioning units, motors, smart home locks, automated blinds)",
+          "Together they form a sense-act loop: sensors detect conditions, actuators respond",
+        ],
+        hint: "One reads the world, the other changes it.",
+      },
+      {
+        id: 13,
+        question:
+          "Compare server-based and serverless (decentralised) service discovery. What is the key challenge for both approaches?",
+        marks: 3,
+        markingGuide: [
+          "Server-based: a centralised directory stores all service records — simple but single point of failure",
+          "Serverless: no central directory — each device maintains its own local cache of known services (P2P approach)",
+          "Key challenge for both: managing volatile services — services appear and disappear unpredictably, requiring mechanisms like leasing to keep records current",
+        ],
+        hint: "Central vs distributed — and what happens when services come and go?",
+      },
+      {
+        id: 14,
+        question:
+          "What is Service-Oriented Architecture (SOA)? What are the key challenges in implementing it?",
+        marks: 3,
+        markingGuide: [
+          "SOA is a system architecture where web services are discovered dynamically and coordinate with each other to provide enhanced composite services",
+          "Coordination can be distributed or managed by a choreographer",
+          "Challenges: how to discover existing services in the network, and whether to use distributed or centralised coordination between services",
+        ],
+        hint: "Services finding each other and working together at runtime.",
+      },
     ],
   },
 
@@ -5411,6 +5222,43 @@ export const weeks = {
           "Sending everything to cloud would introduce unacceptable latency for a safety-critical alert",
         ],
         hint: "For each tier: what decision must it make, how fast does it need to make it, and what data does it need?",
+      },
+      {
+        id: 12,
+        question:
+          "Explain quorum-based replication and voting mechanisms. How many nodes must agree for a write to succeed in a 5-node system?",
+        marks: 3,
+        markingGuide: [
+          "Quorum-based replication requires a majority of nodes (a quorum) to agree before an update is committed",
+          "In a 5-node system, at least 3 nodes must agree (majority = ⌊N/2⌋ + 1)",
+          "Voting mechanisms in databases use the same principle: multiple replicas vote on whether to accept an update; transaction only proceeds if a majority agrees",
+        ],
+        hint: "What is the minimum number that constitutes a majority in a group of 5?",
+      },
+      {
+        id: 13,
+        question:
+          "How many nodes does Byzantine Fault Tolerance require to tolerate f faulty nodes? Why is this more expensive than crash-fault-tolerant algorithms?",
+        marks: 3,
+        markingGuide: [
+          "BFT requires 3f + 1 nodes to tolerate f Byzantine failures (e.g. 4 nodes for 1 faulty node, 7 for 2)",
+          "Crash-fault-tolerant algorithms (Paxos/Raft) only need 2f + 1 nodes for f crash failures",
+          "BFT is more expensive because Byzantine nodes actively produce incorrect output — the system needs enough honest nodes to outvote the liars, requiring more redundancy and more message rounds",
+        ],
+        hint: "A crashed node is silent; a Byzantine node is actively lying — which is harder to outvote?",
+      },
+      {
+        id: 14,
+        question:
+          "What are self-healing systems and gossip protocols? How does each contribute to fault tolerance?",
+        marks: 4,
+        markingGuide: [
+          "Self-healing: systems that use Machine Learning to monitor key variables, predict failures before they occur, and resolve issues proactively rather than reactively",
+          "Gossip protocols: each node periodically shares its view of which nodes are alive/dead with a random selection of peers; information propagates exponentially through the network",
+          "Self-healing contributes by preventing failures before they happen (proactive)",
+          "Gossip protocols contribute by enabling decentralised, scalable failure detection — no central monitor needed, works in large-scale systems (e.g. Amazon EC2)",
+        ],
+        hint: "One predicts and prevents; the other detects and spreads the word.",
       },
     ],
   },
