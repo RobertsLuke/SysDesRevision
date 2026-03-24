@@ -1,0 +1,192 @@
+WEEK 3: Time & Coordination in Distributed Systems
+Clock Synchronization, Logical Clocks, Vector Clocks & Mutual Exclusion
+=====================================
+
+Q1. Explain why clock synchronization is important in distributed systems. Give three specific examples.
+3 marks
+
+Marking Guide:
+- Measuring delays between distributed components requires synchronized clocks
+- Ordering events consistently to maintain a correct global state
+- Business transactions, security protocols, and real-time stream synchronization all depend on accurate time
+
+Hint: Think about what goes wrong if clocks disagree.
+
+-------------------------------------
+
+Q2. Define clock skew and clock drift. Explain the difference between them.
+3 marks
+
+Marking Guide:
+- Clock skew: instantaneous difference between two clock values at a given moment
+- Clock drift: rate at which a clock deviates from a reference over time (drift rate)
+- Skew is a snapshot difference; drift is the ongoing rate of divergence
+
+Hint: One is a measurement at a point in time, the other is a rate.
+
+-------------------------------------
+
+Q3. Compare external and internal clock synchronization. Does one imply the other?
+4 marks
+
+Marking Guide:
+- External: each clock synced to an authoritative source (UTC) within bound D
+- Internal: clocks synced with each other within bound D
+- External implies internal (within 2D), but internal does NOT imply external
+- Clear explanation of why the implication is one-directional
+
+Hint: If all clocks are within D of UTC, what's the worst-case difference between two clocks?
+
+-------------------------------------
+
+Q4. Describe Cristian's algorithm. Include the formula for estimating the time and its accuracy bound.
+4 marks
+
+Marking Guide:
+- Client sends request, records t0 (send time) and t1 (receive time)
+- Server returns its current time in the reply
+- Client sets clock to server_time + (t1 - t0)/2
+- Accuracy: +/-((t1 - t0)/2 - min) where min is minimum transit time
+
+Hint: Think about what t0, t1, and min represent.
+
+-------------------------------------
+
+Q5. Describe the Berkeley algorithm and explain how it differs from Cristian's method.
+4 marks
+
+Marking Guide:
+- Master polls slaves for clock values, estimates their times using round-trip
+- Master computes average and sends adjustments (not absolute times)
+- Cristian's is external (uses UTC server); Berkeley is internal (averages peers)
+- Berkeley can elect a new master if the current one fails
+
+Hint: Focus on where the 'reference time' comes from in each algorithm.
+
+-------------------------------------
+
+Q6. Explain the NTP stratum hierarchy and its three synchronization modes.
+4 marks
+
+Marking Guide:
+- Stratum 1 = primary servers connected to UTC/atomic clocks; higher strata = less accurate
+- Multicast mode for high-speed LANs
+- Procedure-call mode similar to Cristian's algorithm
+- Symmetric mode between server pairs for highest accuracy; all use UDP
+
+Hint: Think about the trade-off between accuracy and scalability at each stratum level.
+
+-------------------------------------
+
+Q7. Define the happened-before relation (->). Give an example of concurrent events.
+3 marks
+
+Marking Guide:
+- Partial order: e -> e' if same-process ordering, send->receive, or transitivity
+- Concurrent events: neither a -> b nor b -> a (no causal chain connects them)
+- Example: events at different processes with no message chain between them
+
+Hint: Consider two processes that never exchange messages.
+
+-------------------------------------
+
+Q8. State the two rules for Lamport logical clocks (LC1 and LC2). What is the key limitation?
+4 marks
+
+Marking Guide:
+- LC1: Increment Li by 1 before each event at process pi
+- LC2a: On send, piggyback t = Li; LC2b: On receive (m,t), set Lj := max(Lj, t) then increment
+- e -> e' implies L(e) < L(e')
+- Limitation: L(e) < L(e') does NOT imply e -> e' — cannot detect concurrency
+
+Hint: Think about what you can and cannot infer from comparing two Lamport timestamps.
+
+-------------------------------------
+
+Q9. Explain how vector clocks improve on Lamport clocks. State the rules (VC1-VC4).
+5 marks
+
+Marking Guide:
+- Use an array of N integers instead of a single counter
+- VC1: Initially all zeros; VC2: Increment own element before each event
+- VC3: Include full vector on every message; VC4: On receive, take element-wise max then increment
+- Can determine both causal ordering and concurrency from timestamps
+- V(a) < V(b) <-> a -> b; incomparable timestamps mean concurrent events
+
+Hint: Focus on what information is preserved that Lamport clocks lose.
+
+-------------------------------------
+
+Q10. Compare centralized and decentralized approaches to mutual exclusion in distributed systems.
+4 marks
+
+Marking Guide:
+- Centralized: single coordinator manages a queue — simple but single point of failure
+- Decentralized voting: majority agreement needed — no single point of failure but slower
+- Decentralized token: circulate a unique token — fast but risk of token loss
+- Trade-off between simplicity/performance and fault tolerance
+
+Hint: Think about what happens when a node crashes in each approach.
+
+-------------------------------------
+
+Q11. A system has three processes. Using Lamport clocks (all starting at 0): p1 has event a then sends m1 to p2, p2 receives m1 (event c) then has event d, p3 has event e then receives m2 from p2 after d. What are the Lamport timestamps for events a, c, d, and f (receive of m2)?
+4 marks
+
+Marking Guide:
+- a at p1: L = 1 (increment before event)
+- p1 sends m1 after b at L=2, piggybacking t=2
+- c at p2: max(0, 2) + 1 = 3
+- d at p2: L = 4; f at p3 receiving m2 with t=4: max(L_p3, 4) + 1
+
+Hint: Apply LC1 and LC2 step by step. Remember to take the max before incrementing on receive.
+
+-------------------------------------
+
+Q12. Compare a synchronous and an asynchronous distributed system. Why does the type of system matter for clock synchronization and failure detection?
+4 marks
+
+Marking Guide:
+- Synchronous: known upper bounds on execution time per step, message transmission delay, and clock drift rate
+- Asynchronous: no bounds on process execution speeds, message delays, or clock drift rates
+- Matters for clock sync: synchronous systems allow bounded accuracy (e.g. Cristian's can calculate error bounds); asynchronous systems cannot guarantee synchronization accuracy
+- Matters for failure detection: in synchronous systems, a timeout reliably indicates failure; in asynchronous systems, a slow response is indistinguishable from a crash
+
+Hint: What can you guarantee when you know the bounds vs when you don't?
+
+-------------------------------------
+
+Q13. What accuracy does NTP achieve, and why does it use a stratum hierarchy rather than a single time server?
+3 marks
+
+Marking Guide:
+- NTP achieves ~10ms accuracy over Internet paths and ~1ms on LANs
+- A single server would be a bottleneck and single point of failure for millions of clients
+- The stratum hierarchy distributes load: stratum 1 servers connect to atomic clocks, stratum 2 syncs to stratum 1, etc. — this is scalable, fault-tolerant, and reconfigurable
+
+Hint: Think about what happens if every computer on Earth tried to sync from one server.
+
+-------------------------------------
+
+Q14. Explain the difference between logical and physical clocks in distributed systems.
+3 marks
+
+Marking Guide:
+- Physical clocks measure real (wall-clock) time — they attempt to stay synchronised with UTC using algorithms like Cristian's, Berkeley, or NTP
+- Logical clocks do not measure real time — they capture the causal ordering of events (happened-before) using counters (Lamport clocks, vector clocks)
+- Physical clocks are needed when real-time matters (timestamps, timeouts, security); logical clocks are needed when causal ordering matters (event ordering, concurrency detection)
+
+Hint: One tells you what time it is; the other tells you what happened before what.
+
+-------------------------------------
+
+Q15. Define task scheduling in the context of distributed computing. What is load balancing and why is it important?
+4 marks
+
+Marking Guide:
+- Task scheduling: deciding which node executes which task and when — coordinating task execution across distributed nodes
+- Load balancing: distributing work evenly across nodes so no single node is overwhelmed while others are idle
+- Important because uneven load leads to bottlenecks — one overloaded node slows the entire system while other nodes waste capacity
+- Related challenges include synchronisation between tasks and clock drift between nodes making coordination harder
+
+Hint: How do you share work fairly across machines, and why does it matter?

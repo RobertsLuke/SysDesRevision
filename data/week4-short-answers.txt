@@ -1,0 +1,179 @@
+WEEK 4: Distributed Shared Memory
+DSM Models, Consistency, Cache Coherence & NUMA
+=====================================
+
+Q1. Define Distributed Shared Memory (DSM) and explain the abstraction it provides.
+3 marks
+
+Marking Guide:
+- DSM is an abstraction for sharing data between computers that do not share physical memory
+- Allows multiple computers to share memory as a single unified address space
+- Processes on different machines can read and write shared memory transparently as if on a single machine
+
+Hint: Focus on what the programmer sees vs what is actually happening physically.
+
+-------------------------------------
+
+Q2. Compare centralised and distributed DSM architectures. Identify one advantage and one disadvantage of each.
+4 marks
+
+Marking Guide:
+- Centralised: single server manages all shared memory — advantage: simple to manage and easier consistency control
+- Centralised disadvantage: single point of failure (if server fails, system stops)
+- Distributed: memory spread across nodes — advantage: no bottleneck, better fault tolerance
+- Distributed disadvantage: harder to manage consistency across nodes
+
+Hint: Think about what happens when a node fails in each architecture.
+
+-------------------------------------
+
+Q3. Describe how page-based DSM works. Include how non-local page accesses are handled.
+4 marks
+
+Marking Guide:
+- Pages are mapped across different nodes; each page is present on exactly one machine
+- Local page access is handled in hardware at full memory speed
+- Non-local access causes a hardware page fault which traps to the OS
+- OS sends a message to the remote machine; remote machine sends the page; faulting instruction restarts
+
+Hint: Trace the steps from a program accessing a non-local page to completion.
+
+-------------------------------------
+
+Q4. Explain false sharing in page-based DSM. Why does it occur and how does it affect performance?
+3 marks
+
+Marking Guide:
+- False sharing: two processes access different variables on the same page, causing the page to be transferred repeatedly
+- It occurs because page granularity is coarser than the data actually needed — unrelated variables share a page
+- Performance impact: the page travels back and forth between machines generating unnecessary network traffic
+
+Hint: Consider what happens when two independent processes each use one variable stored on the same page.
+
+-------------------------------------
+
+Q5. Compare object-based DSM and page-based DSM. Why is object-based generally more efficient?
+4 marks
+
+Marking Guide:
+- Page-based transfers entire fixed-size pages; object-based transfers only the needed object
+- Object-based reduces false sharing (access is limited to the specific object)
+- Object-based provides access control through method interfaces; page-based does not
+- Object-based cons: complex consistency management and serialisation overhead (e.g. Java RMI)
+
+Hint: Think about what gets transferred over the network in each model.
+
+-------------------------------------
+
+Q6. Describe the five consistency models covered in Week 4: strict, sequential, causal, eventual, and weak.
+5 marks
+
+Marking Guide:
+- Strict: all processes see updates immediately in real-time global order — highest overhead, impractical in real systems
+- Sequential: all processes see operations in same logical order — doesn't require physical time, expensive synchronisation
+- Causal: causally related writes seen in order; concurrent writes can appear in any order — balances order and efficiency
+- Eventual: temporary inconsistencies allowed; all nodes converge once updates stop — highly scalable
+- Weak: consistency only at synchronisation points — high performance, data may be stale between syncs
+
+Hint: For each model, think about: what is guaranteed, and what is the performance cost?
+
+-------------------------------------
+
+Q7. Why is sequential consistency problematic for page-based DSM systems in wide-area networks?
+3 marks
+
+Marking Guide:
+- Sequential consistency requires every write to be globally ordered, forcing synchronisation across all nodes
+- In page-based DSM, every write may invalidate entire pages across all nodes holding copies
+- Wide-area network latency amplifies the problem — each invalidation round-trip takes significant time, causing page thrashing
+
+Hint: Consider what sequential consistency forces the system to do on each write, and how page granularity makes this worse.
+
+-------------------------------------
+
+Q8. Explain write-invalidate and write-update cache coherence strategies in DSM. Which is generally preferred and why?
+4 marks
+
+Marking Guide:
+- Write-invalidate: on write, send invalidation to all nodes holding a copy — they discard their copies
+- Write-update: on write, broadcast the new value to all nodes holding a copy — they update immediately
+- Write-invalidate is generally preferred because it sends only a small invalidation message, saving bandwidth
+- Write-update consumes more bandwidth per write by pushing data that may not be needed again
+
+Hint: Consider what travels over the network in each strategy.
+
+-------------------------------------
+
+Q9. Explain what NUMA is and how it differs from a uniform memory access (UMA) system.
+3 marks
+
+Marking Guide:
+- NUMA: Non-Uniform Memory Access — single virtual address space visible to all CPUs, but remote memory access is much slower than local (typically 10:1 ratio)
+- UMA: all memory accesses take the same time regardless of which CPU makes them
+- NUMA makes no attempt to hide poor non-local performance (unlike hardware-cached systems), but allows page migration/replication to improve locality
+
+Hint: Focus on what 'non-uniform' means in terms of access times.
+
+-------------------------------------
+
+Q10. What consistency model would you recommend for each of the following use cases, and why: (a) a shared financial audit log, (b) a 'who is online' presence indicator, (c) a collaborative document editor?
+4 marks
+
+Marking Guide:
+- (a) Financial audit log: Sequential or Strict consistency — all nodes must see writes in the same order; misordering could corrupt audit records
+- (b) Who is online: Eventual consistency — temporary inconsistencies tolerable; scalability and availability are more important than perfect accuracy
+- (c) Collaborative editing: Causal consistency — edits that depend on previous edits must appear in order; concurrent edits can diverge temporarily
+- Clear justification connecting the use case requirements to the consistency model's guarantees
+
+Hint: For each use case, ask: how bad is a temporary inconsistency? How important is ordering?
+
+-------------------------------------
+
+Q11. A distributed analytics platform uses page-based DSM with sequential consistency and experiences severe performance degradation. Explain why this combination causes problems, and suggest a better consistency model with justification.
+5 marks
+
+Marking Guide:
+- Page-based DSM transfers entire pages — even a one-byte change invalidates the whole page across all nodes
+- Sequential consistency forces global write ordering — every write triggers network-wide synchronisation
+- Combined: frequent fine-grained analytics writes cause continuous page invalidations and re-fetches across nodes (page thrashing)
+- Better model: eventual or weak consistency — analytics workloads tolerate slightly stale data
+- Justification: reduces synchronisation traffic; pages are only transferred when explicitly needed at sync points or eventually, not after every write
+
+Hint: Think about what sequential consistency forces to happen after every write, and how page-based granularity amplifies the problem.
+
+-------------------------------------
+
+Q12. Describe library-based DSM and shared variable DSM. How does each approach implement sharing across nodes?
+4 marks
+
+Marking Guide:
+- Library-based: a compiler inserts library calls when processes access DSM data; the libraries handle local access and inter-node communication at runtime (e.g. OpenMP, MPI, Linda/Orca)
+- Shared variable: programmer annotates variables as shared; these are replicated/distributed across nodes; three types exist — ordinary (private), shared (annotated), synchronisation (coordinates access)
+- Library-based relies on compiler + runtime libraries for transparency; shared variable relies on programmer annotations
+- Both avoid the page-level granularity problems of page-based DSM
+
+Hint: Who is responsible for managing shared access — the compiler/runtime or the programmer?
+
+-------------------------------------
+
+Q13. What was IVY and why was it significant? How did it emulate shared memory on machines without it?
+3 marks
+
+Marking Guide:
+- IVY (Kai Li, 1986) was the first page-based software DSM system
+- Built on NORMA (No Remote Memory Access) systems that had no shared physical memory
+- Used the OS's Memory Management Unit (MMU) to handle page migration — on a page fault for a non-local page, the OS fetched the page from the owning node transparently
+
+Hint: How do you fake shared memory on machines that don't have it?
+
+-------------------------------------
+
+Q14. Name two advantages of DSM over explicit message passing.
+3 marks
+
+Marking Guide:
+- No marshalling/unmarshalling needed — data does not need to be serialised for transmission and deserialised on arrival, reducing overhead
+- Pointers remain valid — processes share an address space so memory references work across the system without translation
+- Familiar programming model — programmers use locks, semaphores, and barriers (like shared-memory multithreading) instead of designing custom message protocols
+
+Hint: Think about what a programmer has to do differently when using messages vs shared memory.

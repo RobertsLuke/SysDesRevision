@@ -1,0 +1,264 @@
+WEEK 2: Communication Models in Distributed Systems
+Message Passing, RPC, Pub-Sub, P2P, Streaming & Synchronous vs Asynchronous
+=====================================
+
+Q1. What are communication models in distributed systems, and why are they important?
+2 marks
+
+Marking Guide:
+- Communication models define how different processes and nodes interact with each other
+- They influence system design, efficiency, and reliability
+
+Hint: Think about what communication models actually determine in the system.
+
+-------------------------------------
+
+Q2. List the seven key communication models covered in the lecture.
+3 marks
+
+Marking Guide:
+- Message Passing, Shared Memory Model, Remote Procedure Call (RPC), Publish-Subscribe, Data Streaming, Peer-to-Peer (P2P), Tuple Space Model
+
+Hint: There are exactly seven models — think about different ways processes can exchange information.
+
+-------------------------------------
+
+Q3. Describe the Message Passing model and give two examples.
+3 marks
+
+Marking Guide:
+- Processes communicate by sending and receiving messages over a network
+- Can be synchronous or asynchronous, requires serialization/deserialization
+- Examples: Sockets (TCP/UDP), RabbitMQ, Kafka, REST APIs, gRPC
+
+Hint: Think about explicitly sending data from one process to another.
+
+-------------------------------------
+
+Q4. How does the Shared Memory model differ from Message Passing? What synchronization mechanisms does it require?
+3 marks
+
+Marking Guide:
+- Shared Memory: processes read/write to a shared memory space rather than exchanging messages
+- Provides a global memory abstraction — no explicit message exchange needed
+- Requires synchronization mechanisms like locks and semaphores to prevent conflicts
+
+Hint: One model sends messages, the other reads/writes to a shared space.
+
+-------------------------------------
+
+Q5. Explain how RPC works and why it is useful for distributed programming.
+3 marks
+
+Marking Guide:
+- RPC allows a process to invoke a function on a remote system as if it were local
+- Sequence: client sends request → server processes → server sends response
+- Useful because it abstracts network communication details, simplifying distributed programming
+
+Hint: The key benefit is making remote calls 'look local'.
+
+-------------------------------------
+
+Q6. What distinguishes the Publish-Subscribe model from direct Message Passing?
+3 marks
+
+Marking Guide:
+- In Publish-Subscribe, publishers send messages without knowing who the subscribers are — it's decoupled
+- A message broker sits between publishers and subscribers
+- In Message Passing, the sender typically knows the receiver and communicates directly
+
+Hint: Think about who knows about whom in each model.
+
+-------------------------------------
+
+Q7. Describe the Tuple Space model and explain what 'decoupled in time and space' means.
+3 marks
+
+Marking Guide:
+- Processes interact through a shared tuple space by writing, reading, and taking data tuples
+- Based on the Linda Coordination Model
+- Decoupled in time and space means processes don't need to be online simultaneously — a producer can write a tuple and disconnect, a consumer can read it later
+
+Hint: Think about a shared noticeboard where people can leave and collect messages at different times.
+
+-------------------------------------
+
+Q8. Compare the advantages and disadvantages of the P2P communication model.
+4 marks
+
+Marking Guide:
+- Advantages: no single point of failure, scales well with more nodes
+- Disadvantages: difficult to maintain consistency across all nodes, security risks due to lack of central control
+
+Hint: Think about what happens when there's no central authority.
+
+-------------------------------------
+
+Q9. Compare synchronous and asynchronous distributed systems.
+4 marks
+
+Marking Guide:
+- Synchronous: known bounds on execution time, message transmission time, and clock drift
+- Asynchronous: no bounds on process speeds, message delays, or clock drift
+- Synchronous gives simpler coordination but increased latency
+- Asynchronous is more efficient but harder to handle failures
+
+Hint: Think about what you can and cannot guarantee about timing.
+
+-------------------------------------
+
+Q10. Give three valid reasons why communication is critical in distributed systems. What is a commonly given incorrect reason?
+3 marks
+
+Marking Guide:
+- Valid: data sharing between processes, synchronization and coordination, fault tolerance and consistency
+- Incorrect: 'to increase CPU performance' — communication is about coordination, not CPU speed
+
+Hint: Think about what communication enables between machines, not within a single machine.
+
+-------------------------------------
+
+Q11. Name the three key challenges in distributed communication and the solution approach for each.
+3 marks
+
+Marking Guide:
+- Latency → efficient protocols and caching
+- Fault Tolerance → replication and retries
+- Security → encryption and authentication
+
+Hint: Each challenge has a specific category of solution.
+
+-------------------------------------
+
+Q12. Analyse the communication models used by WhatsApp.
+3 marks
+
+Marking Guide:
+- Message Passing (TCP) for text messages
+- Publish-Subscribe for group messages
+- P2P Model for voice/video calls
+
+Hint: Think about three different features of WhatsApp and which model suits each.
+
+-------------------------------------
+
+Q13. Analyse the communication models used by Google Drive.
+5 marks
+
+Marking Guide:
+- Client-Server Model for primary file access and synchronization
+- Message Passing for file synchronization across devices
+- Publish-Subscribe for real-time collaboration updates
+- P2P for Google Docs collaboration
+- RPC for efficient communication between services
+
+Hint: Google Drive uses five different models — think about each feature separately.
+
+-------------------------------------
+
+Q14. For a cloud-based LMS, explain which communication model is most suitable for uploading and downloading lecture materials, and justify your choice.
+3 marks
+
+Marking Guide:
+- Client-Server Model is most suitable
+- The LMS needs centralised cloud storage for files
+- Uses HTTP(S) REST APIs for file transfers between client devices and the server
+
+Hint: Think about where the files are stored and how they're accessed.
+
+-------------------------------------
+
+Q15. For a cloud-based LMS, explain which communication model is most suitable for real-time assignment notifications, and justify your choice.
+3 marks
+
+Marking Guide:
+- Publish-Subscribe Model is most suitable
+- The LMS publishes an event when a new assignment is uploaded
+- All subscribed students receive notifications asynchronously without the publisher needing to know who they are
+
+Hint: Think about one publisher and many receivers who need instant updates.
+
+-------------------------------------
+
+Q16. For a cloud-based LMS, explain which communication model is most suitable for real-time document collaboration, and justify your choice.
+3 marks
+
+Marking Guide:
+- Peer-to-Peer (P2P) Model is suggested
+- Direct P2P communication is more efficient than constantly polling a central server
+- Uses WebRTC or Operational Transformation (OT) algorithms for low-latency updates
+
+Hint: Think about multiple users editing the same document simultaneously.
+
+-------------------------------------
+
+Q17. For a cloud-based LMS, explain which communication model is most suitable for streaming live lectures with interactive participation, and justify your choice.
+4 marks
+
+Marking Guide:
+- Message Passing Model is the primary model for real-time data exchange
+- Uses protocols like WebRTC, RTP, and MQTT for live data transmission
+- In practice, live lectures combine multiple models: Client-Server for hosting/distributing video, Publish-Subscribe for start notifications, Message Passing for chat/Q&A
+
+Hint: This feature needs continuous data flow AND interactive communication — consider if one model is enough.
+
+-------------------------------------
+
+Q18. Why do real-world distributed systems typically use a combination of communication models rather than a single model?
+3 marks
+
+Marking Guide:
+- Different features have different requirements — e.g. file storage needs client-server but notifications need pub-sub
+- Each model has specific strengths and trade-offs that suit different use cases
+- A single model cannot optimally handle all types of interaction (e.g. real-time streaming, file uploads, notifications all have different needs)
+
+Hint: Think about why WhatsApp and Google Drive both use multiple models.
+
+-------------------------------------
+
+Q19. Describe the Data Streaming communication model. How does it differ from traditional Message Passing, and give two real-world examples.
+3 marks
+
+Marking Guide:
+- Data Streaming uses continuous data flow with a push model — data is sent as it becomes available, not on request
+- Differs from Message Passing because it is designed for continuous, real-time data rather than discrete request-response messages
+- Examples: Apache Kafka, Apache Flink, Spark Streaming — used for real-time analytics and monitoring
+
+Hint: Think about data that never stops flowing vs data sent in individual messages.
+
+-------------------------------------
+
+Q20. What is message serialization and deserialization, and why is it required in the Message Passing model?
+3 marks
+
+Marking Guide:
+- Serialization converts in-memory data structures into a transmittable format (e.g. JSON, Protocol Buffers, XML)
+- Deserialization converts the received data back into in-memory objects at the receiving end
+- Required because processes on different machines cannot share memory — data must be encoded into bytes for network transmission and decoded on arrival
+
+Hint: How do you send a complex object over a network cable?
+
+-------------------------------------
+
+Q21. What is the difference between ubiquitous computing and cloud computing?
+3 marks
+
+Marking Guide:
+- Ubiquitous computing embeds computation into everyday objects and environments — the focus is on invisible, context-aware interaction with the physical world (sensors, wearables, smart spaces)
+- Cloud computing provides on-demand computing resources (servers, storage, databases) over the internet — the focus is on centralised, scalable infrastructure accessed remotely
+- Key difference: ubiquitous computing is about computing everywhere in the environment; cloud computing is about computing anywhere via the internet from centralised data centres
+
+Hint: One is about embedding computing in the physical world; the other is about accessing remote computing power.
+
+-------------------------------------
+
+Q22. What is the difference between P2P and Publish-Subscribe messaging in distributed systems?
+4 marks
+
+Marking Guide:
+- P2P: all nodes act as both clients and servers; communication is direct between peers; no central authority; nodes share resources equally
+- Publish-Subscribe: publishers send messages to a broker/topic without knowing who receives them; subscribers register interest in topics and receive matching messages; decoupled architecture
+- P2P is symmetric (every node has the same role); Pub-Sub has distinct roles (publishers, subscribers, broker)
+- P2P is suited for resource sharing (e.g. BitTorrent); Pub-Sub is suited for event notification (e.g. Kafka, MQTT)
+
+Hint: One has equal peers talking directly; the other has publishers and subscribers decoupled by a broker.

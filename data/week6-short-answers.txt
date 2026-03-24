@@ -1,0 +1,203 @@
+WEEK 6: Mobile & Ubiquitous Computing
+Volatile Systems, Discovery Services, Interoperability & Smart Cities
+=====================================
+
+Q1. Define ubiquitous computing and state who coined the term. What is its defining characteristic?
+3 marks
+
+Marking Guide:
+- Integrating computing capabilities into everyday objects and environments — seamlessly available anytime, anywhere, without requiring explicit user interaction
+- Coined by Mark Weiser in 1988 at PARC
+- Defining characteristic: invisibility — technology disappears into the background of everyday life
+
+Hint: Invisible computing everywhere — who, when, and what makes it unique.
+
+-------------------------------------
+
+Q2. List the five resource constraints for ubiquitous devices. Which is most critical and why?
+3 marks
+
+Marking Guide:
+- Five constraints: computation, memory, storage, energy (battery), network bandwidth
+- Energy is the most critical — battery dependency, charging inconvenience, wireless communication is energy intensive
+- All other constraints also increase energy consumption — energy is the ultimate bottleneck
+
+Hint: Everything uses energy — energy is the bottleneck for all other constraints.
+
+-------------------------------------
+
+Q3. What does 'volatile' mean in the context of ubiquitous systems? Give three reasons why volatility occurs.
+3 marks
+
+Marking Guide:
+- Volatile = highly dynamic and unpredictable; uses spontaneous (ad hoc) networking
+- Reason 1: devices are power dependent — can fail or disconnect at any time
+- Reason 2: communications suffer from changing network connectivity and bandwidth
+- Reason 3: associations of software components are created and destroyed dynamically
+
+Hint: Nothing is permanent — devices come and go unpredictably.
+
+-------------------------------------
+
+Q4. Compare the Push and Pull models for service discovery. What is the lease mechanism and why is it important?
+4 marks
+
+Marking Guide:
+- Push: services advertise via multicast regularly; clients query cached ads; wasteful of bandwidth
+- Pull: clients multicast requests; providers respond; more efficient but needs repeated requests
+- Lease: client gets a time-limited lease on a service; must renew for continued use; auto-released if not renewed
+- Importance: handles volatile services automatically — no manual cleanup needed when devices disappear
+
+Hint: Services shout (push) vs clients ask (pull). What happens when a service disappears?
+
+-------------------------------------
+
+Q5. List and describe the four methods in the discovery service interface.
+4 marks
+
+Marking Guide:
+- register(address, attributes) -> lease: register a service with attributes; a lease is returned
+- refresh(lease): renew the lease to continue using the service
+- deregister(lease): remove the service registered under the given lease
+- query(attributeSpecification) -> serviceSet: return registered services matching the specification
+
+Hint: How do you add, maintain, remove, and find services?
+
+-------------------------------------
+
+Q6. Explain the 'lost opportunity problem' and the N-squared adaptor problem in ubiquitous computing interoperability. What is the key solution?
+4 marks
+
+Marking Guide:
+- Lost opportunity: a device cannot use a nearby service because their interfaces are incompatible
+- N-squared problem: for N different interfaces, N-squared adaptors are required at runtime — does not scale (10 interfaces = 100 adaptors)
+- Solution 1: constrain to a few universal interfaces (HTTP GET/POST, Unix pipes)
+- Solution 2: use self-describing data formats (XML/JSON) so devices understand each other without pre-configured adaptors
+
+Hint: Think about how many relationships exist between N things — and how to avoid them.
+
+-------------------------------------
+
+Q7. Describe the three data-oriented programming approaches for volatile systems.
+3 marks
+
+Marking Guide:
+- Unvarying service interface: all services use the same universal interface (e.g. Unix read/write) — limited expressiveness
+- Event systems: publishers publish events; subscribers consume them — challenge is agreeing on event service scope
+- Tuple spaces: producers put structured tuples; consumers use pattern matching with wildcards — decouples producers from consumers
+
+Hint: Universal interface, publish-subscribe, and pattern-matched data bags.
+
+-------------------------------------
+
+Q8. Compare GPS, Active Bat, and EasyLiving as location-sensing technologies. What are the key trade-offs?
+4 marks
+
+Marking Guide:
+- GPS: satellite multilateration; 1-10m; outdoors only (satellite visibility required); good privacy (user-controlled)
+- Active Bat: radio + ultrasound; 10cm (most accurate); needs ceiling sensors; bat identity disclosed
+- EasyLiving: vision/cameras; variable accuracy; worst privacy — no user device needed, so tracking without consent
+- Trade-offs: accuracy vs infrastructure cost; indoor/outdoor capability; privacy exposure
+
+Hint: Consider accuracy, where it works, what infrastructure is needed, and privacy.
+
+-------------------------------------
+
+Q9. What is sensor fusion? Why is 'abstraction from sensor data' a challenge in context-aware systems?
+3 marks
+
+Marking Guide:
+- Sensor fusion: combining and interpreting data from multiple sensors to perform complex sensing tasks (e.g. detecting human presence from motion, sound, and heat sensors)
+- Abstraction challenge: applications receive raw sensor data (e.g. GPS coordinates) and must convert it to meaningful context (e.g. 'user is in the kitchen')
+- This requires domain knowledge and processing — the raw data alone is not useful
+
+Hint: Raw numbers vs meaningful information — the gap between them.
+
+-------------------------------------
+
+Q10. Describe three smart city applications of ubiquitous computing. What is the main implementation challenge and the major privacy concern?
+4 marks
+
+Marking Guide:
+- Application 1: smart traffic — real-time updates and dynamic signal adjustment
+- Application 2: smart parking — sensors detect spaces, notify drivers via app
+- Application 3: AI-based emergency response or gamification (rewards for civic actions)
+- Main challenge: high implementation costs
+- Privacy concern: excessive data collection and surveillance risks from pervasive sensors
+
+Hint: Three applications from the seminar, then costs and privacy.
+
+-------------------------------------
+
+Q11. A smart building system must allow devices from multiple vendors to interoperate. Devices join and leave at random (some are battery-powered and may drop off without warning). Design the key mechanisms needed, referencing: discovery, association, interoperability, and volatility management.
+5 marks
+
+Marking Guide:
+- Discovery: use a hybrid push/pull discovery service with register/query/deregister/refresh interface
+- Volatility: implement leasing — devices lease services for a time period; auto-released if not renewed
+- Association: support spontaneous (physically-driven) association since devices join without pre-configuration
+- Interoperability: constrain to universal interfaces (HTTP GET/POST) and self-describing data (JSON/XML) to avoid N-squared adaptor problem
+- Overall: these mechanisms together create a resilient, self-managing smart space that handles device churn without manual administration
+
+Hint: Think through each challenge: how does a new device find services, how does it connect, what happens when it dies?
+
+-------------------------------------
+
+Q12. Distinguish between sensors and actuators in ubiquitous computing. Give two examples of each.
+3 marks
+
+Marking Guide:
+- Sensors measure physical parameters from the environment — they are input devices (e.g. orientation sensors, light sensors, sound sensors, temperature sensors)
+- Actuators are software-controllable devices that act on the environment — they are output devices (e.g. air conditioning units, motors, smart home locks, automated blinds)
+- Together they form a sense-act loop: sensors detect conditions, actuators respond
+
+Hint: One reads the world, the other changes it.
+
+-------------------------------------
+
+Q13. Compare server-based and serverless (decentralised) service discovery. What is the key challenge for both approaches?
+3 marks
+
+Marking Guide:
+- Server-based: a centralised directory stores all service records — simple but single point of failure
+- Serverless: no central directory — each device maintains its own local cache of known services (P2P approach)
+- Key challenge for both: managing volatile services — services appear and disappear unpredictably, requiring mechanisms like leasing to keep records current
+
+Hint: Central vs distributed — and what happens when services come and go?
+
+-------------------------------------
+
+Q14. What is Service-Oriented Architecture (SOA)? What are the key challenges in implementing it?
+3 marks
+
+Marking Guide:
+- SOA is a system architecture where web services are discovered dynamically and coordinate with each other to provide enhanced composite services
+- Coordination can be distributed or managed by a choreographer
+- Challenges: how to discover existing services in the network, and whether to use distributed or centralised coordination between services
+
+Hint: Services finding each other and working together at runtime.
+
+-------------------------------------
+
+Q15. What is edge computing, and how does it relate to ubiquitous computing?
+3 marks
+
+Marking Guide:
+- Edge computing processes data directly on devices at the network edge (IoT sensors, cameras, phones) rather than sending it to a central server or cloud
+- It relates to ubiquitous computing because ubiquitous devices (sensors, wearables, smart objects) are edge devices — they generate data that must be processed locally for real-time response
+- Edge computing enables the low-latency, always-available processing that ubiquitous computing requires — without it, ubiquitous devices would depend on slow cloud round-trips
+
+Hint: Ubiquitous devices ARE edge devices — edge computing is what makes them responsive.
+
+-------------------------------------
+
+Q16. What are the key challenges for smart cities like Barcelona when using ubiquitous computing?
+4 marks
+
+Marking Guide:
+- High implementation costs — deploying sensors, networks, and infrastructure across an entire city requires massive investment
+- Privacy and surveillance risks — pervasive sensors collect vast amounts of data about citizens, often without explicit awareness or consent
+- Interoperability — different vendors, systems, and protocols must work together across the city (the N-squared adaptor problem at city scale)
+- Scale and management — thousands of volatile devices joining/leaving/failing require robust discovery services, leasing mechanisms, and maintenance
+
+Hint: Cost, privacy, making different systems talk to each other, and managing thousands of devices.

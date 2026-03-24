@@ -2018,6 +2018,31 @@ export const weeks = {
         ],
         hint: "How do you send a complex object over a network cable?",
       },
+      {
+        id: 21,
+        question:
+          "What is the difference between ubiquitous computing and cloud computing?",
+        marks: 3,
+        markingGuide: [
+          "Ubiquitous computing embeds computation into everyday objects and environments — the focus is on invisible, context-aware interaction with the physical world (sensors, wearables, smart spaces)",
+          "Cloud computing provides on-demand computing resources (servers, storage, databases) over the internet — the focus is on centralised, scalable infrastructure accessed remotely",
+          "Key difference: ubiquitous computing is about computing everywhere in the environment; cloud computing is about computing anywhere via the internet from centralised data centres",
+        ],
+        hint: "One is about embedding computing in the physical world; the other is about accessing remote computing power.",
+      },
+      {
+        id: 22,
+        question:
+          "What is the difference between P2P and Publish-Subscribe messaging in distributed systems?",
+        marks: 4,
+        markingGuide: [
+          "P2P: all nodes act as both clients and servers; communication is direct between peers; no central authority; nodes share resources equally",
+          "Publish-Subscribe: publishers send messages to a broker/topic without knowing who receives them; subscribers register interest in topics and receive matching messages; decoupled architecture",
+          "P2P is symmetric (every node has the same role); Pub-Sub has distinct roles (publishers, subscribers, broker)",
+          "P2P is suited for resource sharing (e.g. BitTorrent); Pub-Sub is suited for event notification (e.g. Kafka, MQTT)",
+        ],
+        hint: "One has equal peers talking directly; the other has publishers and subscribers decoupled by a broker.",
+      },
     ],
   },
 
@@ -2670,6 +2695,31 @@ export const weeks = {
           "The stratum hierarchy distributes load: stratum 1 servers connect to atomic clocks, stratum 2 syncs to stratum 1, etc. — this is scalable, fault-tolerant, and reconfigurable",
         ],
         hint: "Think about what happens if every computer on Earth tried to sync from one server.",
+      },
+      {
+        id: 14,
+        question:
+          "Explain the difference between logical and physical clocks in distributed systems.",
+        marks: 3,
+        markingGuide: [
+          "Physical clocks measure real (wall-clock) time — they attempt to stay synchronised with UTC using algorithms like Cristian's, Berkeley, or NTP",
+          "Logical clocks do not measure real time — they capture the causal ordering of events (happened-before) using counters (Lamport clocks, vector clocks)",
+          "Physical clocks are needed when real-time matters (timestamps, timeouts, security); logical clocks are needed when causal ordering matters (event ordering, concurrency detection)",
+        ],
+        hint: "One tells you what time it is; the other tells you what happened before what.",
+      },
+      {
+        id: 15,
+        question:
+          "Define task scheduling in the context of distributed computing. What is load balancing and why is it important?",
+        marks: 4,
+        markingGuide: [
+          "Task scheduling: deciding which node executes which task and when — coordinating task execution across distributed nodes",
+          "Load balancing: distributing work evenly across nodes so no single node is overwhelmed while others are idle",
+          "Important because uneven load leads to bottlenecks — one overloaded node slows the entire system while other nodes waste capacity",
+          "Related challenges include synchronisation between tasks and clock drift between nodes making coordination harder",
+        ],
+        hint: "How do you share work fairly across machines, and why does it matter?",
       },
     ],
   },
@@ -3330,6 +3380,18 @@ export const weeks = {
         ],
         hint: "How do you fake shared memory on machines that don't have it?",
       },
+      {
+        id: 14,
+        question:
+          "Name two advantages of DSM over explicit message passing.",
+        marks: 3,
+        markingGuide: [
+          "No marshalling/unmarshalling needed — data does not need to be serialised for transmission and deserialised on arrival, reducing overhead",
+          "Pointers remain valid — processes share an address space so memory references work across the system without translation",
+          "Familiar programming model — programmers use locks, semaphores, and barriers (like shared-memory multithreading) instead of designing custom message protocols",
+        ],
+        hint: "Think about what a programmer has to do differently when using messages vs shared memory.",
+      },
     ],
   },
 
@@ -3959,6 +4021,18 @@ export const weeks = {
           "Grid examples: biomedical research, weather forecasting, financial modelling, scientific simulation",
         ],
         hint: "Grid = pooling resources across organisations for massive computation.",
+      },
+      {
+        id: 14,
+        question:
+          "How does JSON improve web service communication compared to XML?",
+        marks: 3,
+        markingGuide: [
+          "JSON is lighter weight than XML — smaller message sizes mean less bandwidth consumption and faster transmission",
+          "JSON is easier to parse in modern programming languages (especially JavaScript) — most languages have native JSON support",
+          "JSON is more human-readable and less verbose than XML (no closing tags, no schema overhead), making development and debugging faster",
+        ],
+        hint: "Compare the size and complexity of the same data in JSON vs XML.",
       },
     ],
   },
@@ -4608,6 +4682,31 @@ export const weeks = {
           "Challenges: how to discover existing services in the network, and whether to use distributed or centralised coordination between services",
         ],
         hint: "Services finding each other and working together at runtime.",
+      },
+      {
+        id: 15,
+        question:
+          "What is edge computing, and how does it relate to ubiquitous computing?",
+        marks: 3,
+        markingGuide: [
+          "Edge computing processes data directly on devices at the network edge (IoT sensors, cameras, phones) rather than sending it to a central server or cloud",
+          "It relates to ubiquitous computing because ubiquitous devices (sensors, wearables, smart objects) are edge devices — they generate data that must be processed locally for real-time response",
+          "Edge computing enables the low-latency, always-available processing that ubiquitous computing requires — without it, ubiquitous devices would depend on slow cloud round-trips",
+        ],
+        hint: "Ubiquitous devices ARE edge devices — edge computing is what makes them responsive.",
+      },
+      {
+        id: 16,
+        question:
+          "What are the key challenges for smart cities like Barcelona when using ubiquitous computing?",
+        marks: 4,
+        markingGuide: [
+          "High implementation costs — deploying sensors, networks, and infrastructure across an entire city requires massive investment",
+          "Privacy and surveillance risks — pervasive sensors collect vast amounts of data about citizens, often without explicit awareness or consent",
+          "Interoperability — different vendors, systems, and protocols must work together across the city (the N² adaptor problem at city scale)",
+          "Scale and management — thousands of volatile devices joining/leaving/failing require robust discovery services, leasing mechanisms, and maintenance",
+        ],
+        hint: "Cost, privacy, making different systems talk to each other, and managing thousands of devices.",
       },
     ],
   },
@@ -5259,6 +5358,31 @@ export const weeks = {
           "Gossip protocols contribute by enabling decentralised, scalable failure detection — no central monitor needed, works in large-scale systems (e.g. Amazon EC2)",
         ],
         hint: "One predicts and prevents; the other detects and spreads the word.",
+      },
+      {
+        id: 15,
+        question:
+          "Define failover and explain its importance in distributed systems.",
+        marks: 3,
+        markingGuide: [
+          "Failover is the automatic switching to a standby (backup) system, server, or component when the primary one fails",
+          "Important because it minimises downtime — users experience little or no interruption when a failure occurs",
+          "Implemented via primary-backup replication: the backup monitors the primary (e.g. via heartbeats) and takes over its role if the primary stops responding",
+        ],
+        hint: "What happens the instant a primary server crashes — how does the system keep going?",
+      },
+      {
+        id: 16,
+        question:
+          "How do leader election algorithms contribute to fault tolerance? Give an example.",
+        marks: 4,
+        markingGuide: [
+          "Leader election algorithms select a single node to act as coordinator/leader among a group of nodes",
+          "When the current leader fails, the algorithm automatically elects a new leader — ensuring the system continues to function without human intervention",
+          "This supports fault tolerance because critical roles (coordinator, master, primary) are not permanently assigned — they can be transferred on failure",
+          "Example: Raft uses leader election — if the leader stops sending heartbeats, followers start an election and vote for a new leader; Kubernetes uses Raft for this purpose",
+        ],
+        hint: "What happens in the Berkeley algorithm or Raft when the master/leader crashes?",
       },
     ],
   },

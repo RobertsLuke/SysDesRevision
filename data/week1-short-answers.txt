@@ -1,0 +1,166 @@
+WEEK 1: Introduction to Distributed Systems
+Definitions, Design Issues, Goals, Challenges & P2P Networks
+=====================================
+
+Q1. State the Tanenbaum and Coulouris definitions of a distributed system. What is the key difference between them?
+4 marks
+
+Marking Guide:
+- Tanenbaum: a collection of independent computers that appear to users as a single computer
+- Coulouris: hardware or software components at networked computers that communicate and coordinate only by message passing
+- Key difference: Coulouris emphasises message passing as the sole coordination mechanism; Tanenbaum emphasises the user's perspective of a single system
+
+Hint: One focuses on user perception, the other on the mechanism of coordination.
+
+-------------------------------------
+
+Q2. What are the four key issues that must be addressed in distributed systems?
+4 marks
+
+Marking Guide:
+- Costly communications — bandwidth and latency vs local processing
+- Unreliable communications — messages lost, corrupted, machines unavailable
+- Independent failure — system must keep working after partial failure
+- Insecure communications — exposed to unauthorised/malicious access
+
+Hint: Think about what could go wrong when connecting computers over a network.
+
+-------------------------------------
+
+Q3. Describe the six key design issues in distributed systems: Naming, Access, Communication, Software Structure, Resource Management, and Consistency Maintenance.
+6 marks
+
+Marking Guide:
+- Naming: resource names must have global meaning, be location-independent, and be efficiently translatable
+- Access: same functions usable everywhere with reasonable performance and data coherence
+- Communication: performance and reliability of communication directly determines overall system performance
+- Software Structure (Openness): well-defined interfaces (APIs) allowing interworking with existing and new services
+- Resource Management: deploying resources optimally for changing workloads (load balancing)
+- Consistency Maintenance: ensuring coherent data, replication, caching, failure handling, and time across the system
+
+Hint: Think about what you need to get right when building a system across multiple machines.
+
+-------------------------------------
+
+Q4. List the three elements of security design in distributed systems and briefly describe each.
+3 marks
+
+Marking Guide:
+- Authentication — verifying users have the right to access resources
+- Access Control — assigning different levels of access to different users
+- Auditing — logging all resource access as an audit trail
+
+Hint: Think: Who are you? What can you do? What did you do?
+
+-------------------------------------
+
+Q5. Name two advantages and two disadvantages of distributed systems.
+4 marks
+
+Marking Guide:
+- Advantages: better price-to-performance ratio, lower application turnaround, reliability through redundancy, incremental growth
+- Disadvantages: software complexity, communication bottlenecks, weaker security, reliability concerns
+
+Hint: Think about both the benefits of spreading work across machines and the complications it introduces.
+
+-------------------------------------
+
+Q6. Explain the three dimensions of scalability in a distributed system.
+3 marks
+
+Marking Guide:
+- Size scalability — handling more users and resources
+- Geographic scalability — operating across large physical distances
+- Administrative scalability — functioning across multiple organisational boundaries
+
+Hint: Think about three different ways a system might need to grow.
+
+-------------------------------------
+
+Q7. List the six types of transparency in distributed systems and briefly explain each.
+6 marks
+
+Marking Guide:
+- Access transparency — hides differences in how data is accessed
+- Location transparency — hides where resources physically reside
+- Concurrency transparency — hides that resources are shared by multiple users
+- Replication transparency — hides that data has been copied across nodes
+- Failure transparency — hides that a component has failed
+- Scaling transparency — hides that the system has been resized
+
+Hint: Six things the system should hide from users.
+
+-------------------------------------
+
+Q8. What does 'heterogeneity' mean as a challenge in distributed systems? Give three specific examples.
+4 marks
+
+Marking Guide:
+- Heterogeneity refers to the variety and differences across a distributed system
+- Examples: different network protocols, different operating systems (Windows, Linux, macOS), different programming languages, different hardware, implementations by different developers
+
+Hint: Think about all the ways computers in a distributed system might differ from each other.
+
+-------------------------------------
+
+Q9. Explain how 'replication' serves as both a goal and a source of challenges in distributed systems.
+4 marks
+
+Marking Guide:
+- As a goal: improves availability, fault tolerance, and performance by maintaining multiple copies of data
+- As a challenge: keeping all copies synchronised and consistent after updates is difficult
+- If nodes are unreachable or updates arrive in different orders, copies can diverge
+- Replication also widens the attack surface for security threats
+
+Hint: Having copies is good for reliability, but keeping them all the same is hard.
+
+-------------------------------------
+
+Q10. In a P2P network using traditional desktop machines, what are the key availability and security concerns? How does replication help and what limitations does it introduce?
+5 marks
+
+Marking Guide:
+- Availability: desktop machines may be powered off or disconnected at any time — no guaranteed uptime
+- Security: owners are unknown/untrusted, have full control over shared data, and network connections are exposed to DoS attacks
+- Replication helps by distributing copies across peers so data remains accessible if some hosts are offline
+- Limitations: increases attack surface (more machines hold data), introduces consistency challenges (keeping replicas synchronised)
+- Severity depends on the application — music downloads tolerate delays; file storage requires immediate access and integrity
+
+Hint: Availability, trust, replication benefits, and the trade-offs.
+
+-------------------------------------
+
+Q11. How does a Secure Hash identifier scheme work to verify data integrity in a P2P system?
+3 marks
+
+Marking Guide:
+- The object's ID is derived from a hash of its content
+- When a client receives the object, it recomputes the hash and checks it matches the ID
+- If they match, the data is unaltered; if they differ, the data has been tampered with or corrupted
+
+Hint: The data's fingerprint IS its name — so you can always verify it.
+
+-------------------------------------
+
+Q12. Describe the three layers of the DS road map and give examples of what belongs at each layer.
+3 marks
+
+Marking Guide:
+- Fundamentals: processes, threads, RPC, naming, caching, network protocols
+- Middleware (Distributed OS): scheduling, transactions, replication, fault-tolerance, persistence
+- Application: Distributed Shared Memory, distributed objects, security, protected environments
+
+Hint: Low-level building blocks, middle-layer services, and high-level applications.
+
+-------------------------------------
+
+Q13. What three concerns does the 'Scheduling' challenge involve, and why is clock drift a particular problem for distributed systems?
+4 marks
+
+Marking Guide:
+- Load balancing — distributing work evenly across nodes
+- Synchronisation — coordinating processes across machines
+- Clock drift — the gradual divergence of clocks on different machines
+- Clock drift is a problem because it makes event ordering difficult — if two machines disagree on the time, determining which event happened first becomes unreliable
+
+Hint: Work distribution, coordination, and the problem of time.

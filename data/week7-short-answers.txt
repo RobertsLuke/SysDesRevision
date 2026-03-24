@@ -1,0 +1,206 @@
+WEEK 7: Fault Tolerance
+Failures, Replication, Consensus, Detection & Edge/Fog Computing
+=====================================
+
+Q1. Define fault tolerance and explain why it is necessary in distributed systems.
+3 marks
+
+Marking Guide:
+- Fault tolerance: the system's ability to continue operating correctly despite failures
+- Necessary because distributed systems consist of multiple nodes and networks where failures (hardware, software, network) are inevitable
+- Goal is not to prevent every failure but to ensure the system keeps working when failures occur
+
+Hint: Think about what makes distributed systems inherently more prone to failure than single machines.
+
+-------------------------------------
+
+Q2. Describe the five types of failures in distributed systems and give a real-world example of each.
+5 marks
+
+Marking Guide:
+- Crash: node completely stops — database server crashing mid-transaction
+- Omission: messages lost/dropped — network congestion causing lost API request
+- Timing: responds too late/early — banking system missing real-time transaction window
+- Byzantine: node behaves maliciously/incorrectly — hacked blockchain node broadcasting fake transactions
+- Network partition: nodes become isolated — cloud region disconnecting from global system
+
+Hint: For each: what kind of 'wrong' behaviour is it? Is the node silent, slow, wrong, or unreachable?
+
+-------------------------------------
+
+Q3. Compare active and passive replication. When would you choose each?
+4 marks
+
+Marking Guide:
+- Active: all nodes run in parallel and process every request — no failover delay, higher resource usage
+- Passive: one primary node, others are backups — brief unavailability during failover, more resource efficient
+- Choose active when zero downtime is critical (e.g. safety systems)
+- Choose passive when resource efficiency matters more than instantaneous failover (e.g. Google Drive, Dropbox)
+
+Hint: Consider what happens at the moment of failure in each approach.
+
+-------------------------------------
+
+Q4. Explain checkpointing, rollback recovery, and message logging. How do they work together?
+4 marks
+
+Marking Guide:
+- Checkpointing: saves system state periodically — a consistent snapshot
+- Rollback recovery: restores system to last checkpoint after failure
+- Message logging: records all messages so work done since last checkpoint can be replayed
+- Together: checkpoint provides the starting point; message log fills in everything from checkpoint to the point of failure
+
+Hint: What does checkpointing give you on its own? What does message logging add?
+
+-------------------------------------
+
+Q5. Compare Paxos and Raft. What failure types do they handle, and what is their key difference?
+4 marks
+
+Marking Guide:
+- Both handle crash failures but NOT Byzantine failures
+- Paxos: Leslie Lamport (1998) — correct but notoriously complex; leader-based proposer
+- Raft: Ongaro & Ousterhout (2013) — same guarantees as Paxos but designed for understandability; explicit leader election + log replication
+- Raft is used in Kubernetes for leader election; Paxos used in various distributed databases
+
+Hint: What problem was Raft designed to solve that Paxos had?
+
+-------------------------------------
+
+Q6. Why is Byzantine Fault Tolerance necessary for blockchain systems? How does it differ from Paxos/Raft?
+4 marks
+
+Marking Guide:
+- Blockchain involves untrusted nodes that may be controlled by attackers — crash-fault-tolerant algorithms assume nodes fail silently, not maliciously
+- BFT handles nodes sending false or inconsistent data to different peers
+- Bitcoin uses BFT to prevent double-spending even if some nodes are dishonest
+- BFT requires 3f+1 nodes (vs 2f+1 for crash tolerance) — more expensive but necessary for open, adversarial networks
+
+Hint: What does a dishonest node do that a crashed node does not?
+
+-------------------------------------
+
+Q7. Describe three failure detection mechanisms used in distributed systems. What is a key limitation of timeout-based detection?
+4 marks
+
+Marking Guide:
+- Heartbeats: periodic 'alive' signals — absence within timeout indicates failure
+- Timeout-based detection: mark node as failed if no response within time limit
+- Gossip protocols: nodes share failure info with random peers — propagates exponentially
+- Limitation of timeout: network congestion can cause a slow response to be misinterpreted as a crash (false positive)
+
+Hint: Think about a scenario where a node is alive but slow — how does each mechanism react?
+
+-------------------------------------
+
+Q8. Explain the difference between edge and fog computing. Give one example of a task suited to each.
+4 marks
+
+Marking Guide:
+- Edge: processing directly on devices (sensors, cameras) — ultra-low latency, device-level
+- Fog: processing in local gateways/routers between edge and cloud — regional coordination, very low latency
+- Edge example: traffic sensor immediately triggering a pedestrian warning
+- Fog example: fog node monitoring all intersections in a district and adjusting traffic light timings
+
+Hint: The key distinction is where the processing happens and what scale of problem it solves.
+
+-------------------------------------
+
+Q9. Describe the edge-fog-cloud hierarchy using the smart traffic system example from the lecture.
+3 marks
+
+Marking Guide:
+- Edge: roadside camera detects heavy traffic — processes locally and sends 'traffic density high' signal
+- Fog: nearby fog node receives data from all junctions in the district, analyses congestion patterns, adjusts light cycles
+- Cloud: fog node sends summaries to cloud for long-term planning and storage
+
+Hint: Trace the data from the moment a camera detects traffic all the way to long-term planning.
+
+-------------------------------------
+
+Q10. A distributed e-commerce system must handle node failures without data loss and ensure all replicas agree on the order of transactions. Identify two fault tolerance techniques it should use and justify each.
+4 marks
+
+Marking Guide:
+- Technique 1: Checkpointing + rollback recovery — saves transaction state periodically; if a node fails mid-transaction, it can restore from the last checkpoint
+- Technique 2: Consensus algorithm (Paxos/Raft) — ensures all replicas agree on the order of committed transactions before confirming to the user
+- Both justified with reference to the specific requirements (no data loss + replica agreement)
+- Could also mention quorum-based replication for write consistency
+
+Hint: Two separate problems: recovering from failure vs agreeing on state.
+
+-------------------------------------
+
+Q11. A distributed IoT system for a smart factory has sensors producing real-time safety alerts, a local gateway, and a cloud backend. A sensor detects a dangerous temperature spike. Explain how edge, fog, and cloud computing should each respond, and why this division of responsibility is appropriate.
+5 marks
+
+Marking Guide:
+- Edge: sensor detects temperature spike and immediately triggers safety shutdown/alert — ultra-low latency, cannot wait for network round-trip
+- Fog: local gateway aggregates temperature readings from all sensors in the area, identifies whether the spike is localised or widespread, adjusts connected systems accordingly
+- Cloud: receives summary data for analysis, long-term trend monitoring, and compliance reporting
+- Division appropriate because safety-critical actions need millisecond response (edge only), regional coordination benefits from more compute (fog), and long-term analysis needs global scale (cloud)
+- Sending everything to cloud would introduce unacceptable latency for a safety-critical alert
+
+Hint: For each tier: what decision must it make, how fast does it need to make it, and what data does it need?
+
+-------------------------------------
+
+Q12. Explain quorum-based replication and voting mechanisms. How many nodes must agree for a write to succeed in a 5-node system?
+3 marks
+
+Marking Guide:
+- Quorum-based replication requires a majority of nodes (a quorum) to agree before an update is committed
+- In a 5-node system, at least 3 nodes must agree (majority = floor(N/2) + 1)
+- Voting mechanisms in databases use the same principle: multiple replicas vote on whether to accept an update; transaction only proceeds if a majority agrees
+
+Hint: What is the minimum number that constitutes a majority in a group of 5?
+
+-------------------------------------
+
+Q13. How many nodes does Byzantine Fault Tolerance require to tolerate f faulty nodes? Why is this more expensive than crash-fault-tolerant algorithms?
+3 marks
+
+Marking Guide:
+- BFT requires 3f + 1 nodes to tolerate f Byzantine failures (e.g. 4 nodes for 1 faulty node, 7 for 2)
+- Crash-fault-tolerant algorithms (Paxos/Raft) only need 2f + 1 nodes for f crash failures
+- BFT is more expensive because Byzantine nodes actively produce incorrect output — the system needs enough honest nodes to outvote the liars, requiring more redundancy and more message rounds
+
+Hint: A crashed node is silent; a Byzantine node is actively lying — which is harder to outvote?
+
+-------------------------------------
+
+Q14. What are self-healing systems and gossip protocols? How does each contribute to fault tolerance?
+4 marks
+
+Marking Guide:
+- Self-healing: systems that use Machine Learning to monitor key variables, predict failures before they occur, and resolve issues proactively rather than reactively
+- Gossip protocols: each node periodically shares its view of which nodes are alive/dead with a random selection of peers; information propagates exponentially through the network
+- Self-healing contributes by preventing failures before they happen (proactive)
+- Gossip protocols contribute by enabling decentralised, scalable failure detection — no central monitor needed, works in large-scale systems (e.g. Amazon EC2)
+
+Hint: One predicts and prevents; the other detects and spreads the word.
+
+-------------------------------------
+
+Q15. Define failover and explain its importance in distributed systems.
+3 marks
+
+Marking Guide:
+- Failover is the automatic switching to a standby (backup) system, server, or component when the primary one fails
+- Important because it minimises downtime — users experience little or no interruption when a failure occurs
+- Implemented via primary-backup replication: the backup monitors the primary (e.g. via heartbeats) and takes over its role if the primary stops responding
+
+Hint: What happens the instant a primary server crashes — how does the system keep going?
+
+-------------------------------------
+
+Q16. How do leader election algorithms contribute to fault tolerance? Give an example.
+4 marks
+
+Marking Guide:
+- Leader election algorithms select a single node to act as coordinator/leader among a group of nodes
+- When the current leader fails, the algorithm automatically elects a new leader — ensuring the system continues to function without human intervention
+- This supports fault tolerance because critical roles (coordinator, master, primary) are not permanently assigned — they can be transferred on failure
+- Example: Raft uses leader election — if the leader stops sending heartbeats, followers start an election and vote for a new leader; Kubernetes uses Raft for this purpose
+
+Hint: What happens in the Berkeley algorithm or Raft when the master/leader crashes?

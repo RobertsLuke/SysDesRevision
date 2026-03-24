@@ -1,0 +1,178 @@
+WEEK 5: Web Services & Naming
+SOAP, REST, WSDL, Naming Systems, QoS & Grid Computing
+=====================================
+
+Q1. Define what a web service is and explain what makes it different from a website.
+3 marks
+
+Marking Guide:
+- A standardised way for applications to communicate over a network
+- Independent of the underlying OS or programming language (platform/language agnostic)
+- A website serves HTML to humans; a web service provides data and functionality to other applications via standardised protocols
+
+Hint: Think about who (or what) the consumer of the service is.
+
+-------------------------------------
+
+Q2. Name and describe the three components of web service architecture. What is the interaction pattern?
+4 marks
+
+Marking Guide:
+- Service Provider — creates and offers web services, describes them in WSDL, publishes to registry
+- Service Registry — stores provider data: address, contact info, and technical details
+- Service Consumer — retrieves info from registry, uses description to bind to and invoke the service
+- Interaction pattern: Publish -> Find -> Bind
+
+Hint: Who offers it, who lists it, who uses it — and in what order?
+
+-------------------------------------
+
+Q3. What are the three core standards/protocols for web services? Briefly describe each.
+3 marks
+
+Marking Guide:
+- SOAP — a standard way for communication between services and clients (XML-based protocol over HTTP)
+- XML — a uniform data representation and exchange format
+- WSDL — a standard meta-language to describe the services offered
+
+Hint: Communication, data format, service description.
+
+-------------------------------------
+
+Q4. Describe the three elements of a SOAP message.
+3 marks
+
+Marking Guide:
+- Envelope — root element; identifies the XML document as a SOAP message and encapsulates all details
+- Header — contains authentication credentials and can define complex types (optional)
+- Body — contains the actual data: call and response information
+
+Hint: Container, metadata, payload.
+
+-------------------------------------
+
+Q5. Compare SOAP and REST on four dimensions.
+4 marks
+
+Marking Guide:
+- Format: SOAP uses XML; REST uses JSON or XML
+- Speed: SOAP is slower; REST is faster and simpler
+- Security: SOAP is more secure; REST is lighter weight
+- Protocols: SOAP works over HTTP/SMTP/TCP; REST uses standard HTTP methods (GET, POST, PUT, DELETE)
+
+Hint: Format, speed, security, and protocol.
+
+-------------------------------------
+
+Q6. Describe the four types of names used in computing. Give an example of each and classify: is a MAC address an identifier or an address?
+4 marks
+
+Marking Guide:
+- Human-readable: meaningful to people — URLs, email addresses, file names
+- Identifiers: uniquely identify resources — IP addresses, MAC addresses, UUIDs
+- Addresses: point to specific locations — memory addresses, device paths, network file paths
+- Attribute-based: based on resource properties — database table names, cloud storage tags
+
+Hint: A MAC address uniquely identifies — it is an identifier, not an address.
+
+-------------------------------------
+
+Q7. Describe the three naming schemes and give an example of each.
+3 marks
+
+Marking Guide:
+- Flat naming — no structure, unstructured identifiers, used in P2P networks (e.g. BitTorrent)
+- Hierarchical naming — tree structure (e.g. DNS, www.port.ac.uk)
+- Attribute-based naming — based on resource properties (e.g. database queries, cloud storage tags)
+
+Hint: No structure, tree structure, property-based.
+
+-------------------------------------
+
+Q8. What is name resolution? What trade-off does caching introduce?
+3 marks
+
+Marking Guide:
+- Name resolution is the process of mapping a name to an address or identifier (e.g. DNS resolving domain -> IP)
+- Caching stores recent resolutions locally, improving performance and reducing repeated lookups
+- Caching introduces consistency challenges — cached data may become stale, pointing to outdated addresses
+
+Hint: The classic performance vs consistency trade-off.
+
+-------------------------------------
+
+Q9. List the six sub-aspects of QoS Security and explain why security is listed as a QoS metric for web services.
+4 marks
+
+Marking Guide:
+- Six sub-aspects: non-repudiation, authentication, authorisation, encryption, traceability, access control
+- Security is a QoS metric because web services are exposed over the network and must verify who calls them
+- The challenge is the ability of the protocols to support these security requirements
+- This extends the three Week 1 security elements (authentication, access control, auditing)
+
+Hint: Think about what needs to be verified when a remote system calls your service.
+
+-------------------------------------
+
+Q10. What is grid computing? Give two ways it differs from standard distributed computing.
+3 marks
+
+Marking Guide:
+- Grid computing is a specialised form of distributed computing connecting heterogeneous systems for large-scale tasks
+- Difference 1: resource ownership — distributed often one entity; grid can span multiple organisations
+- Difference 2: grid optimises global resources and is highly network-dependent; distributed optimises local resources
+
+Hint: Grid is about pooling resources across organisational boundaries.
+
+-------------------------------------
+
+Q11. A team is building a new API for a global social media platform. They must choose between SOAP and REST. Recommend one and justify your choice with reference to at least three factors.
+5 marks
+
+Marking Guide:
+- Recommendation: REST
+- Factor 1: Lightweight — REST uses JSON which is smaller than SOAP's XML, reducing bandwidth
+- Factor 2: Scalability — REST handles millions of concurrent users more efficiently
+- Factor 3: Integration — REST integrates easily with web and mobile apps and supports multiple platforms
+- Factor 4: Speed — REST is faster and simpler; social media prioritises responsiveness
+
+Hint: Consider what social media needs most: speed, scale, and easy integration.
+
+-------------------------------------
+
+Q12. Beyond security, what other QoS metrics are used to evaluate web services? Describe at least four.
+4 marks
+
+Marking Guide:
+- Availability — the probability that the service is accessible and ready to respond
+- Accessibility — whether the service can be accessed under load (may have capacity limits)
+- Scalability — the ability to handle increasing numbers of operations or requests
+- Interoperability — the ability to function across different languages and platforms
+- Other valid: Time to Repair, Integrity, Reliability, Latency
+
+Hint: Think about what makes a web service good beyond just being secure.
+
+-------------------------------------
+
+Q13. Compare distributed computing and grid computing. Give two example applications of each.
+4 marks
+
+Marking Guide:
+- Distributed: resources often owned by one entity; optimises local resources; general-purpose
+- Grid: resources can span multiple organisations; optimises global resources; highly network-dependent; specialised for large-scale computation
+- Distributed examples: online gaming, cloud computing, web services, big data (Hadoop)
+- Grid examples: biomedical research, weather forecasting, financial modelling, scientific simulation
+
+Hint: Grid = pooling resources across organisations for massive computation.
+
+-------------------------------------
+
+Q14. How does JSON improve web service communication compared to XML?
+3 marks
+
+Marking Guide:
+- JSON is lighter weight than XML — smaller message sizes mean less bandwidth consumption and faster transmission
+- JSON is easier to parse in modern programming languages (especially JavaScript) — most languages have native JSON support
+- JSON is more human-readable and less verbose than XML (no closing tags, no schema overhead), making development and debugging faster
+
+Hint: Compare the size and complexity of the same data in JSON vs XML.
