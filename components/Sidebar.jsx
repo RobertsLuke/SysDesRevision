@@ -147,7 +147,7 @@ export default function Sidebar() {
       {/* Hamburger button — mobile only, always visible */}
       <button
         onClick={() => setOpen(true)}
-        className={`md:hidden fixed top-4 left-4 z-40 bg-sidebar text-white p-2 rounded-lg shadow-lg transition-opacity duration-200 ${
+        className={`md:hidden fixed top-3 left-3 z-40 bg-sidebar text-white p-2.5 rounded-xl shadow-lg transition-opacity duration-200 ${
           open ? "opacity-0 pointer-events-none" : "opacity-100"
         }`}
         aria-label="Open menu"
