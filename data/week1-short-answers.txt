@@ -164,3 +164,47 @@ Marking Guide:
 - Clock drift is a problem because it makes event ordering difficult — if two machines disagree on the time, determining which event happened first becomes unreliable
 
 Hint: Work distribution, coordination, and the problem of time.
+
+-------------------------------------
+
+Q14. What are the key goals of a distributed system?
+5 marks
+
+Marking Guide:
+- Scalability — handling growth in size, geography, and administration
+- Fault tolerance — continuing to operate correctly despite component failures
+- Transparency — hiding the distributed nature from users (location, replication, failure transparency)
+- Performance — low latency, high throughput, efficient resource allocation
+- Security — authentication, authorisation, encryption, and auditing
+- Other valid goals: availability, concurrency, data integrity, replication, efficiency, maintainability
+
+Hint: Think about everything you'd want from a system that uses multiple computers working together.
+
+-------------------------------------
+
+Q15. What are the key challenges in designing distributed systems?
+5 marks
+
+Marking Guide:
+- Heterogeneity — different networks, hardware, operating systems, programming languages, and implementations
+- Openness — designing extensible systems with well-defined interfaces
+- Scalability — maintaining performance as the system grows in users, resources, or geography
+- Fault tolerance — handling node crashes, network failures, and partial failures gracefully
+- Consistency and replication — keeping all copies of data synchronised across nodes
+- Security — bottlenecks in decentralised systems, metadata growth, authentication across boundaries
+- Other valid: scheduling (load balancing, clock drift), transparency, concurrency/synchronisation, maintenance
+
+Hint: What makes building a distributed system harder than building a single-machine system?
+
+-------------------------------------
+
+Q16. How does transparency affect distributed systems?
+4 marks
+
+Marking Guide:
+- Transparency hides the distributed nature of the system — users and applications interact with it as if it were a single coherent system
+- It affects design by requiring mechanisms to hide: where resources are (location), that data is copied (replication), that components have failed (failure), that resources are shared (concurrency), how data is accessed (access), and that the system has been resized (scaling)
+- Transparency improves usability but adds complexity — implementing failure transparency requires redundancy; location transparency requires naming systems; replication transparency requires consistency protocols
+- Full transparency is often impractical — trade-offs must be made (e.g. hiding network latency completely is impossible)
+
+Hint: Transparency is the goal, but achieving it creates engineering challenges.

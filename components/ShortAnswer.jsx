@@ -8,6 +8,7 @@ export default function ShortAnswer({ questions }) {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [showHint, setShowHint] = useState(false);
+  const [showAnswer, setShowAnswer] = useState(false);
   const [completedQuestions, setCompletedQuestions] = useState({});
   const [error, setError] = useState(null);
 
@@ -104,6 +105,7 @@ ${answer.trim()}`;
       setAnswer(existing?.answer || "");
       setResult(existing?.result || null);
       setShowHint(false);
+      setShowAnswer(false);
       setError(null);
     }
   }, [currentQ, questions, completedQuestions]);
@@ -117,15 +119,21 @@ ${answer.trim()}`;
       setAnswer(existing?.answer || "");
       setResult(existing?.result || null);
       setShowHint(false);
+      setShowAnswer(false);
       setError(null);
     }
   }, [currentQ, questions, completedQuestions]);
+
+  const handleRevealAnswer = useCallback(() => {
+    setShowAnswer(true);
+  }, []);
 
   const handleRetry = useCallback(() => {
     setAnswer("");
     setResult(null);
     setError(null);
     setShowHint(false);
+    setShowAnswer(false);
   }, []);
 
   const completedCount = Object.keys(completedQuestions).length;
@@ -219,44 +227,85 @@ ${answer.trim()}`;
         {/* Answer area */}
         {!result ? (
           <>
-            <textarea
-              value={answer}
-              onChange={(e) => setAnswer(e.target.value)}
-              placeholder="Type your answer here..."
-              rows={6}
-              className="w-full border-2 border-line rounded-xl p-4 text-navy bg-card-alt font-medium resize-none transition-all focus:border-terra"
-              disabled={loading}
-            />
+            {!showAnswer && (
+              <>
+                <textarea
+                  value={answer}
+                  onChange={(e) => setAnswer(e.target.value)}
+                  placeholder="Type your answer here..."
+                  rows={6}
+                  className="w-full border-2 border-line rounded-xl p-4 text-navy bg-card-alt font-medium resize-none transition-all focus:border-terra"
+                  disabled={loading}
+                />
 
-            {error && (
-              <div className="mt-3 p-3 bg-error-light rounded-xl text-sm text-error font-medium animate-fade-in">
-                {error}
-              </div>
+                {error && (
+                  <div className="mt-3 p-3 bg-error-light rounded-xl text-sm text-error font-medium animate-fade-in">
+                    {error}
+                  </div>
+                )}
+
+                <div className="flex items-center justify-between mt-4">
+                  <span className="text-xs text-slate/50">
+                    {answer.trim().split(/\s+/).filter(Boolean).length} words
+                  </span>
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={handleRevealAnswer}
+                      className="font-semibold px-5 py-3 rounded-xl transition-all bg-steel/10 hover:bg-steel/20 text-steel text-sm"
+                    >
+                      Reveal Answer
+                    </button>
+                    <button
+                      onClick={handleSubmit}
+                      disabled={loading || !answer.trim()}
+                      className={`font-semibold px-6 py-3 rounded-xl transition-all flex items-center gap-2 ${
+                        loading || !answer.trim()
+                          ? "bg-subtle text-slate/60 cursor-not-allowed"
+                          : "bg-terra hover:bg-terra-dark text-white"
+                      }`}
+                    >
+                      {loading ? (
+                        <>
+                          <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                          Marking...
+                        </>
+                      ) : (
+                        "Submit for Marking ✨"
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </>
             )}
 
-            <div className="flex items-center justify-between mt-4">
-              <span className="text-xs text-slate/50">
-                {answer.trim().split(/\s+/).filter(Boolean).length} words
-              </span>
-              <button
-                onClick={handleSubmit}
-                disabled={loading || !answer.trim()}
-                className={`font-semibold px-6 py-3 rounded-xl transition-all flex items-center gap-2 ${
-                  loading || !answer.trim()
-                    ? "bg-subtle text-slate/60 cursor-not-allowed"
-                    : "bg-terra hover:bg-terra-dark text-white"
-                }`}
-              >
-                {loading ? (
-                  <>
-                    <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    Marking...
-                  </>
-                ) : (
-                  "Submit for Marking ✨"
-                )}
-              </button>
-            </div>
+            {/* Revealed answer */}
+            {showAnswer && (
+              <div className="animate-fade-in">
+                <div className="mb-4">
+                  <h4 className="text-sm font-bold text-sage mb-2">
+                    ✓ Key points for full marks
+                  </h4>
+                  <div className="space-y-1.5">
+                    {question.markingGuide.map((point, i) => (
+                      <div
+                        key={i}
+                        className="flex items-start gap-2 text-sm text-navy/80 bg-sage-light rounded-lg px-3 py-2"
+                      >
+                        <span className="text-sage mt-0.5 flex-shrink-0">●</span>
+                        <span>{point}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <button
+                  onClick={handleRetry}
+                  className="text-sm font-semibold text-terra hover:text-terra-dark transition-colors"
+                >
+                  ↻ Try answering this question
+                </button>
+              </div>
+            )}
           </>
         ) : (
           /* Results */
