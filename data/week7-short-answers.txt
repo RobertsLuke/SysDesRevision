@@ -204,3 +204,29 @@ Marking Guide:
 - Example: Raft uses leader election — if the leader stops sending heartbeats, followers start an election and vote for a new leader; Kubernetes uses Raft for this purpose
 
 Hint: What happens in the Berkeley algorithm or Raft when the master/leader crashes?
+
+-------------------------------------
+
+Q17. How does redundancy help in fault tolerance?
+4 marks
+
+Marking Guide:
+- Redundancy means maintaining extra copies of data, processes, or hardware so that if one component fails, another can take over
+- Data replication: storing copies across multiple nodes (e.g. primary-backup, quorum-based) so data remains accessible if a node fails
+- Process redundancy: running the same computation on multiple nodes (active replication) so any node can serve requests if others crash
+- Redundancy trades resource cost (more storage, more compute, more bandwidth) for resilience — the system can tolerate failures without loss of service
+
+Hint: If you have spare copies of everything, losing one doesn't matter.
+
+-------------------------------------
+
+Q18. What is consensus in distributed systems? Name one consensus algorithm and briefly describe how it works.
+4 marks
+
+Marking Guide:
+- Consensus is the problem of getting all non-faulty nodes in a distributed system to agree on a single value, even when some nodes may fail
+- Required for maintaining consistency across replicated data — all replicas must agree on the same sequence of operations
+- Example — Raft: one node is elected leader and coordinates all log replication; the leader sends entries to followers who replicate them; if the leader fails, followers detect the missing heartbeats and elect a new leader via voting; used in Kubernetes
+- Alternative valid example: Paxos (proposer drives two-phase agreement), or BFT (handles malicious nodes, used in blockchain)
+
+Hint: How do multiple machines agree on the same thing when some might crash?

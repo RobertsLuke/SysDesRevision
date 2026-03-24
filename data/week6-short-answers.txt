@@ -201,3 +201,29 @@ Marking Guide:
 - Scale and management — thousands of volatile devices joining/leaving/failing require robust discovery services, leasing mechanisms, and maintenance
 
 Hint: Cost, privacy, making different systems talk to each other, and managing thousands of devices.
+
+-------------------------------------
+
+Q17. How does context-awareness play a role in ubiquitous computing?
+4 marks
+
+Marking Guide:
+- Context-awareness is one of the four key characteristics of ubiquitous computing — systems sense and respond to their environment (location, user identity, activity, time)
+- It enables personalised, automatic responses without explicit user interaction — e.g. the active badge example where a room detects a user's ID via infrared and displays a personalised greeting
+- Challenges: integrating and calibrating sensors, abstracting raw sensor data into meaningful context (e.g. GPS coordinates → 'in the kitchen'), sensor fusion (combining multiple sensors for complex tasks like detecting human presence), and responding to dynamic/changing context in real time
+- Without context-awareness, ubiquitous computing would require explicit user input — defeating the principle of invisible, seamless computing
+
+Hint: The system needs to know where you are, who you are, and what you're doing — automatically.
+
+-------------------------------------
+
+Q18. What are the privacy challenges in ubiquitous computing?
+3 marks
+
+Marking Guide:
+- Tracking — pervasive sensors enable continuous location and movement monitoring of individuals, often without their knowledge
+- Discovery routines — automatic detection of nearby devices and people raises surveillance concerns
+- Commercial monitoring — shopping behaviour and consumer patterns can be tracked and exploited
+- The more sensors embedded in the environment, the more data is collected about users — often without explicit awareness or consent, creating excessive data collection and surveillance risks
+
+Hint: Sensors everywhere means data about you is being collected everywhere.

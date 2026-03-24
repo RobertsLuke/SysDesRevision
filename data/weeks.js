@@ -1173,6 +1173,50 @@ export const weeks = {
         ],
         hint: "Work distribution, coordination, and the problem of time.",
       },
+      {
+        id: 14,
+        question:
+          "What are the key goals of a distributed system?",
+        marks: 5,
+        markingGuide: [
+          "Scalability — handling growth in size, geography, and administration",
+          "Fault tolerance — continuing to operate correctly despite component failures",
+          "Transparency — hiding the distributed nature from users (location, replication, failure transparency)",
+          "Performance — low latency, high throughput, efficient resource allocation",
+          "Security — authentication, authorisation, encryption, and auditing",
+          "Other valid goals: availability, concurrency, data integrity, replication, efficiency, maintainability",
+        ],
+        hint: "Think about everything you'd want from a system that uses multiple computers working together.",
+      },
+      {
+        id: 15,
+        question:
+          "What are the key challenges in designing distributed systems?",
+        marks: 5,
+        markingGuide: [
+          "Heterogeneity — different networks, hardware, operating systems, programming languages, and implementations",
+          "Openness — designing extensible systems with well-defined interfaces",
+          "Scalability — maintaining performance as the system grows in users, resources, or geography",
+          "Fault tolerance — handling node crashes, network failures, and partial failures gracefully",
+          "Consistency and replication — keeping all copies of data synchronised across nodes",
+          "Security — bottlenecks in decentralised systems, metadata growth, authentication across boundaries",
+          "Other valid: scheduling (load balancing, clock drift), transparency, concurrency/synchronisation, maintenance",
+        ],
+        hint: "What makes building a distributed system harder than building a single-machine system?",
+      },
+      {
+        id: 16,
+        question:
+          "How does transparency affect distributed systems?",
+        marks: 4,
+        markingGuide: [
+          "Transparency hides the distributed nature of the system — users and applications interact with it as if it were a single coherent system",
+          "It affects design by requiring mechanisms to hide: where resources are (location), that data is copied (replication), that components have failed (failure), that resources are shared (concurrency), how data is accessed (access), and that the system has been resized (scaling)",
+          "Transparency improves usability but adds complexity — implementing failure transparency requires redundancy; location transparency requires naming systems; replication transparency requires consistency protocols",
+          "Full transparency is often impractical — trade-offs must be made (e.g. hiding network latency completely is impossible)",
+        ],
+        hint: "Transparency is the goal, but achieving it creates engineering challenges.",
+      },
     ],
   },
 
@@ -4708,6 +4752,32 @@ export const weeks = {
         ],
         hint: "Cost, privacy, making different systems talk to each other, and managing thousands of devices.",
       },
+      {
+        id: 17,
+        question:
+          "How does context-awareness play a role in ubiquitous computing?",
+        marks: 4,
+        markingGuide: [
+          "Context-awareness is one of the four key characteristics of ubiquitous computing — systems sense and respond to their environment (location, user identity, activity, time)",
+          "It enables personalised, automatic responses without explicit user interaction — e.g. the active badge example where a room detects a user's ID via infrared and displays a personalised greeting",
+          "Challenges: integrating and calibrating sensors, abstracting raw sensor data into meaningful context (e.g. GPS coordinates → 'in the kitchen'), sensor fusion (combining multiple sensors for complex tasks like detecting human presence), and responding to dynamic/changing context in real time",
+          "Without context-awareness, ubiquitous computing would require explicit user input — defeating the principle of invisible, seamless computing",
+        ],
+        hint: "The system needs to know where you are, who you are, and what you're doing — automatically.",
+      },
+      {
+        id: 18,
+        question:
+          "What are the privacy challenges in ubiquitous computing?",
+        marks: 3,
+        markingGuide: [
+          "Tracking — pervasive sensors enable continuous location and movement monitoring of individuals, often without their knowledge",
+          "Discovery routines — automatic detection of nearby devices and people raises surveillance concerns",
+          "Commercial monitoring — shopping behaviour and consumer patterns can be tracked and exploited",
+          "The more sensors embedded in the environment, the more data is collected about users — often without explicit awareness or consent, creating excessive data collection and surveillance risks",
+        ],
+        hint: "Sensors everywhere means data about you is being collected everywhere.",
+      },
     ],
   },
 
@@ -5383,6 +5453,32 @@ export const weeks = {
           "Example: Raft uses leader election — if the leader stops sending heartbeats, followers start an election and vote for a new leader; Kubernetes uses Raft for this purpose",
         ],
         hint: "What happens in the Berkeley algorithm or Raft when the master/leader crashes?",
+      },
+      {
+        id: 17,
+        question:
+          "How does redundancy help in fault tolerance?",
+        marks: 4,
+        markingGuide: [
+          "Redundancy means maintaining extra copies of data, processes, or hardware so that if one component fails, another can take over",
+          "Data replication: storing copies across multiple nodes (e.g. primary-backup, quorum-based) so data remains accessible if a node fails",
+          "Process redundancy: running the same computation on multiple nodes (active replication) so any node can serve requests if others crash",
+          "Redundancy trades resource cost (more storage, more compute, more bandwidth) for resilience — the system can tolerate failures without loss of service",
+        ],
+        hint: "If you have spare copies of everything, losing one doesn't matter.",
+      },
+      {
+        id: 18,
+        question:
+          "What is consensus in distributed systems? Name one consensus algorithm and briefly describe how it works.",
+        marks: 4,
+        markingGuide: [
+          "Consensus is the problem of getting all non-faulty nodes in a distributed system to agree on a single value, even when some nodes may fail",
+          "Required for maintaining consistency across replicated data — all replicas must agree on the same sequence of operations",
+          "Example — Raft: one node is elected leader and coordinates all log replication; the leader sends entries to followers who replicate them; if the leader fails, followers detect the missing heartbeats and elect a new leader via voting; used in Kubernetes",
+          "Alternative valid example: Paxos (proposer drives two-phase agreement), or BFT (handles malicious nodes, used in blockchain)",
+        ],
+        hint: "How do multiple machines agree on the same thing when some might crash?",
       },
     ],
   },
